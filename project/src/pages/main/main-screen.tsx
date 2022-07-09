@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import Card from '../../components/card/card';
 import Header from '../../components/header/header';
 
@@ -73,7 +72,7 @@ export default function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                { Array(cardsCount).fill(<Card />) }
+                { Array.from([...Array(cardsCount)], (item) => <Card key={item} />) }
               </div>
             </section>
             <div className="cities__right-section">
