@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import Card from '../../components/card/card';
-import Header from '../../components/header/header';
+import Card from 'components/card/card';
+import Header from 'components/header/header';
 
 type MainScreenProps = {
   cardsCount: number;

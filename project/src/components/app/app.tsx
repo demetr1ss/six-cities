@@ -1,11 +1,11 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import MainScreen from '../../pages/main/main-screen';
-import FavoritesScreen from '../../pages/favorites/favorites-screen';
-import LoginScreen from '../../pages/login/login-screen';
-import PropertyScreen from '../../pages/property/property-screen';
-import NotFoundScreen from '../../pages/not-found/not-found-screen';
-import PrivateRoute from '../private-route/private-route';
-import { AppRoute, AuthorizationStatus } from '../../const/const';
+import MainScreen from 'pages/main/main-screen';
+import FavoritesScreen from 'pages/favorites/favorites-screen';
+import LoginScreen from 'pages/login/login-screen';
+import PropertyScreen from 'pages/property/property-screen';
+import NotFoundScreen from 'pages/not-found/not-found-screen';
+import PrivateRoute from 'components/private-route/private-route';
+import { AppRoute, AuthorizationStatus } from 'const/const';
 
 type AppScreenProps = {
   cardsCount: number;

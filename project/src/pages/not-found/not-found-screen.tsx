@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import Header from 'components/header/header';
 import {Link} from 'react-router-dom';
 import styles from './not-found-screen.module.css';
 

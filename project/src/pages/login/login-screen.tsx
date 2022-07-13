@@ -1,4 +1,4 @@
-import Logo from '../../components/logo/logo';
+import Logo from 'components/logo/logo';
 
 export default function LoginScreen(): JSX.Element {
   return (
