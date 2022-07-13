@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Card from 'components/card/card';
 import Header from 'components/header/header';
 
@@ -9,6 +10,9 @@ type MainScreenProps = {
 export default function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--index">

@@ -1,8 +1,12 @@
 import Header from 'components/header/header';
+import { Helmet } from 'react-helmet';
 
 export default function PropertyScreen() {
   return(
     <div className="page">
+      <Helmet>
+        <title>#TODO</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--property">

@@ -1,9 +1,13 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Header from 'components/header/header';
 
 export default function FavoritesScreen(): JSX.Element {
   return(
     <div className="page">
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
