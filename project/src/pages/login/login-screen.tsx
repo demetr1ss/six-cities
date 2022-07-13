@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
-import Logo from 'components/logo/logo';
 import { Link } from 'react-router-dom';
+import { AppRoute } from 'const/const';
+import Logo from 'components/logo/logo';
 
 export default function LoginScreen(): JSX.Element {
   return (
@@ -46,7 +47,7 @@ export default function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
+              <Link className="locations__item-link" to={AppRoute.Main}>
                 <span>Amsterdam</span>
               </Link>
             </div>
