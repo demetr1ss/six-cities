@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from 'components/logo/logo';
+import { AppRoute } from 'const/const';
 
 export default function Header(): JSX.Element {
   return (
@@ -10,7 +11,7 @@ export default function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -18,7 +19,7 @@ export default function Header(): JSX.Element {
                 </Link>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" to="/login">
+                <Link className="header__nav-link" to={AppRoute.Login}>
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>

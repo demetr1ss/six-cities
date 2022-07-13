@@ -7,7 +7,7 @@ export default function Card (): JSX.Element {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer/1">
+        <Link to="/offer/01">
           <img className="place-card__image"
             src="img/apartment-01.jpg"
             width="260"

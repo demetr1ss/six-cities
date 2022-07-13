@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from 'components/header/header';
 import styles from './property-screen.module.css';
-import { Link } from 'react-router-dom';
 
 export default function PropertyScreen() {
   return(
@@ -213,7 +213,7 @@ export default function PropertyScreen() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/offer/01">
+                  <Link to="/offer/02">
                     <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
                   </Link>
                 </div>
@@ -245,7 +245,7 @@ export default function PropertyScreen() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/offer/02">
+                  <Link to="/offer/03">
                     <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place" />
                   </Link>
                 </div>
@@ -280,7 +280,7 @@ export default function PropertyScreen() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <Link to="/offer/03">
+                  <Link to="/offer/04">
                     <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place" />
                   </Link>
                 </div>
