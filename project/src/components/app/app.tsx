@@ -5,6 +5,7 @@ import LoginScreen from 'pages/login/login-screen';
 import PropertyScreen from 'pages/property/property-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PrivateRoute from 'components/private-route/private-route';
+import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
 import { AppRoute, AuthorizationStatus } from 'const/const';
 
 type AppScreenProps = {
@@ -14,6 +15,7 @@ type AppScreenProps = {
 export default function App({ cardsCount }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
