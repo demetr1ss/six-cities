@@ -1,8 +1,14 @@
-import Header from '../../components/header/header';
+import { Helmet } from 'react-helmet';
+import Header from 'components/header/header';
+import styles from './property-screen.module.css';
+import { Link } from 'react-router-dom';
 
 export default function PropertyScreen() {
   return(
     <div className="page">
+      <Helmet>
+        <title>#TODO</title>
+      </Helmet>
       <Header />
 
       <main className="page__main page__main--property">
@@ -191,7 +197,7 @@ export default function PropertyScreen() {
                   <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className={styles.textAmount}>50 characters</b>.
                     </p>
                     <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
                   </div>
@@ -207,9 +213,9 @@ export default function PropertyScreen() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="/#">
+                  <Link to="/offer/01">
                     <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -231,7 +237,7 @@ export default function PropertyScreen() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="/#">Wood and stone place</a>
+                    <a href="/">Wood and stone place</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -239,9 +245,9 @@ export default function PropertyScreen() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="/#">
+                  <Link to="/offer/02">
                     <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -263,7 +269,7 @@ export default function PropertyScreen() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="/#">Canal View Prinsengracht</a>
+                    <a href="/">Canal View Prinsengracht</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -274,9 +280,9 @@ export default function PropertyScreen() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="/#">
+                  <Link to="/offer/03">
                     <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -298,7 +304,7 @@ export default function PropertyScreen() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="/#">Nice, cozy, warm big bed apartment</a>
+                    <a href="/">Nice, cozy, warm big bed apartment</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>

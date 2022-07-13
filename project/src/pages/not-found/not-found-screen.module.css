@@ -1,0 +1,22 @@
+.container {
+  text-align: center;
+}
+
+h1 {
+  font-size: 125px;
+  color: firebrick;
+  margin:0;
+}
+
+h2 {
+  margin-top: -10px;
+}
+
+.link {
+  color: rgba(0,0,0,0.2);
+  font-weight: 700;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
