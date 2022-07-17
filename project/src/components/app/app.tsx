@@ -6,21 +6,21 @@ import PropertyScreen from 'pages/property/property-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
-import { AppRoute, AuthorizationStatus } from 'const/const';
 import { Offer } from 'types/offer';
+import { AppRoute, AuthorizationStatus } from 'const/const';
 
 type AppScreenProps = {
   offers: Offer[];
 }
 
-export default function App({offers: offer}: AppScreenProps): JSX.Element {
+export default function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen offers={offer} />}
+          element={<MainScreen offers={offers} />}
         />
         <Route
           path={AppRoute.Login}

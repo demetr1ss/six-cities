@@ -1,33 +1,32 @@
-import { MAX_RATING } from 'const/const';
 import { Link } from 'react-router-dom';
 import { Offer } from 'types/offer';
+import { convertRatingToPercent } from 'utils/utils';
 import styles from './card.module.css';
 
 type CardProps = {
   offer: Offer;
+  onMouseOver: () => void;
+  onMouseOut: () => void;
 }
 
-function convertRatingToPercent(rating: number) {
-  return `${Math.ceil((100 * rating / MAX_RATING))}%`;
-}
+export default function Card ({offer, onMouseOver, onMouseOut}: CardProps): JSX.Element {
+  const {isPremium, isFavorite, previewImage, price, rating, title, type, id} = offer;
 
-export default function Card ({offer}: CardProps): JSX.Element {
-  const setFavoriteClassName = () => offer.isFavorite
+  const setFavoriteClassName = () => isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
 
-
   return (
-    <article className="cities__card place-card">
-      {offer.isPremium ?
+    <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+      {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
         : ' '}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to="/offer/01">
+        <Link to={`offer/${id}`}>
           <img className="place-card__image"
-            src={offer.previewImage}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place"
@@ -37,7 +36,7 @@ export default function Card ({offer}: CardProps): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={setFavoriteClassName()} type="button">
@@ -49,14 +48,14 @@ export default function Card ({offer}: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: convertRatingToPercent(offer.rating)}}></span>
+            <span style={{width: convertRatingToPercent(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{offer.title}</a>
+          <Link to={`offer/${id}`}>{title}</Link>
         </h2>
-        <p className={`place-card__type ${styles.placCard__type}`}>{offer.type}</p>
+        <p className={`place-card__type ${styles.placeCard__type}`}>{type}</p>
       </div>
     </article>
   );
