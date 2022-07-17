@@ -7,19 +7,20 @@ import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
 import { AppRoute, AuthorizationStatus } from 'const/const';
+import { Offer } from 'types/offer';
 
 type AppScreenProps = {
-  cardsCount: number;
+  offers: Offer[];
 }
 
-export default function App({ cardsCount }: AppScreenProps): JSX.Element {
+export default function App({offers: offer}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen cardsCount={cardsCount} />}
+          element={<MainScreen offers={offer} />}
         />
         <Route
           path={AppRoute.Login}

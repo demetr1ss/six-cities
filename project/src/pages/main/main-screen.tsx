@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Card from 'components/card/card';
 import Header from 'components/header/header';
+import OffersList from 'components/offers-list/offers-list';
 import { AppRoute } from 'const/const';
+import { Offer } from 'types/offer';
 
 type MainScreenProps = {
-  cardsCount: number;
+  offers: Offer[]
 }
 
-export default function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
+export default function MainScreen({offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -76,10 +77,7 @@ export default function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-
-              <div className="cities__places-list places__list tabs__content">
-                {Array.from({ length: cardsCount }, (_, index) => <Card key={index} />)}
-              </div>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
