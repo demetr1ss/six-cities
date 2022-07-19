@@ -28,8 +28,8 @@ export const offers: Offer[] = [
       'https://10.react.pages.academy/static/hotel/19.jpg'
     ],
     title: 'Penthouse, 4-5 rooms + 5 balconies',
-    isFavorite: false,
-    isPremium: false,
+    isFavorite: true,
+    isPremium: true,
     rating: 4.1,
     type: 'hotel',
     bedrooms: 2,
@@ -109,7 +109,7 @@ export const offers: Offer[] = [
   },
   {
     city: {
-      name: 'Hamburg',
+      name: 'Cologne',
       location: {
         latitude: 53.550341,
         longitude: 10.000654,
@@ -193,7 +193,7 @@ export const offers: Offer[] = [
     ],
     title: 'Loft Studio in the Central Area',
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 3.7,
     type: 'house',
     bedrooms: 3,

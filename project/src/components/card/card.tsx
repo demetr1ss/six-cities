@@ -1,3 +1,4 @@
+import { CardClassNames, ImageHeight, ImageWidth } from 'const/const';
 import { Link } from 'react-router-dom';
 import { Offer } from 'types/offer';
 import { convertRatingToPercent } from 'utils/utils';
@@ -5,11 +6,12 @@ import styles from './card.module.css';
 
 type CardProps = {
   offer: Offer;
-  onMouseOver: () => void;
-  onMouseOut: () => void;
+  className: string;
+  onMouseOver?: () => void;
+  onMouseOut?:() => void;
 }
 
-export default function Card ({offer, onMouseOver, onMouseOut}: CardProps): JSX.Element {
+export default function Card ({offer, className, onMouseOver, onMouseOut}: CardProps): JSX.Element {
   const {isPremium, isFavorite, previewImage, price, rating, title, type, id} = offer;
 
   const setFavoriteClassName = () => isFavorite
@@ -17,18 +19,18 @@ export default function Card ({offer, onMouseOver, onMouseOut}: CardProps): JSX.
     : 'place-card__bookmark-button button';
 
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+    <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
         : ' '}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${id}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={className === CardClassNames.Sities ? ImageWidth.Sities : ImageWidth.Favorites}
+            height={className === CardClassNames.Sities ? ImageHeight.Sities : ImageHeight.Favorites}
             alt="Place"
           />
         </Link>

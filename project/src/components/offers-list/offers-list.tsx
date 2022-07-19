@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Offer } from 'types/offer';
 import Card from 'components/card/card';
+import { CardClassNames } from 'const/const';
 
 type OfferListProps = {
  offers: Offer[];
@@ -15,6 +16,7 @@ export default function OffersList({offers}: OfferListProps): JSX.Element {
         (
           <Card
             key={offer.id}
+            className={CardClassNames.Sities}
             offer={offer}
             onMouseOver={() => setActiveCardId(offer.id)}
             onMouseOut={() => setActiveCardId(0)}
