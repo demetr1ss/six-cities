@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import Header from 'components/header/header';
-import OffersList from 'components/offers-list/offers-list';
 import { AppRoute } from 'const/const';
 import { Offer } from 'types/offer';
+import Header from 'components/header/header';
+import OffersList from 'components/offers-list/offers-list';
 
 type MainScreenProps = {
   offers: Offer[]
@@ -12,11 +11,7 @@ type MainScreenProps = {
 export default function MainScreen({offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <Helmet>
-        <title>6 cities</title>
-      </Helmet>
       <Header />
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
 

@@ -1,40 +1,40 @@
-import { Reviews } from 'types/reviews';
+import { Review } from 'types/review';
 
-export const reviews: Reviews[] = [
+export const reviews: Review[] = [
   {
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     date: 'Sun Jul 17 2022 11:47:22 GMT+0300 (Москва, стандартное время)',
     id: 1,
     rating: 4,
     user: {
-      avatarUrl: 'img/1.png',
+      avatarUrl: 'img/avatar-max.jpg',
       id: 1,
       isPro: false,
-      name: 'Oliver.conner'
+      name: 'Max Conner'
     }
   },
   {
     comment: 'test test test',
-    date: 'Sun Jul 16 2022 10:47:22 GMT+0300 (Москва, стандартное время)',
+    date: 'Sun Jun 16 2022 10:47:22 GMT+0300 (Москва, стандартное время)',
     id: 2,
     rating: 3,
     user: {
-      avatarUrl: 'img/2.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       id: 2,
       isPro: false,
-      name: 'Qwerty'
+      name: 'Kate Smith'
     }
   },
   {
     comment: 'test test',
-    date: 'Sun Jul 15 2022 09:47:22 GMT+0300 (Москва, стандартное время)',
+    date: 'Sun May 15 2022 09:47:22 GMT+0300 (Москва, стандартное время)',
     id: 3,
     rating: 5,
     user: {
-      avatarUrl: 'img/3.png',
+      avatarUrl: 'img/avatar-max.jpg',
       id: 3,
       isPro: true,
-      name: 'Asdfgh'
+      name: 'Max Smith'
     }
   },
 ];

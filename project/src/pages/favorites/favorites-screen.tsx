@@ -1,8 +1,7 @@
-import Header from 'components/header/header';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { AppRoute, CardClassNames } from 'const/const';
 import { Offer } from 'types/offer';
+import Header from 'components/header/header';
 import Card from 'components/card/card';
 
 type GroupedCities = {
@@ -27,9 +26,6 @@ export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Elem
 
   return(
     <div className="page">
-      <Helmet>
-        <title>Favorites</title>
-      </Helmet>
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
