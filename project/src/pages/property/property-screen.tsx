@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Offer } from 'types/offer';
 import { Review } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
@@ -20,6 +20,10 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
   const [,setActiveCardId] = useState(0);
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
+
+  useEffect(() => {
+    document.title = `${offer?.title}`;
+  });
 
   if (!offer) {
     return (<NotFoundScreen />);

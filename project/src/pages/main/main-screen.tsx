@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import { Offer } from 'types/offer';
@@ -9,6 +10,10 @@ type MainScreenProps = {
 }
 
 export default function MainScreen({offers}: MainScreenProps): JSX.Element {
+  useEffect(() => {
+    document.title = '6 sities';
+  });
+
   return (
     <div className="page page--gray page--main">
       <Header />

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, CardClassNames } from 'const/const';
 import { Offer } from 'types/offer';
@@ -13,6 +14,10 @@ type FavoriteScreenProps = {
 }
 
 export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Element {
+  useEffect(() => {
+    document.title = 'Favorite';
+  });
+
   const groupedCities = offers.reduce<GroupedCities>((prev, curr) => {
     if (!prev[curr.city.name]) {
       prev[curr.city.name] = [];
