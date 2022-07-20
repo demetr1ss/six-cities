@@ -15,7 +15,8 @@ type PropertyScreenProps = {
   limit?: number;
 }
 
-export default function PropertyScreen({offers, reviews, limit}: PropertyScreenProps): JSX.Element {
+export default function PropertyScreen({offers, reviews, limit}: PropertyScreenProps)
+: JSX.Element {
   const [,setActiveCardId] = useState(0);
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
@@ -24,7 +25,19 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
     return (<NotFoundScreen />);
   }
 
-  const {isPremium, host, description, goods, price, maxAdults, bedrooms, rating, title, type, images} = offer;
+  const {
+    isPremium,
+    host,
+    description,
+    goods,
+    price,
+    maxAdults,
+    bedrooms,
+    rating,
+    title,
+    type,
+    images
+  } = offer;
 
   function ProMark (): JSX.Element {
     return (
@@ -126,7 +139,13 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img
+                      className="property__avatar user__avatar"
+                      src={host.avatarUrl}
+                      width="74"
+                      height="74"
+                      alt="Host avatar"
+                    />
                   </div>
                   <span className="property__user-name">
                     {host.name}
@@ -140,7 +159,12 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <h2 className="reviews__title">
+                  Reviews &middot;
+                  <span className="reviews__amount">
+                    {reviews.length}
+                  </span>
+                </h2>
                 <ul className="reviews__list">
                   {reviews.map((review) => {
                     const {user, comment, date} = review;
@@ -150,7 +174,13 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
                       <li key={`review-${review.id}`} className="reviews__item">
                         <div className="reviews__user user">
                           <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
+                            <img
+                              className="reviews__avatar user__avatar"
+                              src={user.avatarUrl}
+                              width="54"
+                              height="54"
+                              alt="Reviews avatar"
+                            />
                           </div>
                           <span className="reviews__user-name">
                             {user.name}

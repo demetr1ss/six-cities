@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Offer } from 'types/offer';
 import { convertRatingToPercent} from 'utils/utils';
 import styles from './card.module.css';
+import PremiumMark from 'components/premium-mark/premium-mark';
 
 type CardProps = {
   offer: Offer;
@@ -11,16 +12,18 @@ type CardProps = {
   onMouseOut?:() => void;
 }
 
-export default function Card ({offer, className, onMouseOver, onMouseOut}: CardProps): JSX.Element {
-  const {isPremium ,isFavorite, previewImage, price, rating, title, type, id} = offer;
-
-  function PremiumMark(): JSX.Element {
-    return (
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-    );
-  }
+export default function Card ({offer, className, onMouseOver, onMouseOut}: CardProps)
+: JSX.Element {
+  const {
+    isPremium,
+    isFavorite,
+    previewImage,
+    price,
+    rating,
+    title,
+    type,
+    id
+  } = offer;
 
   const setFavoriteClassName = () => isFavorite
     ? 'place-card__bookmark-button place-card__bookmark-button--active button'
@@ -50,7 +53,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut}: CardP
       break;
 
     default:
-      throw new Error(`${className} not recognized`);
+      throw new Error(`class "${className}" not recognized`);
   }
 
   const infoClass = className === CardClassNames.Favorites
@@ -59,7 +62,9 @@ export default function Card ({offer, className, onMouseOver, onMouseOut}: CardP
 
   return (
     <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+
       {isPremium ? <PremiumMark /> : ''}
+
       <div className={`${pageClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
           <img className="place-card__image"
@@ -70,6 +75,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut}: CardP
           />
         </Link>
       </div>
+
       <div className={`${infoClass}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
