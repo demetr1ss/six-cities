@@ -1,4 +1,7 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Offer } from 'types/offer';
+import { Review } from 'types/review';
+import { AppRoute, AuthorizationStatus } from 'const/const';
 import MainScreen from 'pages/main/main-screen';
 import FavoritesScreen from 'pages/favorites/favorites-screen';
 import LoginScreen from 'pages/login/login-screen';
@@ -6,20 +9,21 @@ import PropertyScreen from 'pages/property/property-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
-import { AppRoute, AuthorizationStatus } from 'const/const';
 
 type AppScreenProps = {
-  cardsCount: number;
+  offers: Offer[];
+  reviews: Review[];
+  limit?: number;
 }
 
-export default function App({ cardsCount }: AppScreenProps): JSX.Element {
+export default function App({offers, reviews, limit}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen cardsCount={cardsCount} />}
+          element={<MainScreen offers={offers} />}
         />
         <Route
           path={AppRoute.Login}
@@ -27,13 +31,13 @@ export default function App({ cardsCount }: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<PropertyScreen />}
+          element={<PropertyScreen offers={offers} reviews={reviews}/>}
         />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesScreen />
+              <FavoritesScreen offers={offers}/>
             </PrivateRoute>
           }
         />

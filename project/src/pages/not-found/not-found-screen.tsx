@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { AppRoute } from 'const/const';
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
-import { AppRoute } from 'const/const';
 
 export default function NotFoundScreen(): JSX.Element {
   return (
     <main className="page__main page__main--not-found">
-      <Helmet>
-        <title>Page not found</title>
-      </Helmet>
       <div className="page__not-found-container container">
         <Header />
         <section className={styles.container}>
