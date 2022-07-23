@@ -31,7 +31,7 @@ export default function App({offers, reviews, limit}: AppScreenProps): JSX.Eleme
         />
         <Route
           path={AppRoute.Room}
-          element={<PropertyScreen offers={offers} reviews={reviews} limit={limit}/>}
+          element={<PropertyScreen offers={offers} reviews={reviews}/>}
         />
         <Route
           path={AppRoute.Favorites}

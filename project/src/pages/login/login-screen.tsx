@@ -1,13 +1,8 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import Logo from 'components/logo/logo';
 
 export default function LoginScreen(): JSX.Element {
-  useEffect(() => {
-    document.title = 'Login';
-  });
-
   return (
     <div className="page page--gray page--login">
       <header className="header">

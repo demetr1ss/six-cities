@@ -1,19 +1,15 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import { Offer } from 'types/offer';
 import Header from 'components/header/header';
 import OffersList from 'components/offers-list/offers-list';
+import Sorting from 'components/sorting/sorting';
 
 type MainScreenProps = {
   offers: Offer[]
 }
 
 export default function MainScreen({offers}: MainScreenProps): JSX.Element {
-  useEffect(() => {
-    document.title = '6 sities';
-  });
-
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -62,21 +58,7 @@ export default function MainScreen({offers}: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by </span>
-                <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--closed">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <Sorting />
               <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">

@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
 
 export default function NotFoundScreen(): JSX.Element {
-  useEffect(() => {
-    document.title = '404 page not found';
-  });
-
   return (
     <main className="page__main page__main--not-found">
       <div className="page__not-found-container container">

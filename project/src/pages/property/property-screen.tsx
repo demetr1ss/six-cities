@@ -1,5 +1,6 @@
+import { LIMIT_IMAGE } from 'const/const';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Offer } from 'types/offer';
 import { Review } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
@@ -8,28 +9,25 @@ import Header from 'components/header/header';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import Form from 'components/form/form';
 import Card from 'components/card/card';
+import FavoriteButton from 'components/favorite-button/favorite-button';
 
 type PropertyScreenProps = {
   offers: Offer[];
   reviews: Review[];
-  limit?: number;
 }
 
-export default function PropertyScreen({offers, reviews, limit}: PropertyScreenProps)
+export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
 : JSX.Element {
   const [,setActiveCardId] = useState(0);
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
-
-  useEffect(() => {
-    document.title = `${offer?.title}`;
-  });
 
   if (!offer) {
     return (<NotFoundScreen />);
   }
 
   const {
+    isFavorite,
     isPremium,
     host,
     description,
@@ -84,7 +82,7 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.slice(0, limit).map((img) => (
+                images.slice(0, LIMIT_IMAGE).map((img) => (
                   <div key={img} className="property__image-wrapper">
                     <img className="property__image" src={img} alt={type} />
                   </div>
@@ -99,12 +97,7 @@ export default function PropertyScreen({offers, reviews, limit}: PropertyScreenP
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton isFavorite={isFavorite} isBig />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

@@ -8,7 +8,7 @@ type OfferListProps = {
 }
 
 export default function OffersList({offers}: OfferListProps): JSX.Element {
-  const [,setActiveCardId] = useState(0);
+  const [, setActiveCardId] = useState(0);
 
   return (
     <div className="cities__places-list places__list tabs__content">

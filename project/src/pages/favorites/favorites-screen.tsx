@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, CardClassNames } from 'const/const';
 import { Offer } from 'types/offer';
@@ -14,9 +13,6 @@ type FavoriteScreenProps = {
 }
 
 export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Element {
-  useEffect(() => {
-    document.title = 'Favorite';
-  });
 
   const groupedCities = offers.reduce<GroupedCities>((prev, curr) => {
     if (!prev[curr.city.name]) {
@@ -48,7 +44,7 @@ export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Elem
                   </div>
                   <div className="favorites__places">
                     {groupedCities[city].map((offer) =>(
-                      <Card key={offer.id} offer={offer} className={CardClassNames.Favorites}/>
+                      <Card key={offer.id} offer={offer} className={CardClassNames.Favorites} isSmall />
                     ))}
                   </div>
                 </li>

@@ -137,7 +137,7 @@ export const offers: Offer[] = [
     isFavorite: false,
     isPremium: false,
     rating: 3,
-    type: 'house',
+    type: 'private room',
     bedrooms: 4,
     maxAdults: 8,
     price: 198,
