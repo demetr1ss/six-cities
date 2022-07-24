@@ -18,7 +18,7 @@ type PropertyScreenProps = {
 
 export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
 : JSX.Element {
-  const [,setActiveCardId] = useState(0);
+  const [, setActiveCardId] = useState(0);
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
 
@@ -58,19 +58,11 @@ export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
   }
 
   function setProMark (person: {isPro: boolean}) {
-    return (
-      person.isPro
-        ? <ProMark />
-        : ''
-    );
+    return person.isPro && <ProMark />;
   }
 
   function setPremiumMark () {
-    return (
-      isPremium
-        ? <PremiumMark />
-        : ''
-    );
+    return isPremium && <PremiumMark />;
   }
 
   return(
