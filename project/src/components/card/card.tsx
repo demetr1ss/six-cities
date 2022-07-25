@@ -1,8 +1,8 @@
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
-import { AppRoute, CardClassNames, ImageSize} from 'const/const';
+import { AppRoute, CardClassNames, ImageSize } from 'const/const';
 import { Offer } from 'types/offer';
-import { convertRatingToPercent} from 'utils/utils';
+import { convertRatingToPercent } from 'utils/utils';
 import styles from './card.module.css';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import FavoriteButton from 'components/favorite-button/favorite-button';
