@@ -8,23 +8,24 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City,
   offers: Offer[],
+  mapClassName: string;
   // selectedOfferId?: number | undefined;
 }
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [27, 39]
 });
 
 // const activeCustomIcon = new Icon({
 //   iconUrl: URL_MARKER_ACTIVE,
-//   iconSize: [40, 40],
-//   iconAnchor: [20, 40]
+//   iconSize: [27, 39],
+//   iconAnchor: [27, 39]
 // });
 
 
-export default function Map({city, offers}: MapProps)
+export default function Map({city, offers, mapClassName}: MapProps)
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -44,5 +45,5 @@ export default function Map({city, offers}: MapProps)
     }
   }, [map, offers]);
 
-  return <section className="cities__map map" ref={mapRef}></section>;
+  return <section className={mapClassName} ref={mapRef}></section>;
 }

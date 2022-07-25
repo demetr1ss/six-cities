@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from 'types/offer';
-import { AppRoute } from 'const/const';
+import { AppRoute, MapClassNames } from 'const/const';
 import Header from 'components/header/header';
 import Map from 'components/map/map';
 import OffersList from 'components/offers-list/offers-list';
@@ -64,7 +64,7 @@ export default function MainScreen({offers}: MainScreenProps): JSX.Element {
               <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} offers={offers}/>
+              <Map city={offers[0].city} offers={offers} mapClassName={MapClassNames.CITIES}/>
             </div>
           </div>
         </div>
