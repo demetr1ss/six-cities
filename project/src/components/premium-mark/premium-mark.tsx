@@ -1,6 +1,10 @@
-export default function PremiumMark(): JSX.Element {
+type PremiumMarkType = {
+  premiumCardClassName: string;
+}
+
+export default function PremiumMark({premiumCardClassName}: PremiumMarkType): JSX.Element {
   return (
-    <div className="place-card__mark">
+    <div className={premiumCardClassName}>
       <span>Premium</span>
     </div>
   );

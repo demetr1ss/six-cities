@@ -1,11 +1,11 @@
+import { AppRoute, CardClassNames, ImageSize, PremiumMarkClassNames } from 'const/const';
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
-import { AppRoute, CardClassNames, ImageSize} from 'const/const';
 import { Offer } from 'types/offer';
-import { convertRatingToPercent} from 'utils/utils';
-import styles from './card.module.css';
-import PremiumMark from 'components/premium-mark/premium-mark';
+import { convertRatingToPercent } from 'utils/utils';
 import FavoriteButton from 'components/favorite-button/favorite-button';
+import PremiumMark from 'components/premium-mark/premium-mark';
+import styles from './card.module.css';
 
 type CardProps = {
   offer: Offer;
@@ -60,7 +60,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
   return (
     <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
 
-      {isPremium && <PremiumMark />}
+      {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PLACE}/>}
 
       <div className={`${setPageClass(className)}__image-wrapper place-card__image-wrapper`}>
         <Link to={generatePath(AppRoute.Room, {

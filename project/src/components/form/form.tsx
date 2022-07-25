@@ -31,6 +31,7 @@ export default function Form(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleInputChange}
+        value={comment.review}
       >
       </textarea>
       <div className="reviews__button-wrapper">

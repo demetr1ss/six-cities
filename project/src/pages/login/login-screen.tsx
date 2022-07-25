@@ -36,6 +36,7 @@ export default function LoginScreen(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  autoComplete="on"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
