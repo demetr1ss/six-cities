@@ -1,11 +1,11 @@
-import { Review } from 'types/review';
 import ReviewItem from 'components/review-item/review-item';
+import { Review } from 'types/review';
 
 type CommentListType = {
   reviews: Review[];
 }
 
-export default function CommentList({reviews}: CommentListType): JSX.Element {
+export default function ReviewsList({reviews}: CommentListType): JSX.Element {
   return(
     <>
       <h2 className="reviews__title">

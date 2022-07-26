@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Offer } from 'types/offer';
-import { Review } from 'types/review';
-import { convertRatingToPercent } from 'utils/utils';
+import Card from 'components/card/card';
+import FavoriteButton from 'components/favorite-button/favorite-button';
+import Form from 'components/form/form';
+import Header from 'components/header/header';
+import Map from 'components/map/map';
+import PremiumMark from 'components/premium-mark/premium-mark';
+import ProMark from 'components/pro-mark/pro-mark';
+import ReviewsList from 'components/reviews-list/reviews-list';
 import {
   CardClassNames,
   LIMIT_IMAGE,
@@ -11,15 +14,12 @@ import {
   PremiumMarkClassNames,
   ProMarkClassNames
 } from 'const/const';
-import Card from 'components/card/card';
-import FavoriteButton from 'components/favorite-button/favorite-button';
-import Form from 'components/form/form';
-import Header from 'components/header/header';
-import PremiumMark from 'components/premium-mark/premium-mark';
-import ProMark from 'components/pro-mark/pro-mark';
-import CommentList from 'components/reviews-list/reviews-list';
-import Map from 'components/map/map';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Offer } from 'types/offer';
+import { Review } from 'types/review';
+import { convertRatingToPercent } from 'utils/utils';
 
 type PropertyScreenProps = {
   offers: Offer[];
@@ -52,14 +52,6 @@ export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
     images
   } = offer;
 
-  function setPremiumMark () {
-    return isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PROPERTY}/>;
-  }
-
-  function setProMark (person: {isPro: boolean}) {
-    return person.isPro && <ProMark proMarkClassName={ProMarkClassNames.PROPERTY}/>;
-  }
-
   return(
     <div className="page">
       <Header />
@@ -79,7 +71,7 @@ export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {setPremiumMark()}
+              {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PROPERTY}/>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -134,7 +126,7 @@ export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {setProMark(host)}
+                  {host.isPro && <ProMark proMarkClassName={ProMarkClassNames.PROPERTY}/>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -143,7 +135,7 @@ export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <CommentList reviews={reviews}/>
+                <ReviewsList reviews={reviews}/>
                 <Form />
               </section>
             </div>

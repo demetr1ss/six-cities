@@ -1,3 +1,4 @@
+import { TileLayerSettings } from 'const/const';
 import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useState, useRef } from 'react';
 import { City } from 'types/offer';
@@ -21,11 +22,9 @@ export default function useMap(
       });
 
       const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        TileLayerSettings.Url,
         {
-          attribution:
-      `&copy; <a href="https://www.openstreetmap.org/copyright">
-      OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+          attribution: TileLayerSettings.Attribution
         }
       );
 

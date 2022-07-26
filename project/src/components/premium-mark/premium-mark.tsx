@@ -4,7 +4,7 @@ type PremiumMarkType = {
 
 export default function PremiumMark({premiumCardClassName}: PremiumMarkType): JSX.Element {
   return (
-    <div className={premiumCardClassName}>
+    <div className={`${premiumCardClassName}__mark`}>
       <span>Premium</span>
     </div>
   );

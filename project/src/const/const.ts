@@ -2,7 +2,13 @@ export const MAX_RATING = 5;
 export const LIMIT_IMAGE = 6;
 export const MAX_NEAR_OFFERS = 3;
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
-export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+// export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+
+export const TileLayerSettings = {
+  Url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
+  OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+} as const;
 
 export const AppRoute = {
   Main: '/',
@@ -67,16 +73,16 @@ export const ImageSize = {
 
 
 export const PremiumMarkClassNames = {
-  PLACE: 'place-card__mark',
-  PROPERTY: 'property__mark'
+  PLACE: 'place-card',
+  PROPERTY: 'property'
 } as const;
 
 export const ProMarkClassNames = {
-  PROPERTY: 'property__user-status',
-  REVIEW: 'reviews__user-status'
+  REVIEW: 'reviews',
+  PROPERTY: 'property'
 } as const;
 
 export const MapClassNames = {
-  CITIES: 'cities__map map',
-  PROPERTY: 'property__map map'
+  CITIES: 'cities',
+  PROPERTY: 'property'
 } as const;

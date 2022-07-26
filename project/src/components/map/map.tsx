@@ -15,7 +15,7 @@ type MapProps = {
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [27, 39],
-  iconAnchor: [27, 39]
+  iconAnchor: [13.5, 39]
 });
 
 // const activeCustomIcon = new Icon({
@@ -45,5 +45,5 @@ export default function Map({city, offers, mapClassName}: MapProps)
     }
   }, [map, offers]);
 
-  return <section className={mapClassName} ref={mapRef}></section>;
+  return <section className={`${mapClassName}__map map`} ref={mapRef} />;
 }
