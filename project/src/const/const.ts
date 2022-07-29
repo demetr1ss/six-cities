@@ -5,7 +5,7 @@ export const URL_MARKER_DEFAULT = 'img/pin.svg';
 // export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
 
 export const TileLayerSettings = {
-  Url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  Url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
   OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
 } as const;
@@ -85,4 +85,13 @@ export const ProMarkClassNames = {
 export const MapClassNames = {
   CITIES: 'cities',
   PROPERTY: 'property'
+} as const;
+
+export const Cities = {
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf'
 } as const;

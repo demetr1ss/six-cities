@@ -109,10 +109,10 @@ export const offers: Offer[] = [
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Cologne',
       location: {
-        latitude: 52.373057,
-        longitude: 4.892557,
+        latitude: 45.57862,
+        longitude: 9.9418,
         zoom: 13
       }
     },
@@ -159,18 +159,18 @@ export const offers: Offer[] = [
     },
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and  artist studio downstairs.',
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
+      latitude: 45.57362,
+      longitude: 9.9208,
       zoom: 16
     },
     id: 3
   },
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.373057,
-        longitude: 4.892557,
+        latitude: 48.85341,
+        longitude: 2.3488,
         zoom: 13
       }
     },
@@ -218,8 +218,8 @@ export const offers: Offer[] = [
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 48.85241,
+      longitude: 2.3202,
       zoom: 16
     },
     id: 4
