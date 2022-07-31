@@ -6,6 +6,7 @@ import { convertRatingToPercent } from 'utils/utils';
 import FavoriteButton from 'components/favorite-button/favorite-button';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import styles from './card.module.css';
+import cn from 'classnames';
 
 type CardProps = {
   offer: Offer;
@@ -20,15 +21,15 @@ const setPageClass = (className: string): string => {
 
   switch (className) {
     case CardClassNames.Sities:
-      pageClass = 'cities';
+      pageClass = 'cities__image-wrapper';
       break;
 
     case CardClassNames.Favorites:
-      pageClass = 'favorites';
+      pageClass = 'favorites__image-wrapper';
       break;
 
     case CardClassNames.NearPlaces:
-      pageClass = 'near-places';
+      pageClass = 'near-places__image-wrapper';
       break;
 
     default:
@@ -55,14 +56,20 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
     ? ImageSize.small
     : ImageSize.big;
 
-  const infoClass = isSmall && 'favorites__card-info';
+  const infoClass = cn({'favorites__card-info': isSmall},
+    'place-card__info'
+  );
+
+  const cardTypeClassName = cn('place-card__type', styles.placeCard__type);
+
+  const pageClassName = cn(setPageClass(className), 'place-card__image-wrapper');
 
   return (
     <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
 
       {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PLACE}/>}
 
-      <div className={`${setPageClass(className)}__image-wrapper place-card__image-wrapper`}>
+      <div className={pageClassName}>
         <Link to={generatePath(AppRoute.Room, {
           id: String(id)
         })}
@@ -76,7 +83,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
         </Link>
       </div>
 
-      <div className={`${infoClass} place-card__info`}>
+      <div className={infoClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -99,8 +106,9 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
             {title}
           </Link>
         </h2>
-        <p className={`place-card__type ${styles.placeCard__type}`}>{type}</p>
+        <p className={cardTypeClassName}>{type}</p>
       </div>
     </article>
   );
 }
+

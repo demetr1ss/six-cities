@@ -1,31 +1,38 @@
-
 import { Cities } from 'const/const';
-import { MouseEvent } from 'react';
+import { useAppDispatch } from 'hooks';
+import { changeCity } from 'store/action';
+import cn from 'classnames';
 
 type LocationsType = {
   activeCity: string;
-  onClick: (evt: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export default function Locations({activeCity, onClick}: LocationsType): JSX.Element {
-  const addActiveClassName = (city: string) => activeCity === city && 'tabs__item--active';
+export default function Locations({activeCity}: LocationsType): JSX.Element {
+  const dispatch = useAppDispatch();
 
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {Object.keys(Cities).map((city) =>
-            (
+          {Object.keys(Cities).map((city) => {
+            const postCls = cn('locations__item-link tabs__item', {
+              'tabs__item--active': activeCity === city
+            });
+            return (
               <li key={city} className="locations__item">
                 <a
-                  className={`locations__item-link tabs__item ${addActiveClassName(city)}`}
-                  onClick={onClick}
-                  href='#/'
+                  className={postCls}
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(changeCity(city));
+                  }}
+                  href='/'
                 >
                   <span>{city}</span>
                 </a>
               </li>
-            ))}
+            );
+          })}
         </ul>
       </section>
     </div>
