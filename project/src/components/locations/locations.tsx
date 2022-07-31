@@ -15,13 +15,13 @@ export default function Locations({activeCity}: LocationsType): JSX.Element {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {Object.keys(Cities).map((city) => {
-            const postCls = cn('locations__item-link tabs__item', {
+            const locationClassName = cn('locations__item-link tabs__item', {
               'tabs__item--active': activeCity === city
             });
             return (
               <li key={city} className="locations__item">
                 <a
-                  className={postCls}
+                  className={locationClassName}
                   onClick={(evt) => {
                     evt.preventDefault();
                     dispatch(changeCity(city));
