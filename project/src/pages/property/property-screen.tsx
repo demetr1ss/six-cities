@@ -6,6 +6,7 @@ import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import ProMark from 'components/pro-mark/pro-mark';
 import ReviewsList from 'components/reviews-list/reviews-list';
+import NotFoundScreen from 'pages/not-found/not-found-screen';
 import {
   CardClassNames,
   LIMIT_IMAGE,
@@ -14,20 +15,16 @@ import {
   PremiumMarkClassNames,
   ProMarkClassNames
 } from 'const/const';
-import NotFoundScreen from 'pages/not-found/not-found-screen';
+import { useAppSelector } from 'hooks';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offer } from 'types/offer';
-import { Review } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
 
-type PropertyScreenProps = {
-  offers: Offer[];
-  reviews: Review[];
-}
 
-export default function PropertyScreen({offers, reviews}: PropertyScreenProps)
+export default function PropertyScreen()
 : JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const reviews = useAppSelector((state) => state.reviews);
   const [, setActiveCardId] = useState(0);
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));

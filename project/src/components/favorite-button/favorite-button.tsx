@@ -1,4 +1,5 @@
 import { FavoriteIconSizes } from 'const/const';
+import cn from 'classnames';
 
 type FavoriteButtonType = {
   isFavorite: boolean;
@@ -6,18 +7,18 @@ type FavoriteButtonType = {
 }
 
 export default function FavoriteButton({isFavorite, isBig}: FavoriteButtonType): JSX.Element {
-  const bookMarkClassName = isBig
-    ? 'property'
-    : 'place-card';
-
-  const favoriteClassName = isFavorite && 'place-card__bookmark-button--active';
-
   const favoriteIconSize = isBig
     ? FavoriteIconSizes.big
     : FavoriteIconSizes.small;
 
+  const bookMarkClassName = cn({
+    'property__bookmark-button': isBig,
+    'place-card__bookmark-button': !isBig,
+    'place-card__bookmark-button--active': isFavorite,
+  }, 'button');
+
   return(
-    <button className={`${bookMarkClassName}__bookmark-button ${favoriteClassName} button`} type="button">
+    <button className={bookMarkClassName} type="button">
       <svg className="place-card__bookmark-icon" width={favoriteIconSize.width} height={favoriteIconSize.height}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>

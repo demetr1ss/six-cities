@@ -3,18 +3,16 @@ import { AppRoute, CardClassNames } from 'const/const';
 import { Offer } from 'types/offer';
 import Header from 'components/header/header';
 import Card from 'components/card/card';
+import { useAppSelector } from 'hooks';
 
 type GroupedCities = {
   [key: string]: Offer[]
 };
 
-type FavoriteScreenProps = {
-  offers: Offer[]
-}
-
-export default function FavoritesScreen({offers}: FavoriteScreenProps): JSX.Element {
-
-  const groupedCities = offers.reduce<GroupedCities>((prev, curr) => {
+export default function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const groupedCities = favoriteOffers.reduce<GroupedCities>((prev, curr) => {
     if (!prev[curr.city.name]) {
       prev[curr.city.name] = [];
     }
