@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import Card from 'components/card/card';
 import { Offer } from 'types/offer';
 import { CardClassNames } from 'const/const';
-import Card from 'components/card/card';
+import { useAppDispatch } from 'hooks';
+import { setActiveCardOnMap } from 'store/action';
 
 type OfferListProps = {
  offers: Offer[];
 }
 
 export default function OffersList({offers}: OfferListProps): JSX.Element {
-  const [, setActiveCardId] = useState(0);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -18,8 +19,8 @@ export default function OffersList({offers}: OfferListProps): JSX.Element {
             key={offer.id}
             className={CardClassNames.Sities}
             offer={offer}
-            onMouseOver={() => setActiveCardId(offer.id)}
-            onMouseOut={() => setActiveCardId(0)}
+            onMouseOver={() => dispatch(setActiveCardOnMap(offer.id))}
+            onMouseOut={() => dispatch(setActiveCardOnMap(0))}
           />
         )
       )}

@@ -1,19 +1,57 @@
+import cn from 'classnames';
+import ClickAwayListener from 'react-click-away-listener';
+import { SortingOptions } from 'const/const';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { sorting } from 'store/action';
+
 export default function Sorting(): JSX.Element {
+  const [isOpen, setOpenStatus] = useState(false);
+
+  const placesOptionsClassName = cn('places__options places__options--custom', {
+    'places__options--opened': isOpen,
+    'places__options': !isOpen
+  });
+
+  const handleToggleFormClick = () => {
+    setOpenStatus(!isOpen);
+  };
+
+  const dispatch = useAppDispatch();
+  const currentSortType = useAppSelector((state) => state.sortType);
+
   return (
-    <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-        <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
-        </svg>
-      </span>
-      <ul className="places__options places__options--custom places__options--closed">
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
-      </ul>
-    </form>
+    <ClickAwayListener onClickAway={() => setOpenStatus(false)}>
+      <form className="places__sorting" action="#" method="get">
+        <span className="places__sorting-caption">Sort by </span>
+        <span className="places__sorting-type" tabIndex={0} onClick={handleToggleFormClick}>
+          {currentSortType}
+          <svg className="places__sorting-arrow" width="7" height="4">
+            <use xlinkHref="#icon-arrow-select"></use>
+          </svg>
+        </span>
+        <ul className={placesOptionsClassName}>
+          {Object.values(SortingOptions).map((option) => {
+            const placesOptionClassName = cn('places__option', {
+              'places__option--active': option === currentSortType
+            });
+
+            return (
+              <li
+                key={option}
+                className={placesOptionClassName}
+                tabIndex={0}
+                onClick={() => {
+                  dispatch(sorting(option));
+                  setOpenStatus(false);
+                }}
+              >
+                {option}
+              </li>
+            );
+          })}
+        </ul>
+      </form>
+    </ClickAwayListener>
   );
 }

@@ -1,7 +1,7 @@
+import ProMark from 'components/pro-mark/pro-mark';
 import { HumanDateOptions, ProMarkClassNames } from 'const/const';
 import { Review } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
-import ProMark from 'components/pro-mark/pro-mark';
 
 type ReviewItemType = {
   review: Review

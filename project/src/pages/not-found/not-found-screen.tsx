@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from 'const/const';
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
+import { Link } from 'react-router-dom';
+import { AppRoute } from 'const/const';
 
 export default function NotFoundScreen(): JSX.Element {
   return (

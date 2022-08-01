@@ -1,7 +1,7 @@
+import Logo from 'components/logo/logo';
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import { useAppSelector } from 'hooks';
-import Logo from 'components/logo/logo';
 
 export default function Header(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);

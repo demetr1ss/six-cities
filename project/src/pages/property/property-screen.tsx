@@ -15,17 +15,17 @@ import {
   PremiumMarkClassNames,
   ProMarkClassNames
 } from 'const/const';
-import { useAppSelector } from 'hooks';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { convertRatingToPercent } from 'utils/utils';
+import { setActiveCardOnMap } from 'store/action';
 
 
 export default function PropertyScreen()
 : JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const reviews = useAppSelector((state) => state.reviews);
-  const [, setActiveCardId] = useState(0);
+  const dispatch = useAppDispatch();
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
   const nearOffers = offers.slice(0, MAX_NEAR_OFFERS);
@@ -149,8 +149,8 @@ export default function PropertyScreen()
                     key={`card-${card.id}`}
                     className={CardClassNames.NearPlaces}
                     offer={card}
-                    onMouseOver={() => setActiveCardId(card.id)}
-                    onMouseOut={() => setActiveCardId(0)}
+                    onMouseOver={() => dispatch(setActiveCardOnMap(offer.id))}
+                    onMouseOut={() => dispatch(setActiveCardOnMap(0))}
                   />
                 ))}
             </div>
