@@ -1,5 +1,5 @@
-import { FavoriteIconSizes } from 'const/const';
 import cn from 'classnames';
+import { FavoriteIconSizes } from 'const/const';
 
 type FavoriteButtonType = {
   isFavorite: boolean;

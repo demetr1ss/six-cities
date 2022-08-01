@@ -1,15 +1,15 @@
-import { URL_MARKER_DEFAULT } from 'const/const';
+import useMap from 'hooks/use-map';
+import { URL_MARKER_ACTIVE, URL_MARKER_DEFAULT } from 'const/const';
 import { useEffect, useRef } from 'react';
 import { Icon, Marker } from 'leaflet';
 import { City, Offer } from '../../types/offer';
-import useMap from 'hooks/use-map';
+import { useAppSelector } from 'hooks';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City,
   offers: Offer[],
   mapClassName: string;
-  // selectedOfferId?: number | undefined;
 }
 
 const defaultCustomIcon = new Icon({
@@ -18,17 +18,18 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-// const activeCustomIcon = new Icon({
-//   iconUrl: URL_MARKER_ACTIVE,
-//   iconSize: [27, 39],
-//   iconAnchor: [27, 39]
-// });
+const activeCustomIcon = new Icon({
+  iconUrl: URL_MARKER_ACTIVE,
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39]
+});
 
 
 export default function Map({city, offers, mapClassName}: MapProps)
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const selectedOfferId = useAppSelector((state) => state.activeCardId);
 
   useEffect(() => {
     if (map) {
@@ -38,12 +39,15 @@ export default function Map({city, offers, mapClassName}: MapProps)
           lng: offer.location.longitude
         });
 
-        marker
-          .setIcon(defaultCustomIcon)
-          .addTo(map);
+        if (offer.id === selectedOfferId) {
+          marker.setIcon(activeCustomIcon);
+        } else {
+          marker.setIcon(defaultCustomIcon);
+        }
+        marker.addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOfferId]);
 
   return <section className={`${mapClassName}__map map`} ref={mapRef} />;
 }

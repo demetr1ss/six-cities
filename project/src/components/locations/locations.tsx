@@ -1,7 +1,7 @@
+import cn from 'classnames';
 import { Cities } from 'const/const';
 import { useAppDispatch } from 'hooks';
 import { changeCity } from 'store/action';
-import cn from 'classnames';
 
 type LocationsType = {
   activeCity: string;

@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './form.module.css';
 import RatingForm from './rating-form/rating-form';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 export default function Form(): JSX.Element {
   const [comment, setComment] = useState({

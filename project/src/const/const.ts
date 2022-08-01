@@ -2,7 +2,7 @@ export const MAX_RATING = 5;
 export const LIMIT_IMAGE = 6;
 export const MAX_NEAR_OFFERS = 3;
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
-// export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
 
 export const TileLayerSettings = {
   Url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -94,4 +94,11 @@ export const Cities = {
   Amsterdam: 'Amsterdam',
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf'
+} as const;
+
+export const SortingOptions = {
+  Default: 'Popular',
+  AscendingPrice: 'Price: low to high',
+  DescendingPrice: 'Price: high to low',
+  Rating: 'Top rated first'
 } as const;

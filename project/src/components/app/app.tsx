@@ -1,5 +1,3 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from 'const/const';
 import MainScreen from 'pages/main/main-screen';
 import FavoritesScreen from 'pages/favorites/favorites-screen';
 import LoginScreen from 'pages/login/login-screen';
@@ -7,6 +5,8 @@ import PropertyScreen from 'pages/property/property-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from 'const/const';
 
 
 export default function App(): JSX.Element {
