@@ -4,35 +4,16 @@ import MainEmpty from 'components/main-empty/main-empty';
 import Map from 'components/map/map';
 import OffersList from 'components/offers-list/offers-list';
 import Sorting from 'components/sorting/sorting';
-import { MapClassNames, SortingOptions } from 'const/const';
+import { MapClassNames } from 'const/const';
 import { useAppSelector } from 'hooks';
-import {
-  sortOffersByAscendingPrice,
-  sortOffersByDescendingPrice,
-  sortOffersByRating
-} from 'utils/utils';
+import { sortOffers } from 'utils/utils';
 
 export default function MainScreen(): JSX.Element {
   const city = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
   const currentSortType = useAppSelector((state) => state.sortType);
-
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
-
-  const sortedOffers = () => {
-    switch(currentSortType) {
-      case SortingOptions.Default:
-        return filteredOffers;
-      case SortingOptions.AscendingPrice:
-        return filteredOffers.sort(sortOffersByAscendingPrice);
-      case SortingOptions.DescendingPrice:
-        return filteredOffers.sort(sortOffersByDescendingPrice);
-      case SortingOptions.Rating:
-        return filteredOffers.sort(sortOffersByRating);
-      default:
-        throw new Error(`${currentSortType} not exist`);
-    }
-  };
+  const sortedOffers = sortOffers(filteredOffers, currentSortType);
 
   return (
     <div className="page page--gray page--main">
@@ -48,7 +29,7 @@ export default function MainScreen(): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{`${filteredOffers.length} places to stay in ${city}`}</b>
                   <Sorting />
-                  <OffersList offers={sortedOffers()}/>
+                  <OffersList offers={sortedOffers}/>
                 </section>
                 <div className="cities__right-section">
                   <Map city={filteredOffers[0].city} offers={filteredOffers} mapClassName={MapClassNames.CITIES}/>

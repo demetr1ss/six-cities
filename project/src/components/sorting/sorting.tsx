@@ -10,7 +10,7 @@ export default function Sorting(): JSX.Element {
 
   const placesOptionsClassName = cn('places__options places__options--custom', {
     'places__options--opened': isOpen,
-    'places__options--closed': !isOpen
+    'places__options': !isOpen
   });
 
   const handleToggleFormClick = () => {
@@ -33,8 +33,9 @@ export default function Sorting(): JSX.Element {
         <ul className={placesOptionsClassName}>
           {Object.values(SortingOptions).map((option) => {
             const placesOptionClassName = cn('places__option', {
-              'places__option--active': false
+              'places__option--active': option === currentSortType
             });
+
             return (
               <li
                 key={option}
