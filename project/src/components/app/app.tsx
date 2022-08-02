@@ -3,13 +3,23 @@ import FavoritesScreen from 'pages/favorites/favorites-screen';
 import LoginScreen from 'pages/login/login-screen';
 import PropertyScreen from 'pages/property/property-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
+import LoadingScreen from 'pages/loading-screen/loading-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from 'const/const';
+import { useAppSelector } from 'hooks';
 
 
 export default function App(): JSX.Element {
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+
+  if (isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTop />

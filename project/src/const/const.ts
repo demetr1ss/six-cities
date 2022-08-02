@@ -17,11 +17,11 @@ export const AppRoute = {
   Room: '/offer/:id',
 } as const;
 
-export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
-} as const;
+export const enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 export const CardClassNames = {
   Sities: 'cities__card  place-card',
@@ -102,3 +102,11 @@ export const SortingOptions = {
   DescendingPrice: 'Price: high to low',
   Rating: 'Top rated first'
 } as const;
+
+export const APIRoute = {
+  Offers: '/hotels',
+  Login: '/login',
+  Logout: '/logout',
+} as const;
+
+export const TIMEOUT_SHOW_ERROR = 5000;
