@@ -5,9 +5,10 @@ export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
 
 export const TileLayerSettings = {
-  Url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  Url: 'https://tile.jawg.io/29936624-dcc1-4dea-8432-ee1b96c13d66/{z}/{x}/{y}{r}.png?access-token=Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd',
   Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
-  OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+OpenStreetMap</a> contributors &copy; <a href="https://www.jawg.io" target=_blank>Jawg</a>`,
+  accessToken: 'Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd'
 } as const;
 
 export const AppRoute = {
@@ -17,11 +18,11 @@ export const AppRoute = {
   Room: '/offer/:id',
 } as const;
 
-export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
-} as const;
+export const enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 export const CardClassNames = {
   Sities: 'cities__card  place-card',
@@ -102,3 +103,10 @@ export const SortingOptions = {
   DescendingPrice: 'Price: high to low',
   Rating: 'Top rated first'
 } as const;
+
+export const APIRoute = {
+  Offers: '/hotels',
+  Login: '/login',
+  Logout: '/logout',
+} as const;
+
