@@ -3,7 +3,7 @@ import { Cities, SortingOptions, AuthorizationStatus } from 'const/const';
 import { reviews } from 'mock/reviews';
 import { Offer } from 'types/offer';
 import { Review } from 'types/review';
-import { changeCity, setActiveCardOnMap, sorting, loadOffers, requireAuthorization, setError, setDataLoadedStatus } from './action';
+import { changeCity, setActiveCardOnMap, sorting, loadOffers, requireAuthorization, setDataLoadedStatus } from './action';
 
 type InitialStateType = {
   city: string;
@@ -47,8 +47,5 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     });
 });

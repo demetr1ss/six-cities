@@ -21,6 +21,4 @@ export const loadReviews = createAction<Review[]>('data/loadReviews');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-export const setError = createAction<string | null>('screen/setError');
-
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
