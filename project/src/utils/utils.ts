@@ -1,4 +1,4 @@
-import { MAX_RATING, SortingOptions } from 'const/const';
+import { Cities, MAX_RATING, SortingOptions } from 'const/const';
 import { Offer } from 'types/offer';
 
 export function convertRatingToPercent(rating: number): string {
@@ -29,3 +29,6 @@ export const sortOffers = (filteredOffers: Offer[], currentSortType: string) => 
       throw new Error(`${currentSortType} not exist`);
   }
 };
+
+export const cities = Object.keys(Cities);
+export const randomCity = cities[Math.floor(Math.random() * cities.length)];

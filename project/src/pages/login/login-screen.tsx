@@ -1,14 +1,76 @@
 import Logo from 'components/logo/logo';
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
-import { AppRoute, Cities } from 'const/const';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { AppRoute, formFiedls, emailRegExp, passwordRegExp } from 'const/const';
+import { randomCity } from 'utils/utils';
 import { changeCity } from 'store/action';
-import { useDispatch } from 'react-redux';
+import styles from './login-screen.module.css';
+import { AuthData } from 'types/auth-data';
+import { loginAction } from 'store/api-actions';
+import { useAppDispatch } from 'hooks';
+
+type FieldProps = {
+  value: string,
+  error: boolean,
+  errorText: string,
+  regex: RegExp;
+}
+
+type FormStateProps = {
+  [key: string]: FieldProps
+}
 
 export default function LoginScreen(): JSX.Element {
-  const dispatch = useDispatch();
-  const cities = Object.keys(Cities);
-  const randomCity = cities[Math.floor(Math.random() * cities.length)];
+  const dispatch = useAppDispatch();
   const handleRouteCityClick = () => dispatch(changeCity(randomCity));
+  const [formState, setFormState] = useState<FormStateProps>({
+    email: {
+      value: '',
+      error: false,
+      errorText: 'Invalid email',
+      regex: emailRegExp
+    },
+    password: {
+      value: '',
+      error: false,
+      errorText: 'Password must contain at least 1 digit and 1 letter',
+      regex: passwordRegExp
+    }
+  });
+
+  const {email, password} = formState;
+
+  const disabled = (email.error || password.error);
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (email.value !== null && password.value !== null) {
+      onSubmit({
+        email: email.value,
+        password: password.value,
+      });
+    }
+  };
+
+  const handleInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = target;
+    const rule = formState[name].regex;
+
+    setFormState({
+      ...formState,
+      [name]: {
+        ...formState[name],
+        value,
+        error: !rule.test(value)
+      }
+    });
+  };
 
   return (
     <div className="page page--gray page--login">
@@ -24,29 +86,34 @@ export default function LoginScreen(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input
-                  className="login__input form__input"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input
-                  className="login__input form__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                  autoComplete="on"
-                />
-              </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
+              {Object.entries(formFiedls).map(([name, label]) => {
+                const inputClassName = cn('login__input form__input', {
+                  [styles.error]: formState[name].error
+                });
+                return (
+                  <div className="login__input-wrapper form__input-wrapper" key={name}>
+                    <label className="visually-hidden">{label}</label>
+                    <input
+                      className={inputClassName}
+                      type={name}
+                      name={name}
+                      placeholder={label}
+                      required
+                      value={formState[name].value}
+                      onChange={handleInputChange}
+                    />
+                    {formState[name].error && <p className={styles.errorText}>{formState[name].errorText}</p>}
+                  </div>
+                );
+              })}
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                disabled={disabled}
+              >
+                Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
