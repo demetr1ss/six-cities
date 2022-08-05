@@ -1,6 +1,6 @@
 import Logo from 'components/logo/logo';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { AppRoute, formFiedls, emailRegExp, passwordRegExp } from 'const/const';
 import { randomCity } from 'utils/utils';
@@ -23,6 +23,7 @@ type FormStateProps = {
 
 export default function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleRouteCityClick = () => dispatch(changeCity(randomCity));
   const [formState, setFormState] = useState<FormStateProps>({
     email: {
@@ -45,6 +46,7 @@ export default function LoginScreen(): JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
+    navigate(AppRoute.Main);
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

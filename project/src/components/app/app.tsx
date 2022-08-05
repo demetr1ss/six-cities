@@ -7,15 +7,16 @@ import LoadingScreen from 'pages/loading-screen/loading-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { AppRoute } from 'const/const';
+import { AppRoute, AuthorizationStatus } from 'const/const';
 import { useAppSelector } from 'hooks';
 
+const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
 
 export default function App(): JSX.Element {
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
-  if (isDataLoaded) {
+  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
       <LoadingScreen />
     );
@@ -40,7 +41,7 @@ export default function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
+            <PrivateRoute>
               <FavoritesScreen />
             </PrivateRoute>
           }

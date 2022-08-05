@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'r21dsad2313djkh23j2dda-';
+const AUTH_TOKEN_KEY_NAME = 'Y2hla28uYXNAeWFuZGV4LnJ1';
 
 export type Token = string;
 
