@@ -97,6 +97,8 @@ export const Cities = {
   Dusseldorf: 'Dusseldorf'
 } as const;
 
+export const cityList = Object.keys(Cities);
+
 export const SortingOptions = {
   Default: 'Popular',
   AscendingPrice: 'Price: low to high',

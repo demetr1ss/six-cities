@@ -6,7 +6,9 @@ import NotFoundScreen from 'pages/not-found/not-found-screen';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import HistoryRouter from 'components/history-route/history-route';
+import browserHistory from 'components/browser-history';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from 'const/const';
 import { useAppSelector } from 'hooks';
 
@@ -23,7 +25,7 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <ScrollToTop />
       <Routes>
         <Route
@@ -51,6 +53,6 @@ export default function App(): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

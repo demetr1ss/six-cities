@@ -23,4 +23,4 @@ export const requireAuthorization = createAction<AuthorizationStatus>('user/requ
 
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
 
-export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute>('login/redirectToRoute');

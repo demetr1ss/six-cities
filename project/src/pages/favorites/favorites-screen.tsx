@@ -5,6 +5,7 @@ import { AppRoute, CardClassNames } from 'const/const';
 import { Offer } from 'types/offer';
 import { useAppSelector } from 'hooks';
 import FavoritesEmpty from 'components/favorites-empty/favorites-empty';
+import Navigation from 'components/header/navigation';
 
 type GroupedCities = {
   [key: string]: Offer[]
@@ -25,9 +26,11 @@ export default function FavoritesScreen(): JSX.Element {
   const citiesList = Object.keys(groupedCities);
 
   if (favoriteOffers.length > 0) {
-    return(
+    return (
       <>
-        <Header />
+        <Header>
+          <Navigation />
+        </Header>
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <section className="favorites">
@@ -43,7 +46,7 @@ export default function FavoritesScreen(): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {groupedCities[city].map((offer) =>(
+                      {groupedCities[city].map((offer) => (
                         <Card key={offer.id} offer={offer} className={CardClassNames.Favorites} isSmall />
                       ))}
                     </div>

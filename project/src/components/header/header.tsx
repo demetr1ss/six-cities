@@ -1,24 +1,13 @@
 import Logo from 'components/logo/logo';
-import { AuthorizationStatus } from 'const/const';
-import { useAppSelector } from 'hooks';
-import HeaderUserAuth from './header-user-auth';
-import HeaderUserNoAuth from './header-user-no-auth';
+import { PropsWithChildren } from 'react';
 
-export default function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isUserAuth = authorizationStatus === AuthorizationStatus.Auth;
-
-
+export default function Header({children}: PropsWithChildren): JSX.Element {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <Logo />
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              {isUserAuth ? <HeaderUserAuth /> : <HeaderUserNoAuth />}
-            </ul>
-          </nav>
+          {children}
         </div>
       </div>
     </header>

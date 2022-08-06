@@ -1,11 +1,14 @@
 import Header from 'components/header/header';
+import Navigation from 'components/header/navigation';
 import { AppRoute } from 'const/const';
 import { Link } from 'react-router-dom';
 
 export default function FavoritesEmpty() {
   return (
     <div className="page page--favorites-empty">
-      <Header />
+      <Header>
+        <Navigation />
+      </Header>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
