@@ -11,12 +11,12 @@ OpenStreetMap</a> contributors &copy; <a href="https://www.jawg.io" target=_blan
   accessToken: 'Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd'
 } as const;
 
-export const AppRoute = {
-  Main: '/',
-  Login: '/login',
-  Favorites: '/favorites',
-  Room: '/offer/:id',
-} as const;
+export const enum AppRoute {
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id',
+}
 
 export const enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -97,6 +97,8 @@ export const Cities = {
   Dusseldorf: 'Dusseldorf'
 } as const;
 
+export const cityList = Object.keys(Cities);
+
 export const SortingOptions = {
   Default: 'Popular',
   AscendingPrice: 'Price: low to high',
@@ -110,3 +112,11 @@ export const APIRoute = {
   Logout: '/logout',
 } as const;
 
+export const formFiedls = {
+  email: 'E-mail',
+  password: 'password'
+} as const;
+
+export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
+
+export const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[0-9]).+$/);

@@ -1,0 +1,10 @@
+.error {
+  border: 1px solid red;
+  margin-bottom: 0px;
+}
+
+.errorText {
+  top: 0px;
+  font-size: 14px;
+  color: #ff4949;
+}

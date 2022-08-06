@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthorizationStatus } from 'const/const';
+import { APIRoute, AppRoute, AuthorizationStatus } from 'const/const';
 import { dropToken, saveToken } from 'services/token';
 import { AuthData } from 'types/auth-data';
 import { Offer } from 'types/offer';
 import { AppDispatch, State } from 'types/state';
 import { UserData } from 'types/user-data';
-import { loadOffers, requireAuthorization, setDataLoadedStatus } from './action';
+import { loadOffers, redirectToRoute, requireAuthorization, setDataLoadedStatus } from './action';
+import { toast } from 'react-toastify';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -44,10 +45,17 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  async ({email, password}, {dispatch, extra: api}) => {
+    try {
+      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+      saveToken(token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(redirectToRoute(AppRoute.Main));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
   },
 );
 
@@ -58,8 +66,14 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }>(
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
-    await api.delete(APIRoute.Logout);
-    dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    try {
+      await api.delete(APIRoute.Logout);
+      dropToken();
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
   },
 );

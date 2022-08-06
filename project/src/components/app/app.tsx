@@ -6,22 +6,26 @@ import NotFoundScreen from 'pages/not-found/not-found-screen';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import PrivateRoute from 'components/private-route/private-route';
 import ScrollToTop from 'components/scroll-to-top/scroll-to-top';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import HistoryRouter from 'components/history-route/history-route';
+import browserHistory from 'components/browser-history';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from 'const/const';
 import { useAppSelector } from 'hooks';
 
+const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
 
 export default function App(): JSX.Element {
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
-  if (isDataLoaded) {
+  if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
     return (
       <LoadingScreen />
     );
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <ScrollToTop />
       <Routes>
         <Route
@@ -39,7 +43,7 @@ export default function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesScreen />
             </PrivateRoute>
           }
@@ -49,6 +53,6 @@ export default function App(): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

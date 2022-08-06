@@ -1,4 +1,5 @@
 import Header from 'components/header/header';
+import Navigation from 'components/header/navigation';
 import Locations from 'components/locations/locations';
 import MainEmpty from 'components/main-empty/main-empty';
 import Map from 'components/map/map';
@@ -17,7 +18,9 @@ export default function MainScreen(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <Header>
+        <Navigation />
+      </Header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Locations activeCity={city} />

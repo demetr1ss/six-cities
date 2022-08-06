@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { useParams } from 'react-router-dom';
 import { convertRatingToPercent } from 'utils/utils';
 import { setActiveCardOnMap } from 'store/action';
+import Navigation from 'components/header/navigation';
 
 
 export default function PropertyScreen()
@@ -51,8 +52,9 @@ export default function PropertyScreen()
 
   return(
     <div className="page">
-      <Header />
-
+      <Header>
+        <Navigation />
+      </Header>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
