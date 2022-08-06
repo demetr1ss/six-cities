@@ -1,13 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute, AuthorizationStatus } from 'const/const';
+import { toast } from 'react-toastify';
 import { dropToken, saveToken } from 'services/token';
 import { AuthData } from 'types/auth-data';
 import { Offer } from 'types/offer';
+import { Review } from 'types/review';
 import { AppDispatch, State } from 'types/state';
 import { UserData } from 'types/user-data';
-import { loadOffers, redirectToRoute, requireAuthorization, setDataLoadedStatus } from './action';
-import { toast } from 'react-toastify';
+import { loadOffers, loadOffersNearby, loadProperty, loadReviews, redirectToRoute, requireAuthorization, setOfferLoadedStatus, setOffersLoadedStatus } from './action';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -16,10 +17,76 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setDataLoadedStatus(true));
-    const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(loadOffers(data));
-    dispatch(setDataLoadedStatus(false));
+    try {
+      dispatch(setOffersLoadedStatus(true));
+      const {data} = await api.get<Offer[]>(APIRoute.Offers);
+      dispatch(loadOffers(data));
+      dispatch(setOffersLoadedStatus(false));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+  },
+);
+
+export const fetchPropertyAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchProperty',
+  async (offerId, {dispatch, extra: api}) => {
+    try {
+      dispatch(setOfferLoadedStatus(true));
+      const {data} = await api.get<Offer>(APIRoute.fetchById(offerId));
+      dispatch(loadProperty(data));
+      dispatch(setOfferLoadedStatus(false));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchReviews',
+  async (offerId, {dispatch, extra: api}) => {
+    try {
+      dispatch(setOfferLoadedStatus(true));
+      const {data} = await api.get<Review[]>(APIRoute.fetchReviews(offerId));
+      dispatch(loadReviews(data));
+      dispatch(setOfferLoadedStatus(false));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+  },
+);
+
+export const fetchOffersNearby = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchOffersNearby',
+  async (offerId, {dispatch, extra: api}) => {
+    try {
+      dispatch(setOfferLoadedStatus(true));
+      const {data} = await api.get<Offer[]>(APIRoute.fetchOffersNearby(offerId));
+      dispatch(loadOffersNearby(data));
+      dispatch(setOfferLoadedStatus(false));
+    } catch {
+      toast.error('Something went wrong', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
   },
 );
 

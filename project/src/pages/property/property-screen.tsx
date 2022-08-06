@@ -7,29 +7,42 @@ import PremiumMark from 'components/premium-mark/premium-mark';
 import ProMark from 'components/pro-mark/pro-mark';
 import ReviewsList from 'components/reviews-list/reviews-list';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
+import Navigation from 'components/header/navigation';
+import LoadingScreen from 'pages/loading-screen/loading-screen';
 import {
   CardClassNames,
   LIMIT_IMAGE,
   MapClassNames,
-  MAX_NEAR_OFFERS,
   PremiumMarkClassNames,
   ProMarkClassNames
 } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { useParams } from 'react-router-dom';
 import { convertRatingToPercent } from 'utils/utils';
 import { setActiveCardOnMap } from 'store/action';
-import Navigation from 'components/header/navigation';
+import { fetchOffersNearby, fetchPropertyAction, fetchReviewsAction } from 'store/api-actions';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
-
-export default function PropertyScreen()
-: JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const reviews = useAppSelector((state) => state.reviews);
-  const dispatch = useAppDispatch();
+export default function PropertyScreen(): JSX.Element {
   const params = useParams();
-  const offer = offers.find((item) => item.id === Number(params.id));
-  const nearOffers = offers.slice(0, MAX_NEAR_OFFERS);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPropertyAction(Number(params.id)));
+    dispatch(fetchReviewsAction(Number(params.id)));
+    dispatch(fetchOffersNearby(Number(params.id)));
+  }, [dispatch, params.id]);
+
+  const reviews = useAppSelector((state) => state.reviews);
+  const offer = useAppSelector((state) => state.offer);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+  const isOfferLoaded = useAppSelector((state) => state.isOfferLoaded);
+
+  if (isOfferLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   if (!offer) {
     return (<NotFoundScreen />);
@@ -145,13 +158,13 @@ export default function PropertyScreen()
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((card) =>
+              {nearOffers.map((nearOffer) =>
                 (
                   <Card
-                    key={`card-${card.id}`}
+                    key={`card-${nearOffer.id}`}
                     className={CardClassNames.NearPlaces}
-                    offer={card}
-                    onMouseOver={() => dispatch(setActiveCardOnMap(offer.id))}
+                    offer={nearOffer}
+                    onMouseOver={() => dispatch(setActiveCardOnMap(nearOffer.id))}
                     onMouseOut={() => dispatch(setActiveCardOnMap(0))}
                   />
                 ))}

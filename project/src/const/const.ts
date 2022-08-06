@@ -110,6 +110,18 @@ export const APIRoute = {
   Offers: '/hotels',
   Login: '/login',
   Logout: '/logout',
+
+  fetchReviews(offerId: number) {
+    return (`/comments/${offerId}`);
+  },
+
+  fetchById(offerId: number) {
+    return (`${this.Offers}/${offerId}`);
+  },
+
+  fetchOffersNearby(offerId: number) {
+    return (`${this.Offers}/${offerId}/nearby`);
+  },
 } as const;
 
 export const formFiedls = {
