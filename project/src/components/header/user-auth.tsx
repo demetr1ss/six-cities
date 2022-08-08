@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from 'store/api-actions';
 
 export default function UserAuth():JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const {offers, userEmail} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const handleLogoutClick = () => dispatch(logoutAction());
@@ -16,7 +16,7 @@ export default function UserAuth():JSX.Element {
           <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+            <span className="header__user-name user__name">{userEmail}</span>
             <span className="header__favorite-count">{favoriteOffers.length}</span>
           </Link>
         </li>

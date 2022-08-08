@@ -1,30 +1,39 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Cities, SortingOptions, AuthorizationStatus } from 'const/const';
-import { reviews } from 'mock/reviews';
+import { AuthorizationStatus, Cities, SortingOptions } from 'const/const';
 import { Offer } from 'types/offer';
 import { Review } from 'types/review';
-import { changeCity, setActiveCardOnMap, sorting, loadOffers, requireAuthorization, setDataLoadedStatus } from './action';
+import {
+  changeCity, loadOffers, loadOffersNearby, loadProperty,
+  loadReviews, requireAuthorization, setActiveCardOnMap, setOfferLoadedStatus, setOffersLoadedStatus, setUserEmail, sorting
+} from './action';
 
 type InitialStateType = {
+  userEmail: string | null;
   city: string;
+  offer?: Offer;
   offers: Offer[];
+  nearOffers: Offer[];
   reviews: Review[];
   activeCardId: number;
   sortType: string;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
-  isDataLoaded: boolean;
+  isOffersLoaded: boolean;
+  isOfferLoaded: boolean;
 }
 
 const initialState: InitialStateType = {
   city: Cities.Paris,
+  userEmail: null,
   offers: [],
-  reviews: reviews,
+  nearOffers: [],
+  reviews: [],
   activeCardId: 0,
   sortType: SortingOptions.Default,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isDataLoaded: false,
+  isOffersLoaded: false,
+  isOfferLoaded: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -42,10 +51,25 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(setDataLoadedStatus, (state, action) => {
-      state.isDataLoaded = action.payload;
+    .addCase(loadProperty, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(setOffersLoadedStatus, (state, action) => {
+      state.isOffersLoaded = action.payload;
+    })
+    .addCase(setOfferLoadedStatus, (state, action) => {
+      state.isOfferLoaded = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserEmail, (state, action) => {
+      state.userEmail = action.payload;
     });
 });
