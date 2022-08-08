@@ -1,9 +1,10 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
 import { toast } from 'react-toastify';
 import { Offer } from 'types/offer';
+import { Review } from 'types/review';
 
 export function convertRatingToPercent(rating: number): string {
-  return `${Math.ceil((100 * rating / MAX_RATING))}%`;
+  return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
 }
 
 export const sortOffersByAscendingPrice = (a: Offer, b: Offer) =>
@@ -40,7 +41,22 @@ export const showNofity = (options: showNofityPropsType) => {
   switch(options.type) {
     case 'error':
       toast.error(options.message, {
-        position: toast.POSITION.TOP_CENTER
+        toastId: 1,
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000
       });
-  }
-};
+      break;
+    case 'warn':
+      toast.warn(options.message, {
+        toastId: 2,
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000
+      });
+      break;
+  }};
+
+export const sortReviewFromNewToOld = (reviews: Review[]) =>
+  reviews.sort((a: Review, b: Review) =>
+    Date.parse(b.date) - Date.parse(a.date)
+  );
+

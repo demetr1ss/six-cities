@@ -1,12 +1,9 @@
 import Card from 'components/card/card';
 import FavoriteButton from 'components/favorite-button/favorite-button';
-import Form from 'components/form/form';
 import Header from 'components/header/header';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import ProMark from 'components/pro-mark/pro-mark';
-import ReviewsList from 'components/reviews-list/reviews-list';
-import NotFoundScreen from 'pages/not-found/not-found-screen';
 import Navigation from 'components/header/navigation';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import {
@@ -18,9 +15,10 @@ import {
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { convertRatingToPercent } from 'utils/utils';
 import { setActiveCardOnMap } from 'store/action';
-import { fetchOffersNearby, fetchPropertyAction, fetchReviewsAction } from 'store/api-actions';
+import { fetchPropertyAction,} from 'store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Review from 'components/reviews/reviews';
 
 export default function PropertyScreen(): JSX.Element {
   const params = useParams();
@@ -28,11 +26,8 @@ export default function PropertyScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPropertyAction(Number(params.id)));
-    dispatch(fetchReviewsAction(Number(params.id)));
-    dispatch(fetchOffersNearby(Number(params.id)));
   }, [dispatch, params.id]);
 
-  const reviews = useAppSelector((state) => state.reviews);
   const offer = useAppSelector((state) => state.offer);
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const isOfferLoaded = useAppSelector((state) => state.isOfferLoaded);
@@ -41,10 +36,6 @@ export default function PropertyScreen(): JSX.Element {
     return (
       <LoadingScreen />
     );
-  }
-
-  if (!offer) {
-    return (<NotFoundScreen />);
   }
 
   const {
@@ -145,10 +136,7 @@ export default function PropertyScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews}/>
-                <Form />
-              </section>
+              <Review />
             </div>
           </div>
           <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY}/>

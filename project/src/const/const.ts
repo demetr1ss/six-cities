@@ -1,8 +1,14 @@
 export const MAX_RATING = 5;
+export const MAX_REVIEWS = 10;
 export const LIMIT_IMAGE = 6;
 export const MAX_NEAR_OFFERS = 3;
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+
+export const ReviewLength = {
+  MIN: 50,
+  MAX: 300,
+};
 
 export const TileLayerSettings = {
   Url: 'https://tile.jawg.io/29936624-dcc1-4dea-8432-ee1b96c13d66/{z}/{x}/{y}{r}.png?access-token=Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd',
@@ -16,6 +22,7 @@ export const enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
+  NotFound = '/*',
 }
 
 export const enum AuthorizationStatus {
@@ -35,8 +42,6 @@ export const HumanDateOptions = {
   month: 'long'
 } as const;
 
-export const rating: readonly [number, number, number, number, number] = [5, 4, 3, 2, 1];
-
 type RatingTitlesType = {
   [key: number]: string
 }
@@ -49,6 +54,7 @@ export const RatingTitles: RatingTitlesType = {
   5: 'perfect'
 } as const;
 
+export const rating = Object.keys(RatingTitles).reverse().map(Number);
 
 export const FavoriteIconSizes = {
   big: {

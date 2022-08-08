@@ -29,4 +29,6 @@ export const setOffersLoadedStatus = createAction<boolean>('data/setOffersLoaded
 
 export const setOfferLoadedStatus = createAction<boolean>('data/setOfferLoadedStatus');
 
+export const setUserEmail = createAction<string | null>('data/setUserEmail');
+
 export const redirectToRoute = createAction<AppRoute>('login/redirectToRoute');

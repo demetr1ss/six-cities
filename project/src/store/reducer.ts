@@ -4,10 +4,11 @@ import { Offer } from 'types/offer';
 import { Review } from 'types/review';
 import {
   changeCity, loadOffers, loadOffersNearby, loadProperty,
-  loadReviews, requireAuthorization, setActiveCardOnMap, setOfferLoadedStatus, setOffersLoadedStatus, sorting
+  loadReviews, requireAuthorization, setActiveCardOnMap, setOfferLoadedStatus, setOffersLoadedStatus, setUserEmail, sorting
 } from './action';
 
 type InitialStateType = {
+  userEmail: string | null;
   city: string;
   offer?: Offer;
   offers: Offer[];
@@ -23,6 +24,7 @@ type InitialStateType = {
 
 const initialState: InitialStateType = {
   city: Cities.Paris,
+  userEmail: null,
   offers: [],
   nearOffers: [],
   reviews: [],
@@ -66,5 +68,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserEmail, (state, action) => {
+      state.userEmail = action.payload;
     });
 });
