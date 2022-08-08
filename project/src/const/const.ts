@@ -116,7 +116,7 @@ export const APIRoute = {
     return (`/comments/${offerId}`);
   },
 
-  fetchById(offerId: number) {
+  fetchOfferById(offerId: number) {
     return (`${this.Offers}/${offerId}`);
   },
 

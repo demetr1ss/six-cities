@@ -48,7 +48,7 @@ export const fetchPropertyAction = createAsyncThunk<void, number, {
   async (offerId, {dispatch, extra: api}) => {
     try {
       dispatch(setOfferLoadedStatus(true));
-      const {data} = await api.get<Offer>(APIRoute.fetchById(offerId));
+      const {data} = await api.get<Offer>(APIRoute.fetchOfferById(offerId));
       dispatch(loadProperty(data));
       dispatch(setOfferLoadedStatus(false));
       dispatch(fetchReviewsAction(Number(offerId)));
