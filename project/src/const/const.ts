@@ -78,11 +78,6 @@ export const PremiumMarkClassNames = {
   PROPERTY: 'property'
 } as const;
 
-export const ProMarkClassNames = {
-  REVIEW: 'reviews',
-  PROPERTY: 'property'
-} as const;
-
 export const MapClassNames = {
   CITIES: 'cities',
   PROPERTY: 'property'

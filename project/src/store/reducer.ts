@@ -62,7 +62,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isOffersLoaded = action.payload;
     })
     .addCase(setOfferLoadedStatus, (state, action) => {
-      state.isOffersLoaded = action.payload;
+      state.isOfferLoaded = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

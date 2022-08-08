@@ -1,5 +1,5 @@
 import ProMark from 'components/pro-mark/pro-mark';
-import { HumanDateOptions, ProMarkClassNames } from 'const/const';
+import { HumanDateOptions } from 'const/const';
 import { Review } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
 
@@ -27,7 +27,7 @@ export default function ReviewItem({review}: ReviewItemType) {
         <span className="reviews__user-name">
           {user.name}
         </span>
-        {user.isPro && <ProMark proMarkClassName={ProMarkClassNames.REVIEW}/>}
+        {user.isPro && <ProMark />}
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">

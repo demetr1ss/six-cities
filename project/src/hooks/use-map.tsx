@@ -34,7 +34,7 @@ export default function useMap(
       isRenderedRef.current = true;
     } else {
       const {latitude, longitude, zoom} = city.location;
-      map?.flyTo(
+      map?.setView(
         {
           lat: latitude,
           lng: longitude,

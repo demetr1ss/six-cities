@@ -1,4 +1,5 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
+import { toast } from 'react-toastify';
 import { Offer } from 'types/offer';
 
 export function convertRatingToPercent(rating: number): string {
@@ -27,5 +28,19 @@ export const sortOffers = (filteredOffers: Offer[], currentSortType: string) => 
       return filteredOffers.sort(sortOffersByRating);
     default:
       throw new Error(`${currentSortType} not exist`);
+  }
+};
+
+type showNofityPropsType = {
+  type: string;
+  message: string;
+}
+
+export const showNofity = (options: showNofityPropsType) => {
+  switch(options.type) {
+    case 'error':
+      toast.error(options.message, {
+        position: toast.POSITION.TOP_CENTER
+      });
   }
 };

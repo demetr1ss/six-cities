@@ -8,7 +8,16 @@ import { Offer } from 'types/offer';
 import { Review } from 'types/review';
 import { AppDispatch, State } from 'types/state';
 import { UserData } from 'types/user-data';
-import { loadOffers, loadOffersNearby, loadProperty, loadReviews, redirectToRoute, requireAuthorization, setOfferLoadedStatus, setOffersLoadedStatus } from './action';
+import { showNofity } from 'utils/utils';
+import { loadOffers,
+  loadOffersNearby,
+  loadProperty,
+  loadReviews,
+  redirectToRoute,
+  requireAuthorization,
+  setOfferLoadedStatus,
+  setOffersLoadedStatus
+} from './action';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -23,9 +32,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
       dispatch(loadOffers(data));
       dispatch(setOffersLoadedStatus(false));
     } catch {
-      toast.error('Something went wrong', {
-        position: toast.POSITION.TOP_CENTER
-      });
+      showNofity({type: 'error', message: 'Failed to get offers'});
     }
   },
 );
@@ -43,9 +50,7 @@ export const fetchPropertyAction = createAsyncThunk<void, number, {
       dispatch(loadProperty(data));
       dispatch(setOfferLoadedStatus(false));
     } catch {
-      toast.error('Something went wrong', {
-        position: toast.POSITION.TOP_CENTER
-      });
+      showNofity({type: 'error', message: 'Failed to get an offer'});
     }
   },
 );
@@ -58,14 +63,10 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
   'data/fetchReviews',
   async (offerId, {dispatch, extra: api}) => {
     try {
-      dispatch(setOfferLoadedStatus(true));
       const {data} = await api.get<Review[]>(APIRoute.fetchReviews(offerId));
       dispatch(loadReviews(data));
-      dispatch(setOfferLoadedStatus(false));
     } catch {
-      toast.error('Something went wrong', {
-        position: toast.POSITION.TOP_CENTER
-      });
+      showNofity({type: 'error', message: 'Failed to get reviews'});
     }
   },
 );
@@ -78,14 +79,10 @@ export const fetchOffersNearby = createAsyncThunk<void, number, {
   'data/fetchOffersNearby',
   async (offerId, {dispatch, extra: api}) => {
     try {
-      dispatch(setOfferLoadedStatus(true));
       const {data} = await api.get<Offer[]>(APIRoute.fetchOffersNearby(offerId));
       dispatch(loadOffersNearby(data));
-      dispatch(setOfferLoadedStatus(false));
     } catch {
-      toast.error('Something went wrong', {
-        position: toast.POSITION.TOP_CENTER
-      });
+      showNofity({type: 'error', message: 'Failed to get offers nearby'});
     }
   },
 );

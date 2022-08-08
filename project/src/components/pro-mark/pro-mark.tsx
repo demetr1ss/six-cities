@@ -1,10 +1,6 @@
-type ProMarkType = {
-  proMarkClassName: string;
-}
-
-export default function ProMark ({proMarkClassName}: ProMarkType): JSX.Element {
+export default function ProMark (): JSX.Element {
   return (
-    <span className={`${proMarkClassName}__user-status`}>
+    <span className='property__user-status'>
         Pro
     </span>
   );

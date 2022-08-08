@@ -14,7 +14,6 @@ import {
   LIMIT_IMAGE,
   MapClassNames,
   PremiumMarkClassNames,
-  ProMarkClassNames
 } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { convertRatingToPercent } from 'utils/utils';
@@ -38,7 +37,7 @@ export default function PropertyScreen(): JSX.Element {
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const isOfferLoaded = useAppSelector((state) => state.isOfferLoaded);
 
-  if (isOfferLoaded) {
+  if (isOfferLoaded || !offer) {
     return (
       <LoadingScreen />
     );
@@ -138,7 +137,7 @@ export default function PropertyScreen(): JSX.Element {
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro && <ProMark proMarkClassName={ProMarkClassNames.PROPERTY}/>}
+                  {host.isPro && <ProMark />}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -152,19 +151,19 @@ export default function PropertyScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map city={nearOffers[0].city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY}/>
+          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((nearOffer) =>
+              {nearOffers?.map((nearOffer) =>
                 (
                   <Card
-                    key={`card-${nearOffer.id}`}
+                    key={nearOffer?.id}
                     className={CardClassNames.NearPlaces}
                     offer={nearOffer}
-                    onMouseOver={() => dispatch(setActiveCardOnMap(nearOffer.id))}
+                    onMouseOver={() => dispatch(setActiveCardOnMap(nearOffer?.id))}
                     onMouseOut={() => dispatch(setActiveCardOnMap(0))}
                   />
                 ))}
