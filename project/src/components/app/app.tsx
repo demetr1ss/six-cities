@@ -14,14 +14,11 @@ import { Route, Routes } from 'react-router-dom';
 import { getOffersDataLoadedStatus } from 'store/offers-data/selectors';
 import { getAuthorizationStatus } from 'store/user-process/selectors';
 
-const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
-  authorizationStatus === AuthorizationStatus.Unknown;
-
 export default function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersLoaded = useAppSelector(getOffersDataLoadedStatus);
 
-  if (isCheckedAuth(authorizationStatus) || isOffersLoaded) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoaded) {
     return (
       <LoadingScreen />
     );
