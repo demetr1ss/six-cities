@@ -20,7 +20,7 @@ export default function Form(): JSX.Element {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating > 0 || review.length >= 50) {
+    if (rating > 0 || (review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX)) {
       dispatch(sendReviewAction({
         offerId: Number(params.id),
         comment: review,

@@ -15,14 +15,14 @@ export const TileLayerSettings = {
   Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
 OpenStreetMap</a> contributors &copy; <a href="https://www.jawg.io" target=_blank>Jawg</a>`,
   accessToken: 'Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd'
-} as const;
+};
 
 export const enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
-  NotFound = '/*',
+  NotFound = '*',
 }
 
 export const enum AuthorizationStatus {
@@ -35,11 +35,6 @@ export const CardClassNames = {
   Sities: 'cities__card  place-card',
   Favorites: 'favorites__card place-card',
   NearPlaces: 'near-places__card place-card'
-} as const;
-
-export const HumanDateOptions = {
-  year: 'numeric',
-  month: 'long'
 } as const;
 
 type RatingTitlesType = {
@@ -57,22 +52,22 @@ export const RatingTitles: RatingTitlesType = {
 export const rating = Object.keys(RatingTitles).reverse().map(Number);
 
 export const FavoriteIconSizes = {
-  big: {
+  BIG: {
     width: 31,
     height: 33
   },
-  small: {
+  SMALL: {
     width: 18,
     height: 19
   }
 } as const;
 
 export const ImageSize = {
-  big: {
+  BIG: {
     width: 260,
     height: 200
   },
-  small: {
+  SMALL: {
     width: 150,
     height: 100
   }
@@ -107,28 +102,14 @@ export const SortingOptions = {
   Rating: 'Top rated first'
 } as const;
 
-export const APIRoute = {
-  Offers: '/hotels',
-  Login: '/login',
-  Logout: '/logout',
-
-  fetchReviews(offerId: number) {
-    return (`/comments/${offerId}`);
-  },
-
-  fetchOfferById(offerId: number) {
-    return (`${this.Offers}/${offerId}`);
-  },
-
-  fetchOffersNearby(offerId: number) {
-    return (`${this.Offers}/${offerId}/nearby`);
-  },
-} as const;
-
-export const formFiedls = {
-  email: 'E-mail',
-  password: 'password'
-} as const;
+export const apiRoute = {
+  offers: () => '/hotels',
+  login: () => '/login',
+  logout: () => '/logout',
+  reviews: (offerId: number) => `/comments/${offerId}`,
+  fetchOfferById: (offerId: number) => `/hotels/${offerId}`,
+  fetchOffersNearby: (offerId: number) => `/hotels/${offerId}/nearby`,
+};
 
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
 

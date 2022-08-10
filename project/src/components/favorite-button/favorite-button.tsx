@@ -8,8 +8,8 @@ type FavoriteButtonType = {
 
 export default function FavoriteButton({isFavorite, isBig}: FavoriteButtonType): JSX.Element {
   const favoriteIconSize = isBig
-    ? FavoriteIconSizes.big
-    : FavoriteIconSizes.small;
+    ? FavoriteIconSizes.BIG
+    : FavoriteIconSizes.SMALL;
 
   const bookMarkClassName = cn({
     'property__bookmark-button': isBig,

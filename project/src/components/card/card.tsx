@@ -1,12 +1,12 @@
+import cn from 'classnames';
+import FavoriteButton from 'components/favorite-button/favorite-button';
+import PremiumMark from 'components/premium-mark/premium-mark';
 import { AppRoute, CardClassNames, ImageSize, PremiumMarkClassNames } from 'const/const';
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Offer } from 'types/offer';
 import { convertRatingToPercent } from 'utils/utils';
-import FavoriteButton from 'components/favorite-button/favorite-button';
-import PremiumMark from 'components/premium-mark/premium-mark';
 import styles from './card.module.css';
-import cn from 'classnames';
 
 type CardProps = {
   offer: Offer;
@@ -53,8 +53,8 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
   } = offer;
 
   const imageSize = isSmall
-    ? ImageSize.small
-    : ImageSize.big;
+    ? ImageSize.SMALL
+    : ImageSize.BIG;
 
   const infoClass = cn({'favorites__card-info': isSmall},
     'place-card__info'
