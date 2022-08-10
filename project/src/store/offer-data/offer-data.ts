@@ -20,7 +20,7 @@ export const offerData = createSlice({
         state.offer = action.payload;
         state.isOfferLoaded = false;
       })
-      .addCase(fetchPropertyAction.rejected, (state, action) => {
+      .addCase(fetchPropertyAction.rejected, (state) => {
         state.isOfferLoaded = false;
       });
   }});

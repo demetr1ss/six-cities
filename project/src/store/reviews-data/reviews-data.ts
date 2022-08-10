@@ -17,7 +17,7 @@ export const reviewsData = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(fetchReviewsAction.rejected, (state, action) => {
+      .addCase(fetchReviewsAction.rejected, (state) => {
         state.reviews = [];
       })
       .addCase(sendReviewAction.pending, (state) => {
@@ -27,7 +27,7 @@ export const reviewsData = createSlice({
         state.reviews = action.payload;
         state.isReviewSending = false;
       })
-      .addCase(sendReviewAction.rejected, (state, action) => {
+      .addCase(sendReviewAction.rejected, (state) => {
         state.isReviewSending = false;
       });
   }});

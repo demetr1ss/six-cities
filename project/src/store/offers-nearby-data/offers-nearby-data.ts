@@ -16,7 +16,7 @@ export const offersNearbyData = createSlice({
       .addCase(fetchOffersNearby.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
       })
-      .addCase(fetchOffersNearby.rejected, (state, action) => {
+      .addCase(fetchOffersNearby.rejected, (state) => {
         state.offersNearby = [];
       });
   }});
