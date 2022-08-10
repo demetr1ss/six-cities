@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { ApiRoute, AppRoute, Cities } from 'const/const';
+import { generatePath } from 'react-router';
 import { dropToken, saveToken } from 'services/token';
 import { AuthDataType } from 'types/auth-data';
 import { OfferType } from 'types/offer';
@@ -19,41 +20,41 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>(ApiRoute.offers());
+    const {data} = await api.get<OfferType[]>(ApiRoute.Offers);
     return data;
   },
 );
 
-export const fetchPropertyAction = createAsyncThunk<OfferType | undefined, number, {
+export const fetchPropertyAction = createAsyncThunk<OfferType | undefined, string, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchProperty',
-  async (offerId, {dispatch, extra: api}) => {
+  async (id, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<OfferType>(ApiRoute.fetchOfferById(offerId));
-      dispatch(fetchReviewsAction(Number(offerId)));
-      dispatch(fetchOffersNearby(Number(offerId)));
+      const {data} = await api.get<OfferType>(generatePath(ApiRoute.Offer, {id}));
+      dispatch(fetchReviewsAction(id));
+      dispatch(fetchOffersNearby(id));
       return data;
     } catch {
       showNofity({
         type: 'error',
-        message: `Offer id ${offerId} dosn't exist`,
+        message: `Offer id ${id} dosn't exist`,
       });
       dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<ReviewType[], number, {
+export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchReviews',
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(ApiRoute.reviews(offerId));
+  async (id, {extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}));
 
     return data;
   }
@@ -65,21 +66,21 @@ export const sendReviewAction = createAsyncThunk<ReviewType[], ReviewDataType, {
   extra: AxiosInstance
 }>(
   'data/sendReview',
-  async ({offerId, comment, rating}, {extra: api}) => {
-    const {data} = await api.post<ReviewType[]>(ApiRoute.reviews(offerId), {comment, rating});
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}), {comment, rating});
 
     return data;
   },
 );
 
-export const fetchOffersNearby = createAsyncThunk<OfferType[], number, {
+export const fetchOffersNearby = createAsyncThunk<OfferType[], string, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchOffersNearby',
-  async (offerId, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>(ApiRoute.fetchOffersNearby(offerId));
+  async (id, {extra: api}) => {
+    const {data} = await api.get<OfferType[]>(generatePath(ApiRoute.OffersNearby, {id}));
 
     return data;
   },
@@ -93,7 +94,7 @@ export const checkAuthAction = createAsyncThunk<UserDataType | undefined, undefi
   'user/checkAuth',
   async (_arg, {extra: api}) => {
     try {
-      const {data} = await api.get<UserDataType>(ApiRoute.login());
+      const {data} = await api.get<UserDataType>(ApiRoute.Login);
 
       return data;
     }
@@ -114,7 +115,7 @@ export const loginAction = createAsyncThunk<UserDataType | undefined, AuthDataTy
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.post<UserDataType>(ApiRoute.login(), {email, password});
+      const {data} = await api.post<UserDataType>(ApiRoute.Login, {email, password});
       saveToken(data.token);
       dispatch(redirectToRoute(AppRoute.Main));
       dispatch(changeCity(Cities.Paris));
@@ -138,7 +139,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {extra: api}) => {
     try {
-      await api.delete(ApiRoute.logout());
+      await api.delete(ApiRoute.Logout);
       dropToken();
     }
     catch {

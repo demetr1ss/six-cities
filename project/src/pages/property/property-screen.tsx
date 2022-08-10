@@ -15,7 +15,7 @@ import {
 import Review from 'components/reviews/reviews';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { convertRatingToPercent } from 'utils/utils';
-import { fetchPropertyAction,} from 'store/api-actions';
+import { fetchPropertyAction } from 'store/api-actions';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getOffer, getOfferLoadedStatus } from 'store/offer-data/selectors';
@@ -26,7 +26,7 @@ export default function PropertyScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPropertyAction(Number(params.id)));
+    dispatch(fetchPropertyAction(`${params.id}`));
   }, [dispatch, params.id]);
 
   const offer = useAppSelector(getOffer);

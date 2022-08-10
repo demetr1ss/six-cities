@@ -22,7 +22,7 @@ export default function Form(): JSX.Element {
 
     if (rating > 0 || (review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX)) {
       dispatch(sendReviewAction({
-        offerId: Number(params.id),
+        id: `${params.id}`,
         comment: review,
         rating
       }));

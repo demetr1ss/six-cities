@@ -103,13 +103,13 @@ export const SortingOptions = {
 } as const;
 
 export const ApiRoute = {
-  offers: () => '/hotels',
-  login: () => '/login',
-  logout: () => '/logout',
-  reviews: (offerId: number) => `/comments/${offerId}`,
-  fetchOfferById: (offerId: number) => `/hotels/${offerId}`,
-  fetchOffersNearby: (offerId: number) => `/hotels/${offerId}/nearby`,
-};
+  Offers: '/hotels',
+  Login:  '/login',
+  Logout:  '/logout',
+  Reviews: '/comments/:id',
+  Offer: '/hotels/:id',
+  OffersNearby: '/hotels/:id/nearby',
+} as const;
 
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
 
