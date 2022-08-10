@@ -1,23 +1,23 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
 import { toast } from 'react-toastify';
-import { Offer } from 'types/offer';
-import { Review } from 'types/review';
+import { OfferType } from 'types/offer';
+import { ReviewType } from 'types/review';
 
 export function convertRatingToPercent(rating: number): string {
   return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
 }
 
-export const sortOffersByAscendingPrice = (a: Offer, b: Offer) =>
+export const sortOffersByAscendingPrice = (a: OfferType, b: OfferType) =>
   a.price - b.price;
 
-export const sortOffersByDescendingPrice = (a: Offer, b: Offer) =>
+export const sortOffersByDescendingPrice = (a: OfferType, b: OfferType) =>
   b.price - a.price;
 
-export const sortOffersByRating = (a: Offer, b: Offer) =>
+export const sortOffersByRating = (a: OfferType, b: OfferType) =>
   b.rating - a.rating;
 
 
-export const sortOffers = (filteredOffers: Offer[], currentSortType: string) => {
+export const sortOffers = (filteredOffers: OfferType[], currentSortType: string) => {
   switch(currentSortType) {
     case SortingOptions.Default:
       return filteredOffers;
@@ -55,8 +55,8 @@ export const showNofity = (options: showNofityPropsType) => {
       break;
   }};
 
-export const sortReviewFromNewToOld = (reviews: Review[]) =>
-  reviews.sort((a: Review, b: Review) =>
+export const sortReviewFromNewToOld = (reviews: ReviewType[]) =>
+  reviews.sort((a: ReviewType, b: ReviewType) =>
     Date.parse(b.date) - Date.parse(a.date)
   );
 

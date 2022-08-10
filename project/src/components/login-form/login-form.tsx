@@ -5,15 +5,15 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { loginAction } from 'store/api-actions';
 import styles from './login-form.module.css';
 
-type FieldProps = {
+type FieldPropsType = {
   value: string,
   error: boolean,
   errorText: string,
   regex: RegExp;
 }
 
-type FormStateProps = {
-  [key: string]: FieldProps
+type FormStatePropsType = {
+  [key: string]: FieldPropsType
 }
 
 const Formfiedls = {
@@ -23,7 +23,7 @@ const Formfiedls = {
 
 export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [formState, setFormState] = useState<FormStateProps>({
+  const [formState, setFormState] = useState<FormStatePropsType>({
     email: {
       value: '',
       error: false,

@@ -1,4 +1,4 @@
-export type ReviewData = {
+export type ReviewDataType = {
   offerId: number;
   comment: string;
   rating: number;

@@ -1,15 +1,13 @@
 import Card from 'components/card/card';
-import { Offer } from 'types/offer';
 import { CardClassNames } from 'const/const';
-import { useAppDispatch } from 'hooks';
-import { setActiveCardOnMap } from 'store/action';
+import { OfferType } from 'types/offer';
 
-type OfferListProps = {
- offers: Offer[];
+type OfferListPropsType = {
+ offers: OfferType[];
+ setSelectedOfferId: (id: number) => void;
 }
 
-export default function OffersList({offers}: OfferListProps): JSX.Element {
-  const dispatch = useAppDispatch();
+export default function OffersList({offers, setSelectedOfferId}: OfferListPropsType): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -19,8 +17,8 @@ export default function OffersList({offers}: OfferListProps): JSX.Element {
             key={offer.id}
             className={CardClassNames.Sities}
             offer={offer}
-            onMouseOver={() => dispatch(setActiveCardOnMap(offer.id))}
-            onMouseOut={() => dispatch(setActiveCardOnMap(0))}
+            onMouseOver={() => setSelectedOfferId(offer.id)}
+            onMouseOut={() => setSelectedOfferId(0)}
           />
         )
       )}

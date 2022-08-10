@@ -4,12 +4,12 @@ import PremiumMark from 'components/premium-mark/premium-mark';
 import { AppRoute, CardClassNames, ImageSize, PremiumMarkClassNames } from 'const/const';
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Offer } from 'types/offer';
+import { OfferType } from 'types/offer';
 import { convertRatingToPercent } from 'utils/utils';
 import styles from './card.module.css';
 
-type CardProps = {
-  offer: Offer;
+type CardPropsType = {
+  offer: OfferType;
   className: string;
   onMouseOver?: () => void;
   onMouseOut?: () => void;
@@ -39,7 +39,7 @@ const setPageClass = (className: string): string => {
   return pageClass;
 };
 
-export default function Card ({offer, className, onMouseOver, onMouseOut, isSmall}: CardProps)
+export default function Card ({offer, className, onMouseOver, onMouseOut, isSmall}: CardPropsType)
 : JSX.Element {
   const {
     isPremium,

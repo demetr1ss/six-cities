@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
-import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { store } from 'store';
 import { checkAuthAction, fetchOffersAction } from 'store/api-actions';
-import 'react-toastify/dist/ReactToastify.css';
+import App from './components/app/app';
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());

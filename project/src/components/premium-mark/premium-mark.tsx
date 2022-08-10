@@ -1,8 +1,8 @@
-type PremiumMarkType = {
+type PremiumMarkPropsType = {
   premiumCardClassName: string;
 }
 
-export default function PremiumMark({premiumCardClassName}: PremiumMarkType): JSX.Element {
+export default function PremiumMark({premiumCardClassName}: PremiumMarkPropsType): JSX.Element {
   return (
     <div className={`${premiumCardClassName}__mark`}>
       <span>Premium</span>

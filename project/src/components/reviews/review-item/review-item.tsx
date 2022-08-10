@@ -1,12 +1,12 @@
 import ProMark from 'components/pro-mark/pro-mark';
-import { Review } from 'types/review';
+import { ReviewType } from 'types/review';
 import { convertRatingToPercent } from 'utils/utils';
 
-type ReviewItemType = {
-  review: Review
+type ReviewItemPropsType = {
+  review: ReviewType
 }
 
-export default function ReviewItem({review}: ReviewItemType) {
+export default function ReviewItem({review}: ReviewItemPropsType) {
   const {date, id, user, comment, rating} = review;
   const humanDate = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',

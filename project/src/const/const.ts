@@ -102,7 +102,7 @@ export const SortingOptions = {
   Rating: 'Top rated first'
 } as const;
 
-export const apiRoute = {
+export const ApiRoute = {
   offers: () => '/hotels',
   login: () => '/login',
   logout: () => '/logout',
@@ -114,3 +114,12 @@ export const apiRoute = {
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
 
 export const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[0-9]).+$/);
+
+export const NameSpace = {
+  App: 'APP',
+  User: 'USER',
+  Offers: 'OFFERS',
+  Offer: 'OFFER',
+  OffersNearby: 'OFFERS_NEARBY',
+  Reviews: 'REVIEWS',
+} as const;

@@ -1,58 +1,41 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { apiRoute, AppRoute, AuthorizationStatus } from 'const/const';
+import { ApiRoute, AppRoute, Cities } from 'const/const';
 import { dropToken, saveToken } from 'services/token';
-import { AuthData } from 'types/auth-data';
-import { Offer } from 'types/offer';
-import { Review } from 'types/review';
-import { ReviewData } from 'types/review-data';
-import { AppDispatch, State } from 'types/state';
-import { UserData } from 'types/user-data';
+import { AuthDataType } from 'types/auth-data';
+import { OfferType } from 'types/offer';
+import { ReviewType } from 'types/review';
+import { ReviewDataType } from 'types/review-data';
+import { AppDispatchType, StateType } from 'types/state';
+import { UserDataType } from 'types/user-data';
 import { showNofity } from 'utils/utils';
-import {
-  loadOffers,
-  loadOffersNearby,
-  loadProperty,
-  loadReviews,
-  redirectToRoute,
-  requireAuthorization,
-  setOfferLoadedStatus,
-  setOffersLoadedStatus,
-  setUserEmail
-} from './action';
+import { redirectToRoute } from './action';
+import { changeCity } from './app-process/app-process';
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
+export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      dispatch(setOffersLoadedStatus(true));
-      const {data} = await api.get<Offer[]>(apiRoute.offers());
-      dispatch(loadOffers(data));
-      dispatch(setOffersLoadedStatus(false));
-    } catch {
-      showNofity({type: 'error', message: 'Failed to get offers'});
-    }
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferType[]>(ApiRoute.offers());
+    return data;
   },
 );
 
-export const fetchPropertyAction = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
+export const fetchPropertyAction = createAsyncThunk<OfferType | undefined, number, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchProperty',
   async (offerId, {dispatch, extra: api}) => {
     try {
-      dispatch(setOfferLoadedStatus(true));
-      const {data} = await api.get<Offer>(apiRoute.fetchOfferById(offerId));
-      dispatch(loadProperty(data));
-      dispatch(setOfferLoadedStatus(false));
+      const {data} = await api.get<OfferType>(ApiRoute.fetchOfferById(offerId));
       dispatch(fetchReviewsAction(Number(offerId)));
       dispatch(fetchOffersNearby(Number(offerId)));
+      return data;
     } catch {
       showNofity({
         type: 'error',
@@ -63,113 +46,106 @@ export const fetchPropertyAction = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
+export const fetchReviewsAction = createAsyncThunk<ReviewType[], number, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchReviews',
-  async (offerId, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<Review[]>(apiRoute.reviews(offerId));
-      dispatch(loadReviews(data));
-    } catch {
-      showNofity({
-        type: 'error',
-        message: 'Failed to get reviews',
-      });
-    }
-  },
+  async (offerId, {extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(ApiRoute.reviews(offerId));
+
+    return data;
+  }
 );
 
-export const sendReviewAction = createAsyncThunk<void, ReviewData, {
-  dispatch: AppDispatch,
-  state: State,
+export const sendReviewAction = createAsyncThunk<ReviewType[], ReviewDataType, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'data/sendReview',
-  async ({offerId, comment, rating}, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.post<Review[]>(apiRoute.reviews(offerId), {comment, rating});
-      dispatch(loadReviews(data));
-    } catch {
-      showNofity({
-        type: 'error',
-        message: 'Failed to send a review',
-      });
-    }
+  async ({offerId, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<ReviewType[]>(ApiRoute.reviews(offerId), {comment, rating});
+
+    return data;
   },
 );
 
-export const fetchOffersNearby = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
+export const fetchOffersNearby = createAsyncThunk<OfferType[], number, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'data/fetchOffersNearby',
-  async (offerId, {dispatch, extra: api}) => {
+  async (offerId, {extra: api}) => {
+    const {data} = await api.get<OfferType[]>(ApiRoute.fetchOffersNearby(offerId));
+
+    return data;
+  },
+);
+
+export const checkAuthAction = createAsyncThunk<UserDataType | undefined, undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstance
+}>(
+  'user/checkAuth',
+  async (_arg, {extra: api}) => {
     try {
-      const {data} = await api.get<Offer[]>(apiRoute.fetchOffersNearby(offerId));
-      dispatch(loadOffersNearby(data));
-    } catch {
+      const {data} = await api.get<UserDataType>(ApiRoute.login());
+
+      return data;
+    }
+    catch {
       showNofity({
         type: 'error',
-        message: 'Failed to get offers nearby'
+        message: 'Authentication check failed'
       });
     }
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get(apiRoute.login());
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(setUserEmail(data.email));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
-  },
-);
-
-export const loginAction = createAsyncThunk<void, AuthData, {
-  dispatch: AppDispatch,
-  state: State,
+export const loginAction = createAsyncThunk<UserDataType | undefined, AuthDataType, {
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.post<UserData>(apiRoute.login(), {email, password});
+      const {data} = await api.post<UserDataType>(ApiRoute.login(), {email, password});
       saveToken(data.token);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(setUserEmail(data.email));
       dispatch(redirectToRoute(AppRoute.Main));
-    } catch {
-      showNofity({type: 'error', message: 'Failed login'});
+      dispatch(changeCity(Cities.Paris));
+
+      return data;
+    }
+    catch {
+      showNofity({
+        type: 'error',
+        message: 'Failed login'
+      });
     }
   },
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
+  dispatch: AppDispatchType,
+  state: StateType,
   extra: AxiosInstance
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {extra: api}) => {
     try {
-      await api.delete(apiRoute.logout());
+      await api.delete(ApiRoute.logout());
       dropToken();
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-      dispatch(setUserEmail(null));
-    } catch {
-      showNofity({type: 'error', message: 'Failed logout'});
+    }
+    catch {
+      showNofity({
+        type: 'error',
+        message: 'Failed logout'
+      });
     }
   },
 );

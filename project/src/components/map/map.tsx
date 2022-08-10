@@ -1,15 +1,15 @@
-import useMap from 'hooks/use-map';
 import { URL_MARKER_ACTIVE, URL_MARKER_DEFAULT } from 'const/const';
-import { useEffect, useRef } from 'react';
+import useMap from 'hooks/use-map';
 import { Icon, Marker } from 'leaflet';
-import { City, Offer } from '../../types/offer';
-import { useAppSelector } from 'hooks';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef } from 'react';
+import { CityType, OfferType } from '../../types/offer';
 
-type MapProps = {
-  city: City,
-  offers: Offer[],
+type MapPropsType = {
+  city: CityType,
+  offers: OfferType[],
   mapClassName: string;
+  selectedOfferId: number;
 }
 
 const defaultCustomIcon = new Icon({
@@ -25,11 +25,10 @@ const activeCustomIcon = new Icon({
 });
 
 
-export default function Map({city, offers, mapClassName}: MapProps)
+export default function Map({city, offers, mapClassName, selectedOfferId}: MapPropsType)
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const selectedOfferId = useAppSelector((state) => state.activeCardId);
 
   useEffect(() => {
     if (map) {

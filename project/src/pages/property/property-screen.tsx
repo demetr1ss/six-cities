@@ -12,13 +12,14 @@ import {
   MapClassNames,
   PremiumMarkClassNames,
 } from 'const/const';
+import Review from 'components/reviews/reviews';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { convertRatingToPercent } from 'utils/utils';
-import { setActiveCardOnMap } from 'store/action';
 import { fetchPropertyAction,} from 'store/api-actions';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import Review from 'components/reviews/reviews';
+import { useEffect, useState } from 'react';
+import { getOffer, getOfferLoadedStatus } from 'store/offer-data/selectors';
+import { getOffersNearby } from 'store/offers-nearby-data/selectors';
 
 export default function PropertyScreen(): JSX.Element {
   const params = useParams();
@@ -28,9 +29,11 @@ export default function PropertyScreen(): JSX.Element {
     dispatch(fetchPropertyAction(Number(params.id)));
   }, [dispatch, params.id]);
 
-  const offer = useAppSelector((state) => state.offer);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isOfferLoaded = useAppSelector((state) => state.isOfferLoaded);
+  const offer = useAppSelector(getOffer);
+  const nearOffers = useAppSelector(getOffersNearby);
+  const isOfferLoaded = useAppSelector(getOfferLoadedStatus);
+
+  const [selectedOfferId, setSelectedOfferId] = useState(0);
 
   if (isOfferLoaded || !offer) {
     return (
@@ -139,7 +142,7 @@ export default function PropertyScreen(): JSX.Element {
               <Review />
             </div>
           </div>
-          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY}/>
+          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY} selectedOfferId={selectedOfferId}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -151,8 +154,8 @@ export default function PropertyScreen(): JSX.Element {
                     key={nearOffer?.id}
                     className={CardClassNames.NearPlaces}
                     offer={nearOffer}
-                    onMouseOver={() => dispatch(setActiveCardOnMap(nearOffer?.id))}
-                    onMouseOut={() => dispatch(setActiveCardOnMap(0))}
+                    onMouseOver={() => setSelectedOfferId(nearOffer?.id)}
+                    onMouseOut={() => setSelectedOfferId(0)}
                   />
                 ))}
             </div>

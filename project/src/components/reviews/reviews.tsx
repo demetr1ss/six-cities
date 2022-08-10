@@ -2,9 +2,10 @@ import Form from './form/form';
 import ReviewsList from './reviews-list/reviews-list';
 import { AuthorizationStatus } from 'const/const';
 import { useAppSelector } from 'hooks';
+import { getAuthorizationStatus } from 'store/user-process/selectors';
 
 export default function Review() {
-  const userAuthStatus = useAppSelector((state) => state.authorizationStatus);
+  const userAuthStatus = useAppSelector(getAuthorizationStatus);
   const isUserAuth = userAuthStatus === AuthorizationStatus.Auth;
 
   return (

@@ -7,12 +7,18 @@ import OffersList from 'components/offers-list/offers-list';
 import Sorting from 'components/sorting/sorting';
 import { MapClassNames } from 'const/const';
 import { useAppSelector } from 'hooks';
+import { useState } from 'react';
+import { getCity, getSortType } from 'store/app-process/selectors';
+import { getOffers } from 'store/offers-data/selectors';
 import { sortOffers } from 'utils/utils';
 
 export default function MainScreen(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
+  const currentSortType = useAppSelector(getSortType);
+
+  const [selectedOfferId, setSelectedOfferId] = useState(0);
+
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   const sortedOffers = sortOffers(filteredOffers, currentSortType);
 
@@ -32,10 +38,15 @@ export default function MainScreen(): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{`${filteredOffers.length} places to stay in ${city}`}</b>
                   <Sorting />
-                  <OffersList offers={sortedOffers}/>
+                  <OffersList offers={sortedOffers} setSelectedOfferId={setSelectedOfferId}/>
                 </section>
                 <div className="cities__right-section">
-                  <Map city={filteredOffers[0].city} offers={filteredOffers} mapClassName={MapClassNames.CITIES}/>
+                  <Map
+                    city={filteredOffers[0].city}
+                    offers={filteredOffers}
+                    mapClassName={MapClassNames.CITIES}
+                    selectedOfferId={selectedOfferId}
+                  />
                 </div>
               </div>
             )

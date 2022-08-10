@@ -2,9 +2,10 @@ import ReviewItem from '../review-item/review-item';
 import { useAppSelector } from 'hooks';
 import { sortReviewFromNewToOld } from 'utils/utils';
 import { MAX_REVIEWS } from 'const/const';
+import { getReviews } from 'store/reviews-data/selectors';
 
 export default function ReviewsList(): JSX.Element {
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
   const sortedReviews = sortReviewFromNewToOld([...reviews]);
 
   return(

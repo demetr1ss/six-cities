@@ -11,12 +11,15 @@ import MainScreen from 'pages/main/main-screen';
 import NotFoundScreen from 'pages/not-found/not-found-screen';
 import PropertyScreen from 'pages/property/property-screen';
 import { Route, Routes } from 'react-router-dom';
+import { getOffersDataLoadedStatus } from 'store/offers-data/selectors';
+import { getAuthorizationStatus } from 'store/user-process/selectors';
 
 const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
 export default function App(): JSX.Element {
-  const {authorizationStatus, isOffersLoaded} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersLoaded = useAppSelector(getOffersDataLoadedStatus);
 
   if (isCheckedAuth(authorizationStatus) || isOffersLoaded) {
     return (
