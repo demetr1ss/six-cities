@@ -33,6 +33,5 @@ export type ReviewsDataType = {
 
 export type AppProcessType = {
   city: string;
-  activeCardId: number;
   sortType: string;
 }

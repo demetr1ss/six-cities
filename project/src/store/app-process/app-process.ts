@@ -4,7 +4,6 @@ import { AppProcessType } from 'types/state';
 
 const initialState: AppProcessType = {
   city: Cities.Paris,
-  activeCardId: 0,
   sortType: SortingOptions.Default,
 };
 
