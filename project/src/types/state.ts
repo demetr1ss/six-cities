@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from 'const/const';
+import { AuthorizationStatus, LoadingStatus } from 'const/const';
 import { store } from 'store';
 import { OfferType } from './offer';
 import { ReviewType } from './review';
@@ -14,12 +14,12 @@ export type UserProcessType = {
 
 export type OffersDataType = {
   offers: OfferType[];
-  isOffersLoaded: boolean;
+  offersLoadingStatus: LoadingStatus;
 };
 
 export type OfferDataType = {
   offer?: OfferType;
-  isOfferLoaded: boolean;
+  offerLoadingStatus: LoadingStatus;
 };
 
 export type OffersNearbyDataType = {
@@ -28,7 +28,7 @@ export type OffersNearbyDataType = {
 
 export type ReviewsDataType = {
   reviews: ReviewType[];
-  isReviewSending: boolean;
+  reviewSendingStatus: LoadingStatus;
 };
 
 export type AppProcessType = {

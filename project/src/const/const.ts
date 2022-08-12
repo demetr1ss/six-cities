@@ -31,6 +31,13 @@ export const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const enum LoadingStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Fulfilled = 'FULFILLED',
+  Rejected = 'REJECTED',
+}
+
 export const CardClassNames = {
   Sities: 'cities__card  place-card',
   Favorites: 'favorites__card place-card',

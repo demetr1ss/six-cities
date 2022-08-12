@@ -22,11 +22,11 @@ export const sortOffers = (filteredOffers: OfferType[], currentSortType: string)
     case SortingOptions.Default:
       return filteredOffers;
     case SortingOptions.AscendingPrice:
-      return filteredOffers.sort(sortOffersByAscendingPrice);
+      return filteredOffers.slice().sort(sortOffersByAscendingPrice);
     case SortingOptions.DescendingPrice:
-      return filteredOffers.sort(sortOffersByDescendingPrice);
+      return filteredOffers.slice().sort(sortOffersByDescendingPrice);
     case SortingOptions.Rating:
-      return filteredOffers.sort(sortOffersByRating);
+      return filteredOffers.slice().sort(sortOffersByRating);
     default:
       throw new Error(`${currentSortType} not exist`);
   }

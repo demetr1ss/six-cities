@@ -1,25 +1,20 @@
 import Card from 'components/card/card';
 import FavoriteButton from 'components/favorite-button/favorite-button';
 import Header from 'components/header/header';
+import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import ProMark from 'components/pro-mark/pro-mark';
-import Navigation from 'components/header/navigation';
-import LoadingScreen from 'pages/loading-screen/loading-screen';
-import {
-  CardClassNames,
-  LIMIT_IMAGE,
-  MapClassNames,
-  PremiumMarkClassNames,
-} from 'const/const';
 import Review from 'components/reviews/reviews';
+import { CardClassNames, LIMIT_IMAGE, LoadingStatus, MapClassNames, PremiumMarkClassNames } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { convertRatingToPercent } from 'utils/utils';
-import { fetchPropertyAction } from 'store/api-actions';
-import { useParams } from 'react-router-dom';
+import LoadingScreen from 'pages/loading-screen/loading-screen';
 import { useEffect, useState } from 'react';
-import { getOffer, getOfferLoadedStatus } from 'store/offer-data/selectors';
+import { useParams } from 'react-router-dom';
+import { fetchPropertyAction } from 'store/api-actions';
+import { getOffer, getOfferLoadingStatus } from 'store/offer-data/selectors';
 import { getOffersNearby } from 'store/offers-nearby-data/selectors';
+import { convertRatingToPercent } from 'utils/utils';
 
 export default function PropertyScreen(): JSX.Element {
   const params = useParams();
@@ -31,11 +26,15 @@ export default function PropertyScreen(): JSX.Element {
 
   const offer = useAppSelector(getOffer);
   const nearOffers = useAppSelector(getOffersNearby);
-  const isOfferLoaded = useAppSelector(getOfferLoadedStatus);
+  const offerLoadingStatus = useAppSelector(getOfferLoadingStatus);
 
   const [selectedOfferId, setSelectedOfferId] = useState(0);
 
-  if (isOfferLoaded || !offer) {
+  if (
+    offerLoadingStatus === LoadingStatus.Idle ||
+    offerLoadingStatus === LoadingStatus.Pending ||
+    !offer
+  ) {
     return (
       <LoadingScreen />
     );

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from 'const/const';
+import { LoadingStatus, NameSpace } from 'const/const';
 import { fetchReviewsAction, sendReviewAction } from 'store/api-actions';
 import { ReviewsDataType } from 'types/state';
 
 const initialState: ReviewsDataType = {
   reviews: [],
-  isReviewSending: false,
+  reviewSendingStatus: LoadingStatus.Idle,
 };
 
 export const reviewsData = createSlice({
@@ -21,13 +21,13 @@ export const reviewsData = createSlice({
         state.reviews = [];
       })
       .addCase(sendReviewAction.pending, (state) => {
-        state.isReviewSending = true;
+        state.reviewSendingStatus = LoadingStatus.Pending;
       })
       .addCase(sendReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
-        state.isReviewSending = false;
+        state.reviewSendingStatus = LoadingStatus.Fulfilled;
       })
       .addCase(sendReviewAction.rejected, (state) => {
-        state.isReviewSending = false;
+        state.reviewSendingStatus = LoadingStatus.Rejected;
       });
   }});

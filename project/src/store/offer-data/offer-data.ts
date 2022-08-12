@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from 'const/const';
+import { NameSpace, LoadingStatus } from 'const/const';
 import { fetchPropertyAction } from 'store/api-actions';
 import { OfferDataType } from 'types/state';
 
 const initialState: OfferDataType = {
-  isOfferLoaded: false,
+  offerLoadingStatus: LoadingStatus.Idle
 };
 
 export const offerData = createSlice({
@@ -14,13 +14,13 @@ export const offerData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchPropertyAction.pending, (state) => {
-        state.isOfferLoaded = true;
+        state.offerLoadingStatus = LoadingStatus.Pending;
       })
       .addCase(fetchPropertyAction.fulfilled, (state, action) => {
         state.offer = action.payload;
-        state.isOfferLoaded = false;
+        state.offerLoadingStatus = LoadingStatus.Fulfilled;
       })
       .addCase(fetchPropertyAction.rejected, (state) => {
-        state.isOfferLoaded = false;
+        state.offerLoadingStatus = LoadingStatus.Rejected;
       });
   }});
