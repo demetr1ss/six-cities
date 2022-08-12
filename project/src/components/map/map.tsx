@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import useMap from 'hooks/use-map';
 import { URL_MARKER_ACTIVE, URL_MARKER_DEFAULT } from 'const/const';
 import { Icon, Marker } from 'leaflet';
@@ -29,21 +30,25 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  console.count('component Map');
 
   useEffect(() => {
     if (map) {
+      map.eachLayer((layer) => {
+        if (layer instanceof Marker){
+          map.removeLayer(layer);
+        }
+      });
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
 
-        if (offer.id === selectedOfferId) {
-          marker.setIcon(activeCustomIcon);
-        } else {
-          marker.setIcon(defaultCustomIcon);
-        }
-        marker.addTo(map);
+        marker
+          .setIcon(offer.id === selectedOfferId ? activeCustomIcon : defaultCustomIcon)
+          .addTo(map);
       });
     }
   }, [map, offers, selectedOfferId]);
