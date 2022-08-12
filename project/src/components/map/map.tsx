@@ -1,15 +1,16 @@
+/* eslint-disable no-console */
 import useMap from 'hooks/use-map';
 import { URL_MARKER_ACTIVE, URL_MARKER_DEFAULT } from 'const/const';
-import { useEffect, useRef } from 'react';
 import { Icon, Marker } from 'leaflet';
-import { City, Offer } from '../../types/offer';
-import { useAppSelector } from 'hooks';
+import { useEffect, useRef } from 'react';
+import { CityType, OfferType } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
-type MapProps = {
-  city: City,
-  offers: Offer[],
+type MapPropsType = {
+  city: CityType,
+  offers: OfferType[],
   mapClassName: string;
+  selectedOfferId: number;
 }
 
 const defaultCustomIcon = new Icon({
@@ -25,26 +26,29 @@ const activeCustomIcon = new Icon({
 });
 
 
-export default function Map({city, offers, mapClassName}: MapProps)
+export default function Map({city, offers, mapClassName, selectedOfferId}: MapPropsType)
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const selectedOfferId = useAppSelector((state) => state.activeCardId);
+  console.count('component Map');
 
   useEffect(() => {
     if (map) {
+      map.eachLayer((layer) => {
+        if (layer instanceof Marker){
+          map.removeLayer(layer);
+        }
+      });
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
         });
 
-        if (offer.id === selectedOfferId) {
-          marker.setIcon(activeCustomIcon);
-        } else {
-          marker.setIcon(defaultCustomIcon);
-        }
-        marker.addTo(map);
+        marker
+          .setIcon(offer.id === selectedOfferId ? activeCustomIcon : defaultCustomIcon)
+          .addTo(map);
       });
     }
   }, [map, offers, selectedOfferId]);

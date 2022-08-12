@@ -1,11 +1,11 @@
 import { TileLayerSettings } from 'const/const';
 import { Map, TileLayer } from 'leaflet';
-import { MutableRefObject, useEffect, useState, useRef } from 'react';
-import { City } from 'types/offer';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { CityType } from 'types/offer';
 
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City
+  city: CityType
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);

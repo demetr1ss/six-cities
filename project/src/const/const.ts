@@ -15,14 +15,14 @@ export const TileLayerSettings = {
   Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
 OpenStreetMap</a> contributors &copy; <a href="https://www.jawg.io" target=_blank>Jawg</a>`,
   accessToken: 'Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd'
-} as const;
+};
 
 export const enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer/:id',
-  NotFound = '/*',
+  NotFound = '*',
 }
 
 export const enum AuthorizationStatus {
@@ -31,15 +31,17 @@ export const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const enum LoadingStatus {
+  Idle = 'IDLE',
+  Pending = 'PENDING',
+  Fulfilled = 'FULFILLED',
+  Rejected = 'REJECTED',
+}
+
 export const CardClassNames = {
   Sities: 'cities__card  place-card',
   Favorites: 'favorites__card place-card',
   NearPlaces: 'near-places__card place-card'
-} as const;
-
-export const HumanDateOptions = {
-  year: 'numeric',
-  month: 'long'
 } as const;
 
 type RatingTitlesType = {
@@ -57,22 +59,22 @@ export const RatingTitles: RatingTitlesType = {
 export const rating = Object.keys(RatingTitles).reverse().map(Number);
 
 export const FavoriteIconSizes = {
-  big: {
+  BIG: {
     width: 31,
     height: 33
   },
-  small: {
+  SMALL: {
     width: 18,
     height: 19
   }
 } as const;
 
 export const ImageSize = {
-  big: {
+  BIG: {
     width: 260,
     height: 200
   },
-  small: {
+  SMALL: {
     width: 150,
     height: 100
   }
@@ -107,29 +109,24 @@ export const SortingOptions = {
   Rating: 'Top rated first'
 } as const;
 
-export const APIRoute = {
+export const ApiRoute = {
   Offers: '/hotels',
-  Login: '/login',
-  Logout: '/logout',
-
-  fetchReviews(offerId: number) {
-    return (`/comments/${offerId}`);
-  },
-
-  fetchOfferById(offerId: number) {
-    return (`${this.Offers}/${offerId}`);
-  },
-
-  fetchOffersNearby(offerId: number) {
-    return (`${this.Offers}/${offerId}/nearby`);
-  },
-} as const;
-
-export const formFiedls = {
-  email: 'E-mail',
-  password: 'password'
+  Login:  '/login',
+  Logout:  '/logout',
+  Reviews: '/comments/:id',
+  Offer: '/hotels/:id',
+  OffersNearby: '/hotels/:id/nearby',
 } as const;
 
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
 
 export const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[0-9]).+$/);
+
+export const NameSpace = {
+  App: 'APP',
+  User: 'USER',
+  Offers: 'OFFERS',
+  Offer: 'OFFER',
+  OffersNearby: 'OFFERS_NEARBY',
+  Reviews: 'REVIEWS',
+} as const;

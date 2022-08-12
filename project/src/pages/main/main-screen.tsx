@@ -7,14 +7,17 @@ import OffersList from 'components/offers-list/offers-list';
 import Sorting from 'components/sorting/sorting';
 import { MapClassNames } from 'const/const';
 import { useAppSelector } from 'hooks';
-import { sortOffers } from 'utils/utils';
+import { useState } from 'react';
+import { getCity, } from 'store/app-process/selectors';
+import { selectFilteredOffers, selectSortedOffers } from 'store/offers-data/selectors';
 
 export default function MainScreen(): JSX.Element {
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const currentSortType = useAppSelector((state) => state.sortType);
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
-  const sortedOffers = sortOffers(filteredOffers, currentSortType);
+  const combineState = useAppSelector((state) => state);
+  const city = useAppSelector(getCity);
+  const filteredOffers = selectFilteredOffers(combineState);
+  const sortedOffers = selectSortedOffers(combineState);
+
+  const [selectedOfferId, setSelectedOfferId] = useState(0);
 
   return (
     <div className="page page--gray page--main">
@@ -30,12 +33,22 @@ export default function MainScreen(): JSX.Element {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{`${filteredOffers.length} places to stay in ${city}`}</b>
+                  <b className="places__found">
+                    {`${filteredOffers.length} places to stay in ${city}`}
+                  </b>
                   <Sorting />
-                  <OffersList offers={sortedOffers}/>
+                  <OffersList
+                    offers={sortedOffers}
+                    setSelectedOfferId={setSelectedOfferId}
+                  />
                 </section>
                 <div className="cities__right-section">
-                  <Map city={filteredOffers[0].city} offers={filteredOffers} mapClassName={MapClassNames.CITIES}/>
+                  <Map
+                    city={filteredOffers[0].city}
+                    offers={filteredOffers}
+                    mapClassName={MapClassNames.CITIES}
+                    selectedOfferId={selectedOfferId}
+                  />
                 </div>
               </div>
             )

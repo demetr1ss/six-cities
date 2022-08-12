@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import { Cities } from 'const/const';
 import { useAppDispatch } from 'hooks';
-import { changeCity } from 'store/action';
+import { changeCity } from 'store/app-process/app-process';
 
-type LocationsType = {
+type LocationsPropsType = {
   activeCity: string;
 }
 
-export default function Locations({activeCity}: LocationsType): JSX.Element {
+export default function Locations({activeCity}: LocationsPropsType): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (

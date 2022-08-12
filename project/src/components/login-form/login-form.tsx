@@ -1,24 +1,29 @@
 import cn from 'classnames';
-import styles from './login-form.module.css';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { formFiedls, emailRegExp, passwordRegExp } from 'const/const';
-import { loginAction } from 'store/api-actions';
+import { emailRegExp, passwordRegExp } from 'const/const';
 import { useAppDispatch } from 'hooks';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { loginAction } from 'store/api-actions';
+import styles from './login-form.module.css';
 
-type FieldProps = {
+type FieldPropsType = {
   value: string,
   error: boolean,
   errorText: string,
   regex: RegExp;
 }
 
-type FormStateProps = {
-  [key: string]: FieldProps
+type FormStatePropsType = {
+  [key: string]: FieldPropsType
 }
+
+const Formfiedls = {
+  email: 'E-mail',
+  password: 'password'
+} as const;
 
 export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [formState, setFormState] = useState<FormStateProps>({
+  const [formState, setFormState] = useState<FormStatePropsType>({
     email: {
       value: '',
       error: false,
@@ -67,7 +72,7 @@ export default function LoginForm(): JSX.Element {
     <section className="login">
       <h1 className="login__title">Sign in</h1>
       <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
-        {Object.entries(formFiedls).map(([name, label]) => {
+        {Object.entries(Formfiedls).map(([name, label]) => {
           const inputClassName = cn('login__input form__input', {
             [styles.error]: formState[name].error
           });

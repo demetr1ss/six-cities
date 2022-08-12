@@ -1,12 +1,12 @@
 import { rating, RatingTitles } from 'const/const';
 import { ChangeEvent, Fragment } from 'react';
 
-type RatingFormProps = {
+type RatingFormPropsType = {
   onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
   activeRating: number;
 }
 
-export default function RatingForm({onChange, activeRating}: RatingFormProps) {
+export default function RatingForm({onChange, activeRating}: RatingFormPropsType) {
   return(
     <div className="reviews__rating-form form__rating">
       {rating.map((item) => {

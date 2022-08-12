@@ -1,15 +1,15 @@
 import cn from 'classnames';
 import { FavoriteIconSizes } from 'const/const';
 
-type FavoriteButtonType = {
+type FavoriteButtonPropsType = {
   isFavorite: boolean;
   isBig?: boolean;
 }
 
-export default function FavoriteButton({isFavorite, isBig}: FavoriteButtonType): JSX.Element {
+export default function FavoriteButton({isFavorite, isBig}: FavoriteButtonPropsType): JSX.Element {
   const favoriteIconSize = isBig
-    ? FavoriteIconSizes.big
-    : FavoriteIconSizes.small;
+    ? FavoriteIconSizes.BIG
+    : FavoriteIconSizes.SMALL;
 
   const bookMarkClassName = cn({
     'property__bookmark-button': isBig,

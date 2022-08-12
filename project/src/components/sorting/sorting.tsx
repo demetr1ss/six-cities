@@ -3,7 +3,8 @@ import ClickAwayListener from 'react-click-away-listener';
 import { SortingOptions } from 'const/const';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { sorting } from 'store/action';
+import { sorting } from 'store/app-process/app-process';
+import { getSortType } from 'store/app-process/selectors';
 
 export default function Sorting(): JSX.Element {
   const [isOpen, setOpenStatus] = useState(false);
@@ -18,7 +19,7 @@ export default function Sorting(): JSX.Element {
   };
 
   const dispatch = useAppDispatch();
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const currentSortType = useAppSelector(getSortType);
 
   return (
     <ClickAwayListener onClickAway={() => setOpenStatus(false)}>

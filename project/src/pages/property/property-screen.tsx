@@ -1,38 +1,40 @@
 import Card from 'components/card/card';
 import FavoriteButton from 'components/favorite-button/favorite-button';
 import Header from 'components/header/header';
+import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import ProMark from 'components/pro-mark/pro-mark';
-import Navigation from 'components/header/navigation';
-import LoadingScreen from 'pages/loading-screen/loading-screen';
-import {
-  CardClassNames,
-  LIMIT_IMAGE,
-  MapClassNames,
-  PremiumMarkClassNames,
-} from 'const/const';
-import { useAppDispatch, useAppSelector } from 'hooks';
-import { convertRatingToPercent } from 'utils/utils';
-import { setActiveCardOnMap } from 'store/action';
-import { fetchPropertyAction,} from 'store/api-actions';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import Review from 'components/reviews/reviews';
+import { CardClassNames, LIMIT_IMAGE, LoadingStatus, MapClassNames, PremiumMarkClassNames } from 'const/const';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import LoadingScreen from 'pages/loading-screen/loading-screen';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchPropertyAction } from 'store/api-actions';
+import { getOffer, getOfferLoadingStatus } from 'store/offer-data/selectors';
+import { getOffersNearby } from 'store/offers-nearby-data/selectors';
+import { convertRatingToPercent } from 'utils/utils';
 
 export default function PropertyScreen(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPropertyAction(Number(params.id)));
+    dispatch(fetchPropertyAction(`${params.id}`));
   }, [dispatch, params.id]);
 
-  const offer = useAppSelector((state) => state.offer);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isOfferLoaded = useAppSelector((state) => state.isOfferLoaded);
+  const offer = useAppSelector(getOffer);
+  const nearOffers = useAppSelector(getOffersNearby);
+  const offerLoadingStatus = useAppSelector(getOfferLoadingStatus);
 
-  if (isOfferLoaded || !offer) {
+  const [selectedOfferId, setSelectedOfferId] = useState(0);
+
+  if (
+    offerLoadingStatus === LoadingStatus.Idle ||
+    offerLoadingStatus === LoadingStatus.Pending ||
+    !offer
+  ) {
     return (
       <LoadingScreen />
     );
@@ -139,7 +141,7 @@ export default function PropertyScreen(): JSX.Element {
               <Review />
             </div>
           </div>
-          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY}/>
+          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY} selectedOfferId={selectedOfferId}/>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -151,8 +153,8 @@ export default function PropertyScreen(): JSX.Element {
                     key={nearOffer?.id}
                     className={CardClassNames.NearPlaces}
                     offer={nearOffer}
-                    onMouseOver={() => dispatch(setActiveCardOnMap(nearOffer?.id))}
-                    onMouseOut={() => dispatch(setActiveCardOnMap(0))}
+                    onMouseOver={() => setSelectedOfferId(nearOffer?.id)}
+                    onMouseOut={() => setSelectedOfferId(0)}
                   />
                 ))}
             </div>

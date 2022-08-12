@@ -1,5 +1,5 @@
-export type ReviewData = {
-  offerId: number;
+export type ReviewDataType = {
+  id: string;
   comment: string;
   rating: number;
 };

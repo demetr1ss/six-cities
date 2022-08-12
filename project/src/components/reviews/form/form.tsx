@@ -1,12 +1,14 @@
-import { ReviewLength } from 'const/const';
-import { useAppDispatch } from 'hooks';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { LoadingStatus, ReviewLength } from 'const/const';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { sendReviewAction } from 'store/api-actions';
+import { getReviewSendingStatus } from 'store/reviews-data/selectors';
 import RatingForm from '../rating-form/rating-form';
 import styles from './form.module.css';
 
 export default function Form(): JSX.Element {
+  const sendingStatus = useAppSelector(getReviewSendingStatus);
   const [comment, setComment] = useState({
     rating: 0,
     review: ''
@@ -14,22 +16,27 @@ export default function Form(): JSX.Element {
 
   const {rating, review} = comment;
 
+  useEffect(() => {
+    if (sendingStatus === LoadingStatus.Fulfilled) {
+      setComment({
+        rating: 0,
+        review: ''
+      });
+    }
+  }, [sendingStatus]);
+
   const dispatch = useAppDispatch();
   const params = useParams();
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating > 0 || review.length >= 50) {
+    if (rating > 0 || (review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX)) {
       dispatch(sendReviewAction({
-        offerId: Number(params.id),
+        id: `${params.id}`,
         comment: review,
         rating
       }));
-      setComment({
-        rating: 0,
-        review: ''
-      });
     }
   };
 
