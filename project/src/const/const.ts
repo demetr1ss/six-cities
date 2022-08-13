@@ -116,6 +116,8 @@ export const ApiRoute = {
   Reviews: '/comments/:id',
   Offer: '/hotels/:id',
   OffersNearby: '/hotels/:id/nearby',
+  Favorites: '/favorite',
+  FavoriteStatus: '/favorite/:id/:status'
 } as const;
 
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
@@ -128,5 +130,6 @@ export const NameSpace = {
   Offers: 'OFFERS',
   Offer: 'OFFER',
   OffersNearby: 'OFFERS_NEARBY',
+  FavoriteOffers: 'FAVORITE_OFFERS',
   Reviews: 'REVIEWS',
 } as const;

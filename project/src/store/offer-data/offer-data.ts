@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, LoadingStatus } from 'const/const';
-import { fetchPropertyAction } from 'store/api-actions';
-import { OfferDataType } from 'types/state';
+import { changeFavoriteStatusAction, fetchPropertyAction } from 'store/api-actions';
+import { OfferDataType } from 'types/state-type';
 
 const initialState: OfferDataType = {
-  offerLoadingStatus: LoadingStatus.Idle
+  offerLoadingStatus: LoadingStatus.Idle,
 };
 
 export const offerData = createSlice({
@@ -22,5 +22,8 @@ export const offerData = createSlice({
       })
       .addCase(fetchPropertyAction.rejected, (state) => {
         state.offerLoadingStatus = LoadingStatus.Rejected;
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
+        state.offer = action.payload;
       });
   }});

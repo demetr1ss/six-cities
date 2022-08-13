@@ -52,7 +52,8 @@ export default function PropertyScreen(): JSX.Element {
     rating,
     title,
     type,
-    images
+    images,
+    id
   } = offer;
 
   return(
@@ -80,7 +81,7 @@ export default function PropertyScreen(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <FavoriteButton isFavorite={isFavorite} isBig />
+                <FavoriteButton isFavorite={isFavorite} isBig id={id}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

@@ -1,6 +1,6 @@
 import { LoadingStatus, NameSpace } from 'const/const';
-import { ReviewType } from 'types/review';
-import { StateType } from 'types/state';
+import { ReviewType } from 'types/review-type';
+import { StateType } from 'types/state-type';
 
 export const getReviews = (state: StateType): ReviewType[] =>
   state[NameSpace.Reviews].reviews;

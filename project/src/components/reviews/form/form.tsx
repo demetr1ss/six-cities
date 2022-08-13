@@ -16,16 +16,32 @@ export default function Form(): JSX.Element {
     review: ''
   });
 
+  const [isFormDisabled, setFormDisabled] = useState(false);
+
   const {rating, review} = comment;
 
-  const isFormValid = !!rating || (review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX);
+  const isFormValid = rating > 0 && review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX;
 
   useEffect(() => {
-    if (sendingStatus === LoadingStatus.Fulfilled) {
-      setComment({
-        rating: 0,
-        review: ''
-      });
+    switch(sendingStatus) {
+      case LoadingStatus.Fulfilled:
+        setComment({
+          rating: 0,
+          review: ''
+        });
+        setFormDisabled(false);
+        break;
+      case LoadingStatus.Pending:
+        setFormDisabled(true);
+        break;
+      case LoadingStatus.Rejected:
+        setFormDisabled(false);
+        break;
+      case LoadingStatus.Idle:
+        setFormDisabled(false);
+        break;
+      default:
+        throw new Error(`sendingStatus-${sendingStatus} dosn't exist`);
     }
   }, [sendingStatus]);
 
@@ -74,9 +90,9 @@ export default function Form(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isFormValid}
+          disabled={!isFormValid || isFormDisabled}
         >
-          Submit
+          {isFormDisabled ? 'Submiting...' : 'Submit'}
         </button>
       </div>
     </form>

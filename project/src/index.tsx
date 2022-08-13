@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from 'store';
-import { checkAuthAction, fetchOffersAction } from 'store/api-actions';
+import { checkAuthAction, fetchFavoriteOffersAction, fetchOffersAction } from 'store/api-actions';
 import App from './components/app/app';
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
+store.dispatch(fetchFavoriteOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

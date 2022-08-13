@@ -3,15 +3,16 @@ import { AxiosInstance } from 'axios';
 import { ApiRoute, AppRoute, Cities } from 'const/const';
 import { generatePath } from 'react-router';
 import { dropToken, saveToken } from 'services/token';
-import { AuthDataType } from 'types/auth-data';
-import { OfferType } from 'types/offer';
-import { ReviewType } from 'types/review';
-import { ReviewDataType } from 'types/review-data';
-import { AppDispatchType, StateType } from 'types/state';
-import { UserDataType } from 'types/user-data';
+import { AuthDataType } from 'types/auth-data-type';
+import { OfferType } from 'types/offer-type';
+import { ReviewType } from 'types/review-type';
+import { ReviewDataType } from 'types/review-data-type';
+import { UserDataType } from 'types/user-data-tyoe';
 import { showNofity } from 'utils/utils';
 import { redirectToRoute } from './action';
 import { changeCity } from './app-process/app-process';
+import { AppDispatchType, StateType } from 'types/state-type';
+import { FavorteStatusType } from 'types/favorite-status-type';
 
 export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   dispatch: AppDispatchType,
@@ -21,6 +22,7 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   'data/fetchOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferType[]>(ApiRoute.Offers);
+
     return data;
   },
 );
@@ -92,10 +94,9 @@ export const checkAuthAction = createAsyncThunk<UserDataType | undefined, undefi
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, {extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<UserDataType>(ApiRoute.Login);
-
       return data;
     }
     catch {
@@ -149,4 +150,34 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       });
     }
   },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavoriteOffers',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferType[]>(ApiRoute.Favorites);
+
+    return data;
+  }
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk<OfferType, FavorteStatusType, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstance
+}>(
+  'data/changeFavoriteStatus',
+  async ({id, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<OfferType>(generatePath(ApiRoute.FavoriteStatus, {
+      id: String(id),
+      status: String(status)
+    }));
+    dispatch(fetchFavoriteOffersAction());
+
+    return data;
+  }
 );

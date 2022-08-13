@@ -1,7 +1,7 @@
 import { AuthorizationStatus, LoadingStatus } from 'const/const';
 import { store } from 'store';
-import { OfferType } from './offer';
-import { ReviewType } from './review';
+import { OfferType } from './offer-type';
+import { ReviewType } from './review-type';
 
 export type StateType = ReturnType<typeof store.getState>;
 
@@ -25,6 +25,11 @@ export type OfferDataType = {
 export type OffersNearbyDataType = {
   offersNearby: OfferType[];
 };
+
+export type FavoriteOffersDataType = {
+  offer?: OfferType;
+  favoriteOffers: OfferType[];
+}
 
 export type ReviewsDataType = {
   reviews: ReviewType[];

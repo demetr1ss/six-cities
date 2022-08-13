@@ -1,6 +1,6 @@
 import Card from 'components/card/card';
 import { CardClassNames } from 'const/const';
-import { OfferType } from 'types/offer';
+import { OfferType } from 'types/offer-type';
 
 type OfferListPropsType = {
  offers: OfferType[];

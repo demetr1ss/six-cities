@@ -1,5 +1,5 @@
 import ProMark from 'components/pro-mark/pro-mark';
-import { ReviewType } from 'types/review';
+import { ReviewType } from 'types/review-type';
 import { convertRatingToPercent } from 'utils/utils';
 
 type ReviewItemPropsType = {

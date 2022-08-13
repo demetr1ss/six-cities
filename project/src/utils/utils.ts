@@ -1,7 +1,7 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
 import { toast } from 'react-toastify';
-import { OfferType } from 'types/offer';
-import { ReviewType } from 'types/review';
+import { OfferType } from 'types/offer-type';
+import { ReviewType } from 'types/review-type';
 
 export function convertRatingToPercent(rating: number): string {
   return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
