@@ -32,12 +32,12 @@ export const sortOffers = (filteredOffers: OfferType[], currentSortType: string)
   }
 };
 
-type showNofityPropsType = {
+type showNotifyPropsType = {
   type: string;
   message: string;
 }
 
-export const showNofity = (options: showNofityPropsType) => {
+export const showNotify = (options: showNotifyPropsType) => {
   switch(options.type) {
     case 'error':
       toast.error(options.message, {

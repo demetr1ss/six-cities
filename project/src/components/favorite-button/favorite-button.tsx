@@ -13,16 +13,16 @@ type FavoriteButtonPropsType = {
 
 export default function FavoriteButton({isFavorite, isBig, id}: FavoriteButtonPropsType): JSX.Element {
   const dispatch = useAppDispatch();
-  const isUserAuth = useAppSelector(getAuthorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const handleButtonClick = () => {
-    if (isUserAuth === AuthorizationStatus.NoAuth) {
+    if (authorizationStatus === AuthorizationStatus.NoAuth) {
       dispatch(redirectToRoute(AppRoute.Login));
     }
 
     dispatch(changeFavoriteStatusAction({
       id,
-      status: +(!isFavorite),
+      status: Number(!isFavorite),
     }));
   };
 

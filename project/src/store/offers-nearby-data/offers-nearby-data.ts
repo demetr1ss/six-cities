@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from 'const/const';
 import { changeFavoriteStatusAction, fetchOffersNearby } from 'store/api-actions';
-import { OffersNearbyDataType } from 'types/state-type';
+import { OfferType } from 'types/offer-type';
+
+type OffersNearbyDataType = {
+  offersNearby: OfferType[];
+};
 
 const initialState: OffersNearbyDataType = {
   offersNearby: [],

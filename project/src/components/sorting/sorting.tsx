@@ -1,9 +1,9 @@
 import cn from 'classnames';
-import ClickAwayListener from 'react-click-away-listener';
 import { SortingOptions } from 'const/const';
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { sorting } from 'store/app-process/app-process';
+import { useState } from 'react';
+import ClickAwayListener from 'react-click-away-listener';
+import { changeSort } from 'store/app-process/app-process';
 import { getSortType } from 'store/app-process/selectors';
 
 export default function Sorting(): JSX.Element {
@@ -43,7 +43,7 @@ export default function Sorting(): JSX.Element {
                 className={placesOptionClassName}
                 tabIndex={0}
                 onClick={() => {
-                  dispatch(sorting(option));
+                  dispatch(changeSort(option));
                   setOpenStatus(false);
                 }}
               >

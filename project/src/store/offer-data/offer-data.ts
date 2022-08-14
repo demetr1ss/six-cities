@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, LoadingStatus } from 'const/const';
 import { changeFavoriteStatusAction, fetchPropertyAction } from 'store/api-actions';
-import { OfferDataType } from 'types/state-type';
+import { OfferType } from 'types/offer-type';
+
+type OfferDataType = {
+  offer: OfferType | null;
+  offerLoadingStatus: LoadingStatus;
+};
 
 const initialState: OfferDataType = {
   offerLoadingStatus: LoadingStatus.Idle,
+  offer: null,
 };
 
 export const offerData = createSlice({
@@ -24,6 +30,8 @@ export const offerData = createSlice({
         state.offerLoadingStatus = LoadingStatus.Rejected;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
+        if (state.offer?.id === action.payload.id) {
+          state.offer.isFavorite = action.payload.isFavorite;
+        }
       });
   }});

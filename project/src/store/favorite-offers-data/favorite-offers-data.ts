@@ -1,7 +1,12 @@
+/* eslint-disable no-console */
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from 'const/const';
 import { changeFavoriteStatusAction, fetchFavoriteOffersAction } from 'store/api-actions';
-import { FavoriteOffersDataType } from 'types/state-type';
+import { OfferType } from 'types/offer-type';
+
+type FavoriteOffersDataType = {
+  favoriteOffers: OfferType[];
+}
 
 const initialState: FavoriteOffersDataType = {
   favoriteOffers: [],
@@ -17,6 +22,10 @@ export const favoriteOffersData = createSlice({
         state.favoriteOffers = action.payload;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        state.offer = action.payload;
+        action.payload.isFavorite
+          ? state.favoriteOffers.push(action.payload)
+          : state.favoriteOffers = state.favoriteOffers.filter((offer) =>
+            offer.id !== action.payload.id
+          );
       });
   }});

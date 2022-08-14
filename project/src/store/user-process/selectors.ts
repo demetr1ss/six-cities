@@ -4,5 +4,5 @@ import { StateType } from 'types/state-type';
 export const getAuthorizationStatus = (state: StateType): AuthorizationStatus =>
   state[NameSpace.User].authorizationStatus;
 
-export const getUserEmail = (state: StateType): string | undefined =>
+export const getUserEmail = (state: StateType): string | null =>
   state[NameSpace.User].userEmail;
