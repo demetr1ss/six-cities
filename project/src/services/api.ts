@@ -1,7 +1,7 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { StatusCodes } from 'http-status-codes';
+import { showNotify } from 'utils/utils';
 import { getToken } from './token';
-import { showNofity } from 'utils/utils';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -34,7 +34,7 @@ export const createApi = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
-        showNofity({type: 'warn', message: error.response.data.error});
+        showNotify({type: 'error', message: error.response.data.error});
       }
 
       throw error;

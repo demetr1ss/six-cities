@@ -5,25 +5,11 @@ import Navigation from 'components/header/navigation';
 import { AppRoute, CardClassNames } from 'const/const';
 import { useAppSelector } from 'hooks';
 import { Link } from 'react-router-dom';
-import { getOffers } from 'store/offers-data/selectors';
-import { OfferType } from 'types/offer';
-
-type GroupedCitiesType = {
-  [key: string]: OfferType[]
-};
+import { getFavoriteOffers, getGropedCities } from 'store/favorite-offers-data/selectors';
 
 export default function FavoritesScreen(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const groupedCities = favoriteOffers.reduce<GroupedCitiesType>((prev, curr) => {
-    if (!prev[curr.city.name]) {
-      prev[curr.city.name] = [];
-    }
-
-    prev[curr.city.name].push(curr);
-
-    return prev;
-  }, {});
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const groupedCities = useAppSelector(getGropedCities);
 
   const citiesList = Object.keys(groupedCities);
 
@@ -75,3 +61,4 @@ export default function FavoritesScreen(): JSX.Element {
 
   return <FavoritesEmpty />;
 }
+

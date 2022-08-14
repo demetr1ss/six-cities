@@ -1,8 +1,8 @@
-import { NameSpace, LoadingStatus } from 'const/const';
+import { LoadingStatus, NameSpace } from 'const/const';
 import { createSelector } from 'reselect';
 import { getCity, getSortType } from 'store/app-process/selectors';
-import { OfferType } from 'types/offer';
-import { StateType } from 'types/state';
+import { OfferType } from 'types/offer-type';
+import { StateType } from 'types/state-type';
 import { sortOffers } from 'utils/utils';
 
 export const getOffers = (state: StateType): OfferType[] =>

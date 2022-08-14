@@ -2,14 +2,13 @@ import { AppRoute } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Link } from 'react-router-dom';
 import { logoutAction } from 'store/api-actions';
-import { getOffers } from 'store/offers-data/selectors';
+import { getFavoriteOffers } from 'store/favorite-offers-data/selectors';
 import { getUserEmail } from 'store/user-process/selectors';
 
 export default function UserAuth():JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const userEmail = useAppSelector(getUserEmail);
   const dispatch = useAppDispatch();
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const userEmail = useAppSelector(getUserEmail);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const handleLogoutClick = () => dispatch(logoutAction());
 
   return (

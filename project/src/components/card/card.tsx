@@ -4,7 +4,7 @@ import PremiumMark from 'components/premium-mark/premium-mark';
 import { AppRoute, CardClassNames, ImageSize, PremiumMarkClassNames } from 'const/const';
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
-import { OfferType } from 'types/offer';
+import { OfferType } from 'types/offer-type';
 import { convertRatingToPercent } from 'utils/utils';
 import styles from './card.module.css';
 
@@ -89,7 +89,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite}/>
+          <FavoriteButton isFavorite={isFavorite} id={id}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

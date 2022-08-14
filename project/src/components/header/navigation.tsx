@@ -6,7 +6,6 @@ import { getAuthorizationStatus } from 'store/user-process/selectors';
 
 export default function Navigation() {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isUserAuth = authorizationStatus === AuthorizationStatus.Auth;
 
-  return isUserAuth ? <UserAuth /> : <UserNoAuth />;
+  return authorizationStatus === AuthorizationStatus.Auth ? <UserAuth /> : <UserNoAuth />;
 }

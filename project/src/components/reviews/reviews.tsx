@@ -5,8 +5,8 @@ import { useAppSelector } from 'hooks';
 import { getAuthorizationStatus } from 'store/user-process/selectors';
 
 export default function Review() {
-  const userAuthStatus = useAppSelector(getAuthorizationStatus);
-  const isUserAuth = userAuthStatus === AuthorizationStatus.Auth;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isUserAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   return (
     <section className="property__reviews reviews">

@@ -8,30 +8,47 @@ import RatingForm from '../rating-form/rating-form';
 import styles from './form.module.css';
 
 export default function Form(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const params = useParams();
   const sendingStatus = useAppSelector(getReviewSendingStatus);
   const [comment, setComment] = useState({
     rating: 0,
     review: ''
   });
 
+  const [isFormDisabled, setFormDisabled] = useState(false);
+
   const {rating, review} = comment;
 
+  const isFormValid = rating > 0 && review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX;
+
   useEffect(() => {
-    if (sendingStatus === LoadingStatus.Fulfilled) {
-      setComment({
-        rating: 0,
-        review: ''
-      });
+    switch(sendingStatus) {
+      case LoadingStatus.Fulfilled:
+        setComment({
+          rating: 0,
+          review: ''
+        });
+        setFormDisabled(false);
+        break;
+      case LoadingStatus.Pending:
+        setFormDisabled(true);
+        break;
+      case LoadingStatus.Rejected:
+        setFormDisabled(false);
+        break;
+      case LoadingStatus.Idle:
+        setFormDisabled(false);
+        break;
+      default:
+        throw new Error(`sendingStatus-${sendingStatus} dosn't exist`);
     }
   }, [sendingStatus]);
-
-  const dispatch = useAppDispatch();
-  const params = useParams();
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating > 0 || (review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX)) {
+    if (isFormValid) {
       dispatch(sendReviewAction({
         id: `${params.id}`,
         comment: review,
@@ -73,9 +90,9 @@ export default function Form(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.length < ReviewLength.MIN || review.length > ReviewLength.MAX || !rating}
+          disabled={!isFormValid || isFormDisabled}
         >
-          Submit
+          {isFormDisabled ? 'Submiting...' : 'Submit'}
         </button>
       </div>
     </form>

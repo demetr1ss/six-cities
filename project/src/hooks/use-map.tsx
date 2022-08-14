@@ -1,7 +1,7 @@
 import { TileLayerSettings } from 'const/const';
 import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { CityType } from 'types/offer';
+import { CityType } from 'types/offer-type';
 
 export default function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
@@ -32,15 +32,6 @@ export default function useMap(
 
       setMap(instance);
       isRenderedRef.current = true;
-    } else {
-      const {latitude, longitude, zoom} = city.location;
-      map?.setView(
-        {
-          lat: latitude,
-          lng: longitude,
-        },
-        zoom
-      );
     }
   }, [mapRef, map, city]);
 

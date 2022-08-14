@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import useMap from 'hooks/use-map';
 import { URL_MARKER_ACTIVE, URL_MARKER_DEFAULT } from 'const/const';
-import { Icon, Marker } from 'leaflet';
+import { Icon, LayerGroup, Marker } from 'leaflet';
 import { useEffect, useRef } from 'react';
-import { CityType, OfferType } from '../../types/offer';
+import { CityType, OfferType } from '../../types/offer-type';
 import 'leaflet/dist/leaflet.css';
 
 type MapPropsType = {
@@ -30,15 +29,10 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  console.count('component Map');
 
   useEffect(() => {
     if (map) {
-      map.eachLayer((layer) => {
-        if (layer instanceof Marker){
-          map.removeLayer(layer);
-        }
-      });
+      const layerGroupe = new LayerGroup();
 
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -48,10 +42,28 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
 
         marker
           .setIcon(offer.id === selectedOfferId ? activeCustomIcon : defaultCustomIcon)
-          .addTo(map);
+          .addTo(layerGroupe);
       });
+
+      layerGroupe.addTo(map);
+
+      return () => {
+        layerGroupe.clearLayers();
+      };
     }
   }, [map, offers, selectedOfferId]);
+
+  useEffect(() => {
+    const {latitude, longitude, zoom} = city.location;
+    map?.setView(
+      {
+        lat: latitude,
+        lng: longitude,
+      },
+      zoom
+    );
+  }, [city.location, map]);
+
 
   return <section className={`${mapClassName}__map map`} ref={mapRef} />;
 }

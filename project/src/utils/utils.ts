@@ -1,7 +1,7 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
 import { toast } from 'react-toastify';
-import { OfferType } from 'types/offer';
-import { ReviewType } from 'types/review';
+import { OfferType } from 'types/offer-type';
+import { ReviewType } from 'types/review-type';
 
 export function convertRatingToPercent(rating: number): string {
   return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
@@ -32,12 +32,12 @@ export const sortOffers = (filteredOffers: OfferType[], currentSortType: string)
   }
 };
 
-type showNofityPropsType = {
+type showNotifyPropsType = {
   type: string;
   message: string;
 }
 
-export const showNofity = (options: showNofityPropsType) => {
+export const showNotify = (options: showNotifyPropsType) => {
   switch(options.type) {
     case 'error':
       toast.error(options.message, {
