@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { redirectToRoute } from 'store/action';
 import { changeFavoriteStatusAction } from 'store/api-actions';
 import { getAuthorizationStatus } from 'store/user-process/selectors';
+import { showNotify } from 'utils/utils';
 
 type FavoriteButtonPropsType = {
   isFavorite: boolean;
@@ -18,6 +19,11 @@ export default function FavoriteButton({isFavorite, isBig, id}: FavoriteButtonPr
   const handleButtonClick = () => {
     if (authorizationStatus === AuthorizationStatus.NoAuth) {
       dispatch(redirectToRoute(AppRoute.Login));
+      showNotify({
+        type: 'warn',
+        message: 'To add the offer to favorites please log in'
+      });
+      return;
     }
 
     dispatch(changeFavoriteStatusAction({

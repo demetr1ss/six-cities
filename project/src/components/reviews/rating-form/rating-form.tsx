@@ -4,9 +4,10 @@ import { ChangeEvent, Fragment } from 'react';
 type RatingFormPropsType = {
   onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
   activeRating: number;
+  disabled: boolean;
 }
 
-export default function RatingForm({onChange, activeRating}: RatingFormPropsType) {
+export default function RatingForm({onChange, activeRating, disabled}: RatingFormPropsType) {
   return(
     <div className="reviews__rating-form form__rating">
       {rating.map((item) => {
@@ -22,6 +23,7 @@ export default function RatingForm({onChange, activeRating}: RatingFormPropsType
               type="radio"
               onChange={onChange}
               checked={isChecked}
+              disabled={disabled}
             />
             <label
               htmlFor={`${item}-stars`}

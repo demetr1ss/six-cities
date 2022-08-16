@@ -21,11 +21,19 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>(ApiRoute.Offers);
+    try {
+      const {data} = await api.get<OfferType[]>(ApiRoute.Offers);
 
-    return data;
-  },
-);
+      return data;
+
+    }
+    catch(e) {
+      showNotify({
+        type: 'error',
+        message: 'Failed to load offers',
+      });
+      throw e;
+    }});
 
 export const fetchPropertyAction = createAsyncThunk<OfferType, string, {
   dispatch: AppDispatchType,
@@ -47,9 +55,7 @@ export const fetchPropertyAction = createAsyncThunk<OfferType, string, {
       });
       dispatch(redirectToRoute(AppRoute.NotFound));
       throw e;
-    }
-  },
-);
+    }});
 
 export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
   dispatch: AppDispatchType,
@@ -58,11 +64,18 @@ export const fetchReviewsAction = createAsyncThunk<ReviewType[], string, {
 }>(
   'data/fetchReviews',
   async (id, {extra: api}) => {
-    const {data} = await api.get<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}));
+    try {
+      const {data} = await api.get<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}));
 
-    return data;
-  }
-);
+      return data;
+    }
+    catch(e) {
+      showNotify({
+        type: 'warn',
+        message: 'Failed to load reviews'
+      });
+      throw e;
+    }});
 
 export const sendReviewAction = createAsyncThunk<ReviewType[], ReviewDataType, {
   dispatch: AppDispatchType,
@@ -71,11 +84,18 @@ export const sendReviewAction = createAsyncThunk<ReviewType[], ReviewDataType, {
 }>(
   'data/sendReview',
   async ({id, comment, rating}, {extra: api}) => {
-    const {data} = await api.post<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}), {comment, rating});
+    try {
+      const {data} = await api.post<ReviewType[]>(generatePath(ApiRoute.Reviews, {id}), {comment, rating});
 
-    return data;
-  },
-);
+      return data;
+    }
+    catch(e) {
+      showNotify({
+        type: 'warn',
+        message: 'Failed to send a review'
+      });
+      throw e;
+    }});
 
 export const fetchOffersNearby = createAsyncThunk<OfferType[], string, {
   dispatch: AppDispatchType,
@@ -84,11 +104,18 @@ export const fetchOffersNearby = createAsyncThunk<OfferType[], string, {
 }>(
   'data/fetchOffersNearby',
   async (id, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>(generatePath(ApiRoute.OffersNearby, {id}));
+    try {
+      const {data} = await api.get<OfferType[]>(generatePath(ApiRoute.OffersNearby, {id}));
 
-    return data;
-  },
-);
+      return data;
+    }
+    catch(e) {
+      showNotify({
+        type: 'warn',
+        message: 'Failed to load offers nearby'
+      });
+      throw e;
+    }});
 
 export const checkAuthAction = createAsyncThunk<UserDataType, undefined, {
   dispatch: AppDispatchType,
@@ -96,19 +123,12 @@ export const checkAuthAction = createAsyncThunk<UserDataType, undefined, {
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, {extra: api}) => {
-    try {
-      const {data} = await api.get<UserDataType>(ApiRoute.Login);
-      return data;
-    }
-    catch(e) {
-      showNotify({
-        type: 'warn',
-        message: 'You are not logged in'
-      });
-      throw e;
-    }
-  },
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<UserDataType>(ApiRoute.Login);
+    dispatch(fetchFavoriteOffersAction());
+
+    return data;
+  }
 );
 
 export const loginAction = createAsyncThunk<UserDataType, AuthDataType, {
@@ -128,13 +148,11 @@ export const loginAction = createAsyncThunk<UserDataType, AuthDataType, {
     }
     catch(e) {
       showNotify({
-        type: 'error',
-        message: 'Failed login'
+        type: 'warn',
+        message: 'Failed login',
       });
       throw(e);
-    }
-  },
-);
+    }});
 
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -144,20 +162,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      dispatch(fetchOffersAction());
       await api.delete(ApiRoute.Logout);
       dropToken();
+      dispatch(fetchOffersAction());
     }
-    catch(e) {
+    catch {
       dispatch(redirectToRoute(AppRoute.Main));
       showNotify({
         type: 'warn',
         message: 'Failed logout'
       });
-      throw e;
-    }
-  },
-);
+    }});
 
 export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined, {
   dispatch: AppDispatchType,
@@ -166,11 +181,18 @@ export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined
 }>(
   'data/fetchFavoriteOffers',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>(ApiRoute.Favorites);
+    try {
+      const {data} = await api.get<OfferType[]>(ApiRoute.Favorites);
 
-    return data;
-  }
-);
+      return data;
+    }
+    catch(e) {
+      showNotify({
+        type: 'error',
+        message: 'Failed load favorite offers'
+      });
+      throw e;
+    }});
 
 export const changeFavoriteStatusAction = createAsyncThunk<OfferType, FavorteStatusType, {
   dispatch: AppDispatchType,
@@ -179,11 +201,18 @@ export const changeFavoriteStatusAction = createAsyncThunk<OfferType, FavorteSta
 }>(
   'data/changeFavoriteStatus',
   async ({id, status}, {extra: api}) => {
-    const {data} = await api.post<OfferType>(generatePath(ApiRoute.FavoriteStatus, {
-      id: String(id),
-      status: String(status)
-    }));
+    try {
+      const {data} = await api.post<OfferType>(generatePath(ApiRoute.FavoriteStatus, {
+        id: String(id),
+        status: String(status)
+      }));
 
-    return data;
-  }
-);
+      return data;
+    }
+    catch(e) {
+      showNotify({
+        type: 'warn',
+        message: 'Failed to add to favorites'
+      });
+      throw e;
+    }});

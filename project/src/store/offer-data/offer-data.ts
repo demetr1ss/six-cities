@@ -4,13 +4,13 @@ import { changeFavoriteStatusAction, fetchPropertyAction } from 'store/api-actio
 import { OfferType } from 'types/offer-type';
 
 type OfferDataType = {
-  offer: OfferType | null;
+  offer: OfferType;
   offerLoadingStatus: LoadingStatus;
 };
 
 const initialState: OfferDataType = {
   offerLoadingStatus: LoadingStatus.Idle,
-  offer: null,
+  offer: {} as OfferType
 };
 
 export const offerData = createSlice({
@@ -30,7 +30,7 @@ export const offerData = createSlice({
         state.offerLoadingStatus = LoadingStatus.Rejected;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        if (state.offer?.id === action.payload.id) {
+        if (state.offer.id === action.payload.id) {
           state.offer.isFavorite = action.payload.isFavorite;
         }
       });

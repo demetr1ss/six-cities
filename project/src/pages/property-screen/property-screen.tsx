@@ -9,7 +9,7 @@ import Review from 'components/reviews/reviews';
 import { CardClassNames, LIMIT_IMAGE, LoadingStatus, MapClassNames, PremiumMarkClassNames } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchPropertyAction } from 'store/api-actions';
 import { getOffer, getOfferLoadingStatus } from 'store/offer-data/selectors';
@@ -27,8 +27,6 @@ export default function PropertyScreen(): JSX.Element {
   const offer = useAppSelector(getOffer);
   const nearOffers = useAppSelector(getOffersNearby);
   const offerLoadingStatus = useAppSelector(getOfferLoadingStatus);
-
-  const [selectedOfferId, setSelectedOfferId] = useState(0);
 
   if (
     offerLoadingStatus === LoadingStatus.Idle ||
@@ -142,7 +140,12 @@ export default function PropertyScreen(): JSX.Element {
               <Review />
             </div>
           </div>
-          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY} selectedOfferId={selectedOfferId}/>
+          <Map
+            city={offer.city}
+            offers={nearOffers.concat(offer)}
+            mapClassName={MapClassNames.PROPERTY}
+            selectedOfferId={offer.id}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -154,8 +157,6 @@ export default function PropertyScreen(): JSX.Element {
                     key={nearOffer?.id}
                     className={CardClassNames.NearPlaces}
                     offer={nearOffer}
-                    onMouseOver={() => setSelectedOfferId(nearOffer?.id)}
-                    onMouseOut={() => setSelectedOfferId(0)}
                   />
                 ))}
             </div>

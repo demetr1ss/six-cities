@@ -23,7 +23,7 @@ export default function UserAuth():JSX.Element {
           </Link>
         </li>
         <li className="header__nav-item">
-          <Link className="header__nav-link" to={AppRoute.Login}>
+          <Link className="header__nav-link" to={AppRoute.Main}>
             <span className="header__signout" onClick={handleLogoutClick}>Sign out</span>
           </Link>
         </li>

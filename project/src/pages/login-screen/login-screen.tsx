@@ -1,13 +1,21 @@
 import Header from 'components/header/header';
 import LoginForm from 'components/login-form/login-form';
 import { Link } from 'react-router-dom';
-import { AppRoute} from 'const/const';
+import { AppRoute, AuthorizationStatus} from 'const/const';
 import { changeCity } from 'store/app-process/app-process';
-import { useAppDispatch } from 'hooks';
+import { useAppDispatch, useAppSelector } from 'hooks';
 import { cityList } from 'const/const';
+import { getAuthorizationStatus } from 'store/user-process/selectors';
+import MainScreen from 'pages/main-screen/main-screen';
 
 export default function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const userAuthStatus = useAppSelector(getAuthorizationStatus);
+
+  if (userAuthStatus === AuthorizationStatus.Auth) {
+    return <MainScreen />;
+  }
+
   const randomCity = cityList[Math.floor(Math.random() * cityList.length)];
   const handleRouteCityClick = () => dispatch(changeCity(randomCity));
 

@@ -1,5 +1,5 @@
 import { MAX_RATING, SortingOptions } from 'const/const';
-import { toast } from 'react-toastify';
+import { toast, Zoom } from 'react-toastify';
 import { OfferType } from 'types/offer-type';
 import { ReviewType } from 'types/review-type';
 
@@ -41,16 +41,20 @@ export const showNotify = (options: showNotifyPropsType) => {
   switch(options.type) {
     case 'error':
       toast.error(options.message, {
-        toastId: 1,
+        toastId: 'error',
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000
+        autoClose: 2500,
+        transition: Zoom,
+        pauseOnHover: false,
       });
       break;
     case 'warn':
       toast.warn(options.message, {
-        toastId: 2,
+        toastId: 'warn',
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000
+        autoClose: 2500,
+        transition: Zoom,
+        pauseOnHover: false,
       });
       break;
   }};

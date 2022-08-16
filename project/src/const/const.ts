@@ -122,7 +122,7 @@ export const ApiRoute = {
 
 export const emailRegExp = new RegExp(/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu);
 
-export const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[0-9]).+$/);
+export const passwordRegExp = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/);
 
 export const NameSpace = {
   App: 'APP',
