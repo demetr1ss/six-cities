@@ -1,4 +1,4 @@
-import { rating, RatingTitles } from 'const/const';
+import { rating, RatingTitle } from 'const/const';
 import { ChangeEvent, Fragment } from 'react';
 
 type RatingFormPropsType = {
@@ -28,7 +28,7 @@ export default function RatingForm({onChange, activeRating, disabled}: RatingFor
             <label
               htmlFor={`${item}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={RatingTitles[item]}
+              title={RatingTitle[item]}
             >
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>

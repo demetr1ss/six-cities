@@ -5,10 +5,10 @@ import MainEmpty from 'components/main-empty/main-empty';
 import Map from 'components/map/map';
 import OffersList from 'components/offers-list/offers-list';
 import Sorting from 'components/sorting/sorting';
-import { MapClassNames } from 'const/const';
+import { MapClassName } from 'const/const';
 import { useAppSelector } from 'hooks';
 import { useState } from 'react';
-import { getCity, } from 'store/app-process/selectors';
+import { getCity } from 'store/app-process/selectors';
 import { selectFilteredOffers, selectSortedOffers } from 'store/offers-data/selectors';
 
 export default function MainScreen(): JSX.Element {
@@ -46,7 +46,7 @@ export default function MainScreen(): JSX.Element {
                   <Map
                     city={filteredOffers[0].city}
                     offers={filteredOffers}
-                    mapClassName={MapClassNames.CITIES}
+                    mapClassName={MapClassName.CITIES}
                     selectedOfferId={selectedOfferId}
                   />
                 </div>

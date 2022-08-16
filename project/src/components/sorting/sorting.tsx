@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { SortingOptions } from 'const/const';
+import { SortingOption } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
@@ -32,7 +32,7 @@ export default function Sorting(): JSX.Element {
           </svg>
         </span>
         <ul className={placesOptionsClassName}>
-          {Object.values(SortingOptions).map((option) => {
+          {Object.values(SortingOption).map((option) => {
             const placesOptionClassName = cn('places__option', {
               'places__option--active': option === currentSortType
             });

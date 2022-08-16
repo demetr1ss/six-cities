@@ -1,5 +1,5 @@
 import Card from 'components/card/card';
-import { CardClassNames } from 'const/const';
+import { CardClassName } from 'const/const';
 import { OfferType } from 'types/offer-type';
 
 type OfferListPropsType = {
@@ -15,7 +15,7 @@ export default function OffersList({offers, setSelectedOfferId}: OfferListPropsT
         (
           <Card
             key={offer.id}
-            className={CardClassNames.Sities}
+            className={CardClassName.Sities}
             offer={offer}
             onMouseOver={() => setSelectedOfferId(offer.id)}
             onMouseOut={() => setSelectedOfferId(0)}

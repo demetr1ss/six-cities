@@ -20,7 +20,7 @@ export default function Form(): JSX.Element {
 
   const {rating, review} = comment;
 
-  const isFormValid = rating > 0 && review.length >= ReviewLength.MIN && review.length <= ReviewLength.MAX;
+  const isFormValid = rating > 0 && review.length >= ReviewLength.Min && review.length <= ReviewLength.Max;
 
   useEffect(() => {
     switch(sendingStatus) {
@@ -77,8 +77,8 @@ export default function Form(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleInputChange}
         value={review}
-        minLength={ReviewLength.MIN}
-        maxLength={ReviewLength.MAX}
+        minLength={ReviewLength.Min}
+        maxLength={ReviewLength.Max}
         disabled={isFormDisabled}
       >
       </textarea>
@@ -86,7 +86,7 @@ export default function Form(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating </span>
           and describe your stay with at least
-          <b className={styles.textAmount}> {ReviewLength.MIN} characters</b>.
+          <b className={styles.textAmount}> {ReviewLength.Min} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

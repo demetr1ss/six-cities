@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { AppRoute, AuthorizationStatus, FavoriteIconSizes } from 'const/const';
+import { AppRoute, AuthorizationStatus, FavoriteIconSize } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { redirectToRoute } from 'store/action';
 import { changeFavoriteStatusAction } from 'store/api-actions';
@@ -33,8 +33,8 @@ export default function FavoriteButton({isFavorite, isBig, id}: FavoriteButtonPr
   };
 
   const favoriteIconSize = isBig
-    ? FavoriteIconSizes.BIG
-    : FavoriteIconSizes.SMALL;
+    ? FavoriteIconSize.BIG
+    : FavoriteIconSize.SMALL;
 
   const bookMarkClassName = cn({
     'property__bookmark-button': isBig,

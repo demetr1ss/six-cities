@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import FavoriteButton from 'components/favorite-button/favorite-button';
 import PremiumMark from 'components/premium-mark/premium-mark';
-import { AppRoute, CardClassNames, ImageSize, PremiumMarkClassNames } from 'const/const';
+import { AppRoute, CardClassName, ImageSize, PremiumMarkClassName } from 'const/const';
 import { generatePath } from 'react-router';
 import { Link } from 'react-router-dom';
 import { OfferType } from 'types/offer-type';
@@ -20,15 +20,15 @@ const setPageClass = (className: string): string => {
   let pageClass = '';
 
   switch (className) {
-    case CardClassNames.Sities:
+    case CardClassName.Sities:
       pageClass = 'cities__image-wrapper';
       break;
 
-    case CardClassNames.Favorites:
+    case CardClassName.Favorites:
       pageClass = 'favorites__image-wrapper';
       break;
 
-    case CardClassNames.NearPlaces:
+    case CardClassName.NearPlaces:
       pageClass = 'near-places__image-wrapper';
       break;
 
@@ -67,7 +67,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
   return (
     <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
 
-      {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PLACE}/>}
+      {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassName.PLACE}/>}
 
       <div className={pageClassName}>
         <Link to={generatePath(AppRoute.Room, {

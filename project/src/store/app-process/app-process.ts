@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Cities, NameSpace, SortingOptions } from 'const/const';
+import { City, NameSpace, SortingOption } from 'const/const';
 
 type AppProcessType = {
   city: string;
@@ -7,8 +7,8 @@ type AppProcessType = {
 }
 
 const initialState: AppProcessType = {
-  city: Cities.Paris,
-  sortType: SortingOptions.Default,
+  city: City.Paris,
+  sortType: SortingOption.Default,
 };
 
 export const appProcess = createSlice({
@@ -17,7 +17,7 @@ export const appProcess = createSlice({
   reducers: {
     changeCity: (state, action) => {
       state.city = action.payload;
-      state.sortType = SortingOptions.Default;
+      state.sortType = SortingOption.Default;
     },
     changeSort: (state, action) => {
       state.sortType = action.payload;

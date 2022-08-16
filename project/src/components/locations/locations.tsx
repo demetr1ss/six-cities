@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Cities } from 'const/const';
+import { City } from 'const/const';
 import { useAppDispatch } from 'hooks';
 import { changeCity } from 'store/app-process/app-process';
 
@@ -14,7 +14,7 @@ export default function Locations({activeCity}: LocationsPropsType): JSX.Element
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {Object.keys(Cities).map((city) => {
+          {Object.keys(City).map((city) => {
             const locationClassName = cn('locations__item-link tabs__item', {
               'tabs__item--active': activeCity === city
             });

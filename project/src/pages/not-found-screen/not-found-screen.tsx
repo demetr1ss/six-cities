@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
 import Navigation from 'components/header/navigation';

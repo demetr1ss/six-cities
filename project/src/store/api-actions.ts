@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { ApiRoute, AppRoute, Cities } from 'const/const';
+import { ApiRoute, AppRoute, City } from 'const/const';
 import { generatePath } from 'react-router';
 import { dropToken, saveToken } from 'services/token';
 import { AuthDataType } from 'types/auth-data-type';
@@ -142,7 +142,7 @@ export const loginAction = createAsyncThunk<UserDataType, AuthDataType, {
       const {data} = await api.post<UserDataType>(ApiRoute.Login, {email, password});
       saveToken(data.token);
       dispatch(redirectToRoute(AppRoute.Main));
-      dispatch(changeCity(Cities.Paris));
+      dispatch(changeCity(City.Paris));
 
       return data;
     }

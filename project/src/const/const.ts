@@ -1,20 +1,28 @@
-export const MAX_RATING = 5;
-export const MAX_REVIEWS = 10;
-export const LIMIT_IMAGE = 6;
-export const MAX_NEAR_OFFERS = 3;
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
-export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
+export const Max = {
+  Rating: 5,
+  Reviews: 10,
+  Image: 6,
+} as const;
+
+export const MarkerUrl = {
+  Default: 'img/pin.svg',
+  Active: 'img/pin-active.svg'
+} as const;
 
 export const ReviewLength = {
-  MIN: 50,
-  MAX: 300,
-};
+  Min: 50,
+  Max: 300,
+} as const;
 
-export const TileLayerSettings = {
+export const ToastType = {
+  Error: 'error',
+  Warn: 'warn',
+} as const;
+
+export const TileLayerSetting = {
   Url: 'https://tile.jawg.io/29936624-dcc1-4dea-8432-ee1b96c13d66/{z}/{x}/{y}{r}.png?access-token=Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd',
   Attribution:`&copy; <a href="https://www.openstreetmap.org/copyright">
 OpenStreetMap</a> contributors &copy; <a href="https://www.jawg.io" target=_blank>Jawg</a>`,
-  accessToken: 'Bg8KJU3TOwwvS9GXChrWr8ahgMRQXFN4k9UFsLF0acsR07lM9LZKLdkkes4ZDLzd'
 };
 
 export const enum AppRoute {
@@ -38,7 +46,7 @@ export const enum LoadingStatus {
   Rejected = 'REJECTED',
 }
 
-export const CardClassNames = {
+export const CardClassName = {
   Sities: 'cities__card  place-card',
   Favorites: 'favorites__card place-card',
   NearPlaces: 'near-places__card place-card'
@@ -48,7 +56,7 @@ type RatingTitlesType = {
   [key: number]: string
 }
 
-export const RatingTitles: RatingTitlesType = {
+export const RatingTitle: RatingTitlesType = {
   1: 'terribly',
   2: 'badly',
   3: 'not bad',
@@ -56,9 +64,9 @@ export const RatingTitles: RatingTitlesType = {
   5: 'perfect'
 } as const;
 
-export const rating = Object.keys(RatingTitles).reverse().map(Number);
+export const rating = Object.keys(RatingTitle).reverse().map(Number);
 
-export const FavoriteIconSizes = {
+export const FavoriteIconSize = {
   BIG: {
     width: 31,
     height: 33
@@ -81,17 +89,17 @@ export const ImageSize = {
 } as const;
 
 
-export const PremiumMarkClassNames = {
+export const PremiumMarkClassName = {
   PLACE: 'place-card',
   PROPERTY: 'property'
 } as const;
 
-export const MapClassNames = {
+export const MapClassName = {
   CITIES: 'cities',
   PROPERTY: 'property'
 } as const;
 
-export const Cities = {
+export const City = {
   Paris: 'Paris',
   Cologne: 'Cologne',
   Brussels: 'Brussels',
@@ -100,9 +108,9 @@ export const Cities = {
   Dusseldorf: 'Dusseldorf'
 } as const;
 
-export const cityList = Object.keys(Cities);
+export const cityList = Object.keys(City);
 
-export const SortingOptions = {
+export const SortingOption = {
   Default: 'Popular',
   AscendingPrice: 'Price: low to high',
   DescendingPrice: 'Price: high to low',

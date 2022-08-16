@@ -1,10 +1,10 @@
-import { MAX_RATING, SortingOptions } from 'const/const';
+import { Max, SortingOption, ToastType } from 'const/const';
 import { toast, Zoom } from 'react-toastify';
 import { OfferType } from 'types/offer-type';
 import { ReviewType } from 'types/review-type';
 
 export function convertRatingToPercent(rating: number): string {
-  return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
+  return `${Math.ceil((100 * Math.round(rating) / Max.Rating))}%`;
 }
 
 export const sortOffersByAscendingPrice = (a: OfferType, b: OfferType) =>
@@ -19,13 +19,13 @@ export const sortOffersByRating = (a: OfferType, b: OfferType) =>
 
 export const sortOffers = (filteredOffers: OfferType[], currentSortType: string) => {
   switch(currentSortType) {
-    case SortingOptions.Default:
+    case SortingOption.Default:
       return filteredOffers;
-    case SortingOptions.AscendingPrice:
+    case SortingOption.AscendingPrice:
       return filteredOffers.slice().sort(sortOffersByAscendingPrice);
-    case SortingOptions.DescendingPrice:
+    case SortingOption.DescendingPrice:
       return filteredOffers.slice().sort(sortOffersByDescendingPrice);
-    case SortingOptions.Rating:
+    case SortingOption.Rating:
       return filteredOffers.slice().sort(sortOffersByRating);
     default:
       throw new Error(`${currentSortType} not exist`);
@@ -39,24 +39,26 @@ type showNotifyPropsType = {
 
 export const showNotify = (options: showNotifyPropsType) => {
   switch(options.type) {
-    case 'error':
+    case ToastType.Error:
       toast.error(options.message, {
-        toastId: 'error',
+        toastId: 1,
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2500,
         transition: Zoom,
         pauseOnHover: false,
       });
       break;
-    case 'warn':
+    case ToastType.Warn:
       toast.warn(options.message, {
-        toastId: 'warn',
+        toastId: 2,
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2500,
         transition: Zoom,
         pauseOnHover: false,
       });
       break;
+    default:
+      throw new Error(`toast type "${options.type}" not exist`);
   }};
 
 export const sortReviewFromNewToOld = (reviews: ReviewType[]) =>

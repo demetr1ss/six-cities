@@ -2,7 +2,7 @@ import Card from 'components/card/card';
 import FavoritesEmpty from 'components/favorites-empty/favorites-empty';
 import Header from 'components/header/header';
 import Navigation from 'components/header/navigation';
-import { AppRoute, CardClassNames } from 'const/const';
+import { AppRoute, CardClassName } from 'const/const';
 import { useAppSelector } from 'hooks';
 import { Link } from 'react-router-dom';
 import { getFavoriteOffers, getGropedCities } from 'store/favorite-offers-data/selectors';
@@ -35,7 +35,7 @@ export default function FavoritesScreen(): JSX.Element {
                     </div>
                     <div className="favorites__places">
                       {groupedCities[city].map((offer) => (
-                        <Card key={offer.id} offer={offer} className={CardClassNames.Favorites} isSmall />
+                        <Card key={offer.id} offer={offer} className={CardClassName.Favorites} isSmall />
                       ))}
                     </div>
                   </li>

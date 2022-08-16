@@ -4,9 +4,8 @@ import Header from 'components/header/header';
 import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
-import ProMark from 'components/pro-mark/pro-mark';
 import Review from 'components/reviews/reviews';
-import { CardClassNames, LIMIT_IMAGE, LoadingStatus, MapClassNames, PremiumMarkClassNames } from 'const/const';
+import { CardClassName, Max, LoadingStatus, MapClassName, PremiumMarkClassName } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
@@ -64,7 +63,7 @@ export default function PropertyScreen(): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.slice(0, LIMIT_IMAGE).map((img) => (
+                images.slice(0, Max.Image).map((img) => (
                   <div key={img} className="property__image-wrapper">
                     <img className="property__image" src={img} alt={type} />
                   </div>
@@ -74,7 +73,7 @@ export default function PropertyScreen(): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PROPERTY}/>}
+              {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassName.PROPERTY}/>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -129,7 +128,10 @@ export default function PropertyScreen(): JSX.Element {
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro && <ProMark />}
+                  {host.isPro &&
+                    <span className='property__user-status'>
+                      Pro
+                    </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -143,7 +145,7 @@ export default function PropertyScreen(): JSX.Element {
           <Map
             city={offer.city}
             offers={nearOffers.concat(offer)}
-            mapClassName={MapClassNames.PROPERTY}
+            mapClassName={MapClassName.PROPERTY}
             selectedOfferId={offer.id}
           />
         </section>
@@ -155,7 +157,7 @@ export default function PropertyScreen(): JSX.Element {
                 (
                   <Card
                     key={nearOffer?.id}
-                    className={CardClassNames.NearPlaces}
+                    className={CardClassName.NearPlaces}
                     offer={nearOffer}
                   />
                 ))}
