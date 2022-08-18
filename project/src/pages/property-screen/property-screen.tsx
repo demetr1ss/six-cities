@@ -5,12 +5,12 @@ import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import Review from 'components/reviews/reviews';
-import { CardClassName, Max, LoadingStatus, MapClassName, PremiumMarkClassName } from 'const/const';
+import { CardClassName, LoadingStatus, MapClassName, Max, PremiumMarkClassName } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchPropertyAction } from 'store/api-actions';
+import { fetchOfferAction } from 'store/api-actions';
 import { getOffer, getOfferLoadingStatus } from 'store/offer-data/selectors';
 import { getOffersNearby } from 'store/offers-nearby-data/selectors';
 import { convertRatingToPercent } from 'utils/utils';
@@ -20,7 +20,7 @@ export default function PropertyScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPropertyAction(`${params.id}`));
+    dispatch(fetchOfferAction(`${params.id}`));
   }, [dispatch, params.id]);
 
   const offer = useAppSelector(getOffer);

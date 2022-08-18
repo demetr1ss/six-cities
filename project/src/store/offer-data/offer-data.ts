@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, LoadingStatus } from 'const/const';
-import { changeFavoriteStatusAction, fetchPropertyAction } from 'store/api-actions';
+import { LoadingStatus, NameSpace } from 'const/const';
+import { changeFavoriteStatusAction, fetchOfferAction } from 'store/api-actions';
 import { OfferType } from 'types/offer-type';
 
-type OfferDataType = {
+export type OfferDataType = {
   offer: OfferType;
   offerLoadingStatus: LoadingStatus;
 };
@@ -19,14 +19,14 @@ export const offerData = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchPropertyAction.pending, (state) => {
+      .addCase(fetchOfferAction.pending, (state) => {
         state.offerLoadingStatus = LoadingStatus.Pending;
       })
-      .addCase(fetchPropertyAction.fulfilled, (state, action) => {
+      .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.offer = action.payload;
         state.offerLoadingStatus = LoadingStatus.Fulfilled;
       })
-      .addCase(fetchPropertyAction.rejected, (state) => {
+      .addCase(fetchOfferAction.rejected, (state) => {
         state.offerLoadingStatus = LoadingStatus.Rejected;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {

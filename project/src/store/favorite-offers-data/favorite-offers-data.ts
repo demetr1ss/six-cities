@@ -3,7 +3,7 @@ import { NameSpace } from 'const/const';
 import { changeFavoriteStatusAction, fetchFavoriteOffersAction, loginAction } from 'store/api-actions';
 import { OfferType } from 'types/offer-type';
 
-type FavoriteOffersDataType = {
+export type FavoriteOffersDataType = {
   favoriteOffers: OfferType[];
 }
 

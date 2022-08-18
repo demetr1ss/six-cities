@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { City, NameSpace, SortingOption } from 'const/const';
 
-type AppProcessType = {
+export type AppProcessType = {
   city: string;
   sortType: string;
 }

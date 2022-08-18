@@ -35,7 +35,7 @@ export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
       throw e;
     }});
 
-export const fetchPropertyAction = createAsyncThunk<OfferType, string, {
+export const fetchOfferAction = createAsyncThunk<OfferType, string, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstance

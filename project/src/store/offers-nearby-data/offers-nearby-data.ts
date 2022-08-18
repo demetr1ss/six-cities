@@ -3,7 +3,7 @@ import { NameSpace } from 'const/const';
 import { changeFavoriteStatusAction, fetchOffersNearby } from 'store/api-actions';
 import { OfferType } from 'types/offer-type';
 
-type OffersNearbyDataType = {
+export type OffersNearbyDataType = {
   offersNearby: OfferType[];
 };
 

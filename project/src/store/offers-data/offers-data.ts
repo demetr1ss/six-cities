@@ -3,7 +3,7 @@ import { NameSpace, LoadingStatus } from 'const/const';
 import { changeFavoriteStatusAction, fetchOffersAction } from 'store/api-actions';
 import { OfferType } from 'types/offer-type';
 
-type OffersDataType = {
+export type OffersDataType = {
   offers: OfferType[];
   offersLoadingStatus: LoadingStatus;
 };
