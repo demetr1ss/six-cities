@@ -1,8 +1,7 @@
-export const Max = {
-  Rating: 5,
-  Reviews: 10,
-  Image: 6,
-} as const;
+export const MAX_RATING = 5;
+export const MAX_REVIEWS = 10;
+export const LIMIT_IMAGE = 6;
+export const MAX_NEAR_OFFERS = 3;
 
 export const MarkerUrl = {
   Default: 'img/pin.svg',

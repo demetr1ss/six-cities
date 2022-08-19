@@ -1,10 +1,10 @@
-import { Max, SortingOption, ToastType } from 'const/const';
+import { MAX_RATING, SortingOption, ToastType } from 'const/const';
 import { toast, Zoom } from 'react-toastify';
 import { OfferType } from 'types/offer-type';
 import { ReviewType } from 'types/review-type';
 
 export function convertRatingToPercent(rating: number): string {
-  return `${Math.ceil((100 * Math.round(rating) / Max.Rating))}%`;
+  return `${Math.ceil((100 * Math.round(rating) / MAX_RATING))}%`;
 }
 
 export const sortOffersByAscendingPrice = (a: OfferType, b: OfferType) =>

@@ -1,7 +1,7 @@
 import ReviewItem from '../review-item/review-item';
 import { useAppSelector } from 'hooks';
 import { sortReviewFromNewToOld } from 'utils/utils';
-import { Max } from 'const/const';
+import { MAX_REVIEWS } from 'const/const';
 import { getReviews } from 'store/reviews-data/selectors';
 
 export default function ReviewsList(): JSX.Element {
@@ -17,7 +17,7 @@ export default function ReviewsList(): JSX.Element {
         </span>
       </h2>
       <ul className="reviews__list">
-        {sortedReviews.slice(0, Max.Reviews).map((review) =>
+        {sortedReviews.slice(0, MAX_REVIEWS).map((review) =>
           <ReviewItem key={review.id} review={review}/>
         )}
       </ul>

@@ -5,7 +5,7 @@ import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import Review from 'components/reviews/reviews';
-import { CardClassName, LoadingStatus, MapClassName, Max, PremiumMarkClassName } from 'const/const';
+import { CardClassName, LoadingStatus, MapClassName, LIMIT_IMAGE, PremiumMarkClassName } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
@@ -63,7 +63,7 @@ export default function PropertyScreen(): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.slice(0, Max.Image).map((img) => (
+                images.slice(0, LIMIT_IMAGE).map((img) => (
                   <div key={img} className="property__image-wrapper">
                     <img className="property__image" src={img} alt={type} />
                   </div>

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { AppRoute, AuthorizationStatus, FavoriteIconSize } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { redirectToRoute } from 'store/action';
+import { useNavigate } from 'react-router-dom';
 import { changeFavoriteStatusAction } from 'store/api-actions';
 import { getAuthorizationStatus } from 'store/user-process/selectors';
 import { showNotify } from 'utils/utils';
@@ -14,15 +14,17 @@ type FavoriteButtonPropsType = {
 
 export default function FavoriteButton({isFavorite, isBig, id}: FavoriteButtonPropsType): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const handleButtonClick = () => {
     if (authorizationStatus === AuthorizationStatus.NoAuth) {
-      dispatch(redirectToRoute(AppRoute.Login));
       showNotify({
         type: 'warn',
         message: 'To add the offer to favorites please log in'
       });
+
+      navigate(AppRoute.Login);
       return;
     }
 
