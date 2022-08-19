@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from 'const/const';
 import { checkAuthAction, loginAction, logoutAction } from 'store/api-actions';
 
-type UserProcessType = {
+export type UserProcessType = {
   authorizationStatus: AuthorizationStatus;
   userEmail: string | null;
 };

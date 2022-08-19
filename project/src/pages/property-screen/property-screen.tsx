@@ -4,14 +4,13 @@ import Header from 'components/header/header';
 import Navigation from 'components/header/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
-import ProMark from 'components/pro-mark/pro-mark';
 import Review from 'components/reviews/reviews';
-import { CardClassNames, LIMIT_IMAGE, LoadingStatus, MapClassNames, PremiumMarkClassNames } from 'const/const';
+import { CardClassName, LoadingStatus, MapClassName, LIMIT_IMAGE, PremiumMarkClassName } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchPropertyAction } from 'store/api-actions';
+import { fetchOfferAction } from 'store/api-actions';
 import { getOffer, getOfferLoadingStatus } from 'store/offer-data/selectors';
 import { getOffersNearby } from 'store/offers-nearby-data/selectors';
 import { convertRatingToPercent } from 'utils/utils';
@@ -21,14 +20,12 @@ export default function PropertyScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchPropertyAction(`${params.id}`));
+    dispatch(fetchOfferAction(`${params.id}`));
   }, [dispatch, params.id]);
 
   const offer = useAppSelector(getOffer);
   const nearOffers = useAppSelector(getOffersNearby);
   const offerLoadingStatus = useAppSelector(getOfferLoadingStatus);
-
-  const [selectedOfferId, setSelectedOfferId] = useState(0);
 
   if (
     offerLoadingStatus === LoadingStatus.Idle ||
@@ -76,7 +73,7 @@ export default function PropertyScreen(): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassNames.PROPERTY}/>}
+              {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassName.PROPERTY}/>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -131,7 +128,10 @@ export default function PropertyScreen(): JSX.Element {
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro && <ProMark />}
+                  {host.isPro &&
+                    <span className='property__user-status'>
+                      Pro
+                    </span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -142,7 +142,12 @@ export default function PropertyScreen(): JSX.Element {
               <Review />
             </div>
           </div>
-          <Map city={offer.city} offers={nearOffers} mapClassName={MapClassNames.PROPERTY} selectedOfferId={selectedOfferId}/>
+          <Map
+            city={offer.city}
+            offers={nearOffers.concat(offer)}
+            mapClassName={MapClassName.PROPERTY}
+            selectedOfferId={offer.id}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -152,10 +157,8 @@ export default function PropertyScreen(): JSX.Element {
                 (
                   <Card
                     key={nearOffer?.id}
-                    className={CardClassNames.NearPlaces}
+                    className={CardClassName.NearPlaces}
                     offer={nearOffer}
-                    onMouseOver={() => setSelectedOfferId(nearOffer?.id)}
-                    onMouseOut={() => setSelectedOfferId(0)}
                   />
                 ))}
             </div>

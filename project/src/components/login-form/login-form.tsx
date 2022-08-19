@@ -16,10 +16,10 @@ type FormStatePropsType = {
   [key: string]: FieldPropsType
 }
 
-const Formfiedls = {
+const formField = {
   email: 'E-mail',
   password: 'password'
-} as const;
+};
 
 export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ export default function LoginForm(): JSX.Element {
     <section className="login">
       <h1 className="login__title">Sign in</h1>
       <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
-        {Object.entries(Formfiedls).map(([name, label]) => {
+        {Object.entries(formField).map(([name, label]) => {
           const inputClassName = cn('login__input form__input', {
             [styles.error]: formState[name].error
           });

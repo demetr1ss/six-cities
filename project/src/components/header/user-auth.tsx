@@ -19,7 +19,7 @@ export default function UserAuth():JSX.Element {
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
             <span className="header__user-name user__name">{userEmail}</span>
-            <span className="header__favorite-count">{favoriteOffers.length}</span>
+            <span className="header__favorite-count">{favoriteOffers.length > 0 ? favoriteOffers.length : ''}</span>
           </Link>
         </li>
         <li className="header__nav-item">

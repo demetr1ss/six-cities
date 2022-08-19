@@ -25,8 +25,9 @@ export default function App(): JSX.Element {
     offersLoadingStatus === LoadingStatus.Pending
   ) {
     return <LoadingScreen />;
+  }
 
-  } else if (offersLoadingStatus === LoadingStatus.Rejected) {
+  if (offersLoadingStatus === LoadingStatus.Rejected) {
     return <ErrorScreen />;
   }
 

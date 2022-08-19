@@ -1,4 +1,4 @@
-import { TileLayerSettings } from 'const/const';
+import { TileLayerSetting } from 'const/const';
 import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { CityType } from 'types/offer-type';
@@ -22,9 +22,9 @@ export default function useMap(
       });
 
       const layer = new TileLayer(
-        TileLayerSettings.Url,
+        TileLayerSetting.Url,
         {
-          attribution: TileLayerSettings.Attribution
+          attribution: TileLayerSetting.Attribution
         }
       );
 

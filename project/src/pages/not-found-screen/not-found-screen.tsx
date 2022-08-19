@@ -1,10 +1,17 @@
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
 import Navigation from 'components/header/navigation';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from 'const/const';
+import { showNotify } from 'utils/utils';
 
 export default function NotFoundScreen(): JSX.Element {
+  const location = useLocation();
+  showNotify({
+    type: 'error',
+    message: `Page "${location.pathname.slice(1)}" not found`
+  });
+
   return (
     <main className="page__main page__main--not-found">
       <div className="page__not-found-container container">

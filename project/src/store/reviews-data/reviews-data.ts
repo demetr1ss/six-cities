@@ -3,7 +3,7 @@ import { LoadingStatus, NameSpace } from 'const/const';
 import { fetchReviewsAction, sendReviewAction } from 'store/api-actions';
 import { ReviewType } from 'types/review-type';
 
-type ReviewsDataType = {
+export type ReviewsDataType = {
   reviews: ReviewType[];
   reviewSendingStatus: LoadingStatus;
 };

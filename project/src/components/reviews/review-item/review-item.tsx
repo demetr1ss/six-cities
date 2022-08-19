@@ -1,4 +1,3 @@
-import ProMark from 'components/pro-mark/pro-mark';
 import { ReviewType } from 'types/review-type';
 import { convertRatingToPercent } from 'utils/utils';
 
@@ -29,7 +28,6 @@ export default function ReviewItem({review}: ReviewItemPropsType) {
         <span className="reviews__user-name">
           {user.name}
         </span>
-        {user.isPro && <ProMark />}
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
