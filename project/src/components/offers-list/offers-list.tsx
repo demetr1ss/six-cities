@@ -1,13 +1,15 @@
 import Card from 'components/card/card';
 import { CardClassName } from 'const/const';
 import { OfferType } from 'types/offer-type';
+import { memo } from 'react';
 
 type OfferListPropsType = {
  offers: OfferType[];
- setSelectedOfferId: (id: number) => void;
+ onCardMouseOver?: (id:number) => void;
+ onCardMouseOut?: () => void;
 }
 
-export default function OffersList({offers, setSelectedOfferId}: OfferListPropsType): JSX.Element {
+function OffersList({offers, onCardMouseOver, onCardMouseOut}: OfferListPropsType): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -17,11 +19,13 @@ export default function OffersList({offers, setSelectedOfferId}: OfferListPropsT
             key={offer.id}
             className={CardClassName.Sities}
             offer={offer}
-            onMouseOver={() => setSelectedOfferId(offer.id)}
-            onMouseOut={() => setSelectedOfferId(0)}
+            onMouseOver={onCardMouseOver}
+            onMouseOut={onCardMouseOut}
           />
         )
       )}
     </div>
   );
 }
+
+export default memo(OffersList);

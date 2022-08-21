@@ -1,5 +1,5 @@
 import Header from 'components/header/header';
-import Navigation from 'components/header/navigation';
+import Navigation from 'components/header/navigation/navigation';
 import { AppRoute } from 'const/const';
 import { Link } from 'react-router-dom';
 

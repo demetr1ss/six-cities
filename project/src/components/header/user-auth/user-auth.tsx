@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import styles from './user-auth.module.css';
 import { AppRoute } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { Link } from 'react-router-dom';
@@ -10,6 +12,9 @@ export default function UserAuth():JSX.Element {
   const userEmail = useAppSelector(getUserEmail);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const handleLogoutClick = () => dispatch(logoutAction());
+  const countClassNames = cn('header__favorite-count', {
+    [styles.hiddenCount] : favoriteOffers.length === 0
+  });
 
   return (
     <nav className="header__nav">
@@ -19,7 +24,7 @@ export default function UserAuth():JSX.Element {
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
             <span className="header__user-name user__name">{userEmail}</span>
-            <span className="header__favorite-count">{favoriteOffers.length > 0 ? favoriteOffers.length : ''}</span>
+            <span className={countClassNames}>{favoriteOffers.length > 0 ? favoriteOffers.length : ''}</span>
           </Link>
         </li>
         <li className="header__nav-item">
