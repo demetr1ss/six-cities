@@ -20,7 +20,7 @@ const setPageClass = (className: string): string => {
   let pageClass = '';
 
   switch (className) {
-    case CardClassName.Sities:
+    case CardClassName.Сities:
       pageClass = 'cities__image-wrapper';
       break;
 

@@ -1,7 +1,7 @@
 import Card from 'components/card/card';
 import { CardClassName } from 'const/const';
-import { OfferType } from 'types/offer-type';
 import { memo } from 'react';
+import { OfferType } from 'types/offer-type';
 
 type OfferListPropsType = {
  offers: OfferType[];
@@ -17,7 +17,7 @@ function OffersList({offers, onCardMouseOver, onCardMouseOut}: OfferListPropsTyp
         (
           <Card
             key={offer.id}
-            className={CardClassName.Sities}
+            className={CardClassName.Сities}
             offer={offer}
             onMouseOver={onCardMouseOver}
             onMouseOut={onCardMouseOut}

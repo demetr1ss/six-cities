@@ -46,7 +46,7 @@ export const enum LoadingStatus {
 }
 
 export const CardClassName = {
-  Sities: 'cities__card  place-card',
+  Сities: 'cities__card  place-card',
   Favorites: 'favorites__card place-card',
   NearPlaces: 'near-places__card place-card'
 } as const;
