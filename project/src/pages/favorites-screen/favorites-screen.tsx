@@ -1,7 +1,7 @@
 import Card from 'components/card/card';
 import FavoritesEmpty from 'components/favorites-empty/favorites-empty';
 import Header from 'components/header/header';
-import Navigation from 'components/header/navigation';
+import Navigation from 'components/header/navigation/navigation';
 import { AppRoute, CardClassName } from 'const/const';
 import { useAppSelector } from 'hooks';
 import { Link } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import styles from './not-found-screen.module.css';
 import Header from 'components/header/header';
-import Navigation from 'components/header/navigation';
+import Navigation from 'components/header/navigation/navigation';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from 'const/const';
 import { showNotify } from 'utils/utils';

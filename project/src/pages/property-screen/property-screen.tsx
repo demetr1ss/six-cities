@@ -1,11 +1,18 @@
 import Card from 'components/card/card';
 import FavoriteButton from 'components/favorite-button/favorite-button';
 import Header from 'components/header/header';
-import Navigation from 'components/header/navigation';
+import Navigation from 'components/header/navigation/navigation';
 import Map from 'components/map/map';
 import PremiumMark from 'components/premium-mark/premium-mark';
 import Review from 'components/reviews/reviews';
-import { CardClassName, LoadingStatus, MapClassName, LIMIT_IMAGE, PremiumMarkClassName } from 'const/const';
+import {
+  CardClassName,
+  LoadingStatus,
+  MapClassName,
+  LIMIT_IMAGE,
+  PremiumMarkClassName,
+  MAX_NEAR_OFFERS
+} from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import LoadingScreen from 'pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
@@ -24,7 +31,7 @@ export default function PropertyScreen(): JSX.Element {
   }, [dispatch, params.id]);
 
   const offer = useAppSelector(getOffer);
-  const nearOffers = useAppSelector(getOffersNearby);
+  const nearOffers = useAppSelector(getOffersNearby).slice(0, MAX_NEAR_OFFERS);
   const offerLoadingStatus = useAppSelector(getOfferLoadingStatus);
 
   if (

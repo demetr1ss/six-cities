@@ -11,7 +11,7 @@ import styles from './card.module.css';
 type CardPropsType = {
   offer: OfferType;
   className: string;
-  onMouseOver?: () => void;
+  onMouseOver?: (id:number) => void;
   onMouseOut?: () => void;
   isSmall?: boolean;
 }
@@ -20,7 +20,7 @@ const setPageClass = (className: string): string => {
   let pageClass = '';
 
   switch (className) {
-    case CardClassName.Sities:
+    case CardClassName.Сities:
       pageClass = 'cities__image-wrapper';
       break;
 
@@ -65,7 +65,7 @@ export default function Card ({offer, className, onMouseOver, onMouseOut, isSmal
   const pageClassName = cn(setPageClass(className), 'place-card__image-wrapper');
 
   return (
-    <article className={className} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+    <article className={className} onMouseOver={() => onMouseOver?.(id)} onMouseOut={() => onMouseOut?.()}>
 
       {isPremium && <PremiumMark premiumCardClassName={PremiumMarkClassName.PLACE}/>}
 
