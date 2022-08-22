@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from 'const/const';
-import { changeFavoriteStatusAction, fetchOffersNearby } from 'store/api-actions';
+import { changeFavoriteStatusAction, fetchOffersNearbyAction } from 'store/api-actions';
 import { OfferType } from 'types/offer-type';
 
 export type OffersNearbyDataType = {
@@ -17,10 +17,10 @@ export const offersNearbyData = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersNearby.fulfilled, (state, action) => {
+      .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
       })
-      .addCase(fetchOffersNearby.rejected, (state) => {
+      .addCase(fetchOffersNearbyAction.rejected, (state) => {
         state.offersNearby = [];
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {

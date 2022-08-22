@@ -28,7 +28,7 @@ describe('Reducer: favorite-offers-data', () => {
 
   describe('changeFavoriteStatusAction test', () => {
     it('should update the favorite offers if changeFavoriteStatusAction fullfilled', () => {
-      expect(favoriteOffersData.reducer(state, {type: changeFavoriteStatusAction.fulfilled.type, payload: createRandomOffer()}))
+      expect(favoriteOffersData.reducer(state, {type: changeFavoriteStatusAction.fulfilled.type, payload: {} as OfferType}))
         .toEqual({favoriteOffers: [] as OfferType[]});
     });
   });

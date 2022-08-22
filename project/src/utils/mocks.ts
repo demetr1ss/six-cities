@@ -1,6 +1,8 @@
 import { internet, datatype, address, name, image } from 'faker';
 import { OfferType } from 'types/offer-type';
-import { UserDataType } from 'types/user-data-tyoe';
+import { ReviewDataType } from 'types/review-data-type';
+import { ReviewType } from 'types/review-type';
+import { UserDataType } from 'types/user-data-type';
 
 export const createRandomUser = (): UserDataType => ({
   email: internet.email(),
@@ -39,4 +41,23 @@ export const createRandomOffer = (): OfferType => ({
   rating: datatype.number(),
   title: datatype.string(),
   type: datatype.string(),
+});
+
+export const createRandomReviews = (): ReviewType[] => ([{
+  comment: datatype.string(),
+  date: String(datatype.datetime()),
+  id: datatype.number(),
+  rating: datatype.number(),
+  user: {
+    avatarUrl: internet.avatar(),
+    id: datatype.number(),
+    isPro: datatype.boolean(),
+    name: internet.userName(),
+  },
+}]);
+
+export const createRandomReview = (): ReviewDataType => ({
+  id: datatype.string(),
+  comment: datatype.string(),
+  rating: datatype.number(),
 });

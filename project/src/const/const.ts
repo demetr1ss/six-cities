@@ -116,7 +116,7 @@ export const SortingOption = {
   Rating: 'Top rated first'
 } as const;
 
-export const ApiRoute = {
+export const APIRoute = {
   Offers: '/hotels',
   Login:  '/login',
   Logout:  '/logout',
