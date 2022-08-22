@@ -8,10 +8,9 @@ import { getCity } from 'store/app-process/selectors';
 import { selectFilteredOffers, selectSortedOffers } from 'store/offers-data/selectors';
 
 export default function MainScreen(): JSX.Element {
-  const combineState = useAppSelector((state) => state);
   const city = useAppSelector(getCity);
-  const filteredOffers = selectFilteredOffers(combineState);
-  const sortedOffers = selectSortedOffers(combineState);
+  const filteredOffers = useAppSelector(selectFilteredOffers);
+  const sortedOffers = useAppSelector(selectSortedOffers);
 
   return (
     <div className="page page--gray page--main">
