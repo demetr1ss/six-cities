@@ -1,12 +1,12 @@
 import cn from 'classnames';
 import { SortingOption } from 'const/const';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
 import { changeSort } from 'store/app-process/app-process';
 import { getSortType } from 'store/app-process/selectors';
 
-export default function Sorting(): JSX.Element {
+function Sorting(): JSX.Element {
   const [isOpen, setOpenStatus] = useState(false);
 
   const placesOptionsClassName = cn('places__options places__options--custom', {
@@ -56,3 +56,5 @@ export default function Sorting(): JSX.Element {
     </ClickAwayListener>
   );
 }
+
+export default memo(Sorting);
