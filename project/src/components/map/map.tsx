@@ -1,9 +1,10 @@
-import { MarkerUrl } from 'const/const';
 import useMap from 'hooks/use-map';
+import { AppRoute, MarkerUrl } from 'const/const';
 import { Icon, LayerGroup, Marker } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { CityType, OfferType } from '../../types/offer-type';
+import 'leaflet/dist/leaflet.css';
+import { generatePath, useNavigate } from 'react-router-dom';
 
 type MapPropsType = {
   city: CityType,
@@ -29,12 +30,14 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
 : JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (map) {
       const layerGroupe = new LayerGroup();
 
       offers.forEach((offer) => {
+        const handleMarkerClick = () => navigate(generatePath(AppRoute.Room, {id: String(offer.id)}));
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude
@@ -42,7 +45,8 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
 
         marker
           .setIcon(offer.id === selectedOfferId ? activeCustomIcon : defaultCustomIcon)
-          .addTo(layerGroupe);
+          .addTo(layerGroupe)
+          .on('click', handleMarkerClick);
       });
 
       layerGroupe.addTo(map);
@@ -51,7 +55,7 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
         layerGroupe.clearLayers();
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, navigate, offers, selectedOfferId]);
 
   useEffect(() => {
     const {latitude, longitude, zoom} = city.location;
