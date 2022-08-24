@@ -46,7 +46,9 @@ export default function Map({city, offers, mapClassName, selectedOfferId}: MapPr
         marker
           .setIcon(offer.id === selectedOfferId ? activeCustomIcon : defaultCustomIcon)
           .addTo(layerGroupe)
-          .on('click', handleMarkerClick);
+          .on('click', handleMarkerClick)
+          .on('mouseover', () => marker.setIcon(activeCustomIcon))
+          .on('mouseout', () => marker.setIcon(defaultCustomIcon));
       });
 
       layerGroupe.addTo(map);
