@@ -70,7 +70,7 @@ describe('Async actions', () => {
     ]);
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);
-    expect(Storage.prototype.setItem).toBeCalledWith('6-sities-token', 'secret');
+    expect(Storage.prototype.setItem).toBeCalledWith('six-cities-token', 'secret');
   });
 
   it('should dispatch fetchOffersAction when GET /hotels', async () => {
