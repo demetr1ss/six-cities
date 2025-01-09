@@ -191,7 +191,7 @@ describe('Async actions', () => {
     ]);
 
     expect(Storage.prototype.removeItem).toBeCalledTimes(1);
-    expect(Storage.prototype.removeItem).toBeCalledWith('6-sities-token');
+    expect(Storage.prototype.removeItem).toBeCalledWith('six-cities-token');
   });
 
   it('should dispatch fetchFavoriteOffersAction when GET /favorite', async () => {
