@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getToken } from './token';
 
-const BASE_URL = 'https://10.react.pages.academy/six-cities';
+const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {
